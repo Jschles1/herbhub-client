@@ -15,7 +15,7 @@ model Product {
   strainType         String
   categoryType       String
   description        String
-  weight             String[] // ?
+  weight             String[]
   thc                Float
   cbd                Float
   price              PriceOptions? @relation("normal")
