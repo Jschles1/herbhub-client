@@ -1,24 +1,37 @@
 {
-  "name": "nj-weed",
-  "version": "0.1.0",
-  "private": true,
-  "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
-    "lint": "next lint"
-  },
-  "dependencies": {
-    "next": "13.0.0",
-    "react": "18.2.0",
-    "react-dom": "18.2.0"
-  },
-  "devDependencies": {
-    "@types/node": "18.11.7",
-    "@types/react": "18.0.23",
-    "@types/react-dom": "18.0.7",
-    "eslint": "8.26.0",
-    "eslint-config-next": "13.0.0",
-    "typescript": "4.8.4"
-  }
+    "name": "nj-weed",
+    "version": "0.1.0",
+    "private": true,
+    "scripts": {
+        "dev": "next dev",
+        "build": "next build",
+        "start": "next start",
+        "lint": "next lint"
+    },
+    "dependencies": {
+        "@emotion/react": "^11.10.4",
+        "@emotion/server": "^11.10.0",
+        "@mantine/core": "^5.6.2",
+        "@mantine/form": "^5.6.2",
+        "@mantine/hooks": "^5.6.2",
+        "@mantine/next": "^5.6.2",
+        "@prisma/client": "^4.7.1",
+        "@tanstack/react-query": "^4.13.0",
+        "axios": "^1.1.3",
+        "bson": "^4.7.0",
+        "dotenv": "^16.0.3",
+        "next": "13.0.0",
+        "react": "18.2.0",
+        "react-dom": "18.2.0",
+        "react-use": "^17.4.0"
+    },
+    "devDependencies": {
+        "@types/node": "18.11.7",
+        "@types/react": "18.0.23",
+        "@types/react-dom": "18.0.7",
+        "eslint": "8.26.0",
+        "eslint-config-next": "13.0.0",
+        "prisma": "^4.7.1",
+        "typescript": "4.8.4"
+    }
 }
