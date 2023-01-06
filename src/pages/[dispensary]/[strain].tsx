@@ -85,23 +85,48 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
         };
     }
 
+    const relatedProducts = await prisma.product.findMany({
+        where: {
+            dispensaryName: {
+                equals: dispensaryName,
+                mode: 'insensitive',
+            },
+            dispensaryLocation: {
+                equals: dispensaryLocation,
+                mode: 'insensitive',
+            },
+            categoryType: {
+                equals: product.categoryType,
+                mode: 'insensitive',
+            },
+        },
+        include: {
+            price: true,
+            promoPrice: true,
+        },
+        take: 6,
+    });
+
     return {
         props: {
             product,
+            relatedProducts,
             seoProductName: strain,
             seoDispensaryName: dispensaryName,
             seoDispensaryLocation: dispensaryLocation,
-        }, // will be passed to the page component as props
+        },
     };
 }
 
 const ProductPage: NextPage = ({
     product,
+    relatedProducts,
     seoDispensaryLocation,
     seoDispensaryName,
     seoProductName,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
     const p = product as Product;
+    const relatedPs = relatedProducts as Product[];
     return (
         <>
             <Head>
