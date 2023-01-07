@@ -60,3 +60,15 @@ export const getProductPrices = (product: Product) => {
         weight,
     };
 };
+
+export const getProductUrl = (product: Product) => {
+    const dispensarySlug = encodeURIComponent(
+        product.dispensaryName.toLowerCase() +
+            '-' +
+            product.dispensaryLocation.toLowerCase(),
+    );
+    const productSlug = encodeURIComponent(
+        product.strain.toLowerCase().replaceAll(' ', '-'),
+    );
+    return `/${dispensarySlug}/${productSlug}`;
+};

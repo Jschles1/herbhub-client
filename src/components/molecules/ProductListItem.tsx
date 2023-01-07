@@ -9,19 +9,11 @@ import {
 import * as React from 'react';
 import CategoryBadge from '../atoms/CategoryBadge';
 import { Product } from '../../lib/interfaces';
-import { mapProductImage, getProductPrices } from '../../lib/helpers';
-
-const getProductUrl = (product: Product) => {
-    const dispensarySlug = encodeURIComponent(
-        product.dispensaryName.toLowerCase() +
-            '-' +
-            product.dispensaryLocation.toLowerCase(),
-    );
-    const productSlug = encodeURIComponent(
-        product.strain.toLowerCase().replaceAll(' ', '-'),
-    );
-    return `/${dispensarySlug}/${productSlug}`;
-};
+import {
+    mapProductImage,
+    getProductPrices,
+    getProductUrl,
+} from '../../lib/helpers';
 
 const useStyles = createStyles((theme) => ({
     root: {
@@ -106,6 +98,7 @@ const ProductListItem: React.FC<Props> = ({ product }) => {
                 height={100}
                 pb="0.75rem"
                 imageProps={{ srcSet: mapProductImage(product) }}
+                alt={product.strain}
             />
 
             <div className={classes.info}>

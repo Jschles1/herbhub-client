@@ -10,6 +10,7 @@ import {
 import CategoryBadge from '../atoms/CategoryBadge';
 import { mapProductImage, getProductPrices } from '../../lib/helpers';
 import { Product } from '../../lib/interfaces';
+import RelatedProducts from '../organisms/RelatedProducts';
 
 const useStyles = createStyles((theme) => ({
     root: {
@@ -49,13 +50,13 @@ const PDPTemplate: React.FC<Props> = ({ product, relatedProducts }) => {
 
     return (
         <Container>
-            <Card>
+            <Card withBorder shadow="sm">
                 <div className={classes.root}>
                     <div className={classes.imageContainer}>
                         <Image
                             src={mapProductImage(product)}
                             imageProps={{ srcSet: mapProductImage(product) }}
-                            alt="Product image"
+                            alt={product.strain}
                             height={250}
                             width={250}
                         />
@@ -99,6 +100,8 @@ const PDPTemplate: React.FC<Props> = ({ product, relatedProducts }) => {
                     </div>
                 </div>
             </Card>
+            <br />
+            <RelatedProducts products={relatedProducts} />
         </Container>
     );
 };
