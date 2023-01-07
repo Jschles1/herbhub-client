@@ -39,9 +39,10 @@ const useStyles = createStyles((theme) => ({
 
 interface Props {
     product: Product;
+    relatedProducts: Product[];
 }
 
-const PDPTemplate: React.FC<Props> = ({ product }) => {
+const PDPTemplate: React.FC<Props> = ({ product, relatedProducts }) => {
     const { classes } = useStyles();
     const prices = getProductPrices(product);
     const hasSalePrice = parseInt(prices.promoPrice) > 0;

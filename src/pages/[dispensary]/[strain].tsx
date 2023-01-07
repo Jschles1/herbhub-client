@@ -134,7 +134,7 @@ const ProductPage: NextPage = ({
                     {`${seoProductName} - ${seoDispensaryName} ${seoDispensaryLocation}`}
                 </title>
             </Head>
-            <PDPTemplate product={p} />
+            <PDPTemplate product={p} relatedProducts={relatedPs} />
         </>
     );
 };

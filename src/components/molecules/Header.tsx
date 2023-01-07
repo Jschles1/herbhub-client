@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { Header as MantineHeader, createStyles, Drawer } from '@mantine/core';
-import { useMediaQuery } from '@mantine/hooks';
 import Logo from '../atoms/Logo';
 
 const useStyles = createStyles((theme) => ({
@@ -20,7 +19,6 @@ const useStyles = createStyles((theme) => ({
 
 const Header = () => {
     const { classes } = useStyles();
-    const isDesktop = useMediaQuery('(min-width: 1200px)');
 
     return (
         <>
