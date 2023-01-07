@@ -99,6 +99,10 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
                 equals: product.categoryType,
                 mode: 'insensitive',
             },
+            strain: {
+                not: product.strain,
+                mode: 'insensitive',
+            },
         },
         include: {
             price: true,
