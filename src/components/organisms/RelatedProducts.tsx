@@ -5,30 +5,26 @@ import 'react-multi-carousel/lib/styles.css';
 import { Product } from '../../lib/interfaces';
 import RelatedProduct from '../molecules/RelatedProduct';
 
-// breakpoints: {
-//     xs: 400,
-//     sm: 600,
-//     md: 900,
-//     lg: 1200,
-//     xl: 1440,
-// },
-
 const responsive = {
     superLargeDesktop: {
         breakpoint: { max: 4000, min: 3000 },
-        items: 5,
+        items: 3,
+        slidesToSlide: 3,
     },
     desktop: {
         breakpoint: { max: 3000, min: 1024 },
         items: 3,
+        slidesToSlide: 3,
     },
     tablet: {
         breakpoint: { max: 1024, min: 600 },
-        items: 2,
+        items: 3,
+        slidesToSlide: 3,
     },
     mobile: {
         breakpoint: { max: 600, min: 0 },
         items: 1,
+        slidesToSlide: 1,
     },
 };
 
@@ -44,9 +40,9 @@ const RelatedProducts: React.FC<Props> = ({ products }) => {
     return (
         <>
             <Text component="h3">Related Products</Text>
-            <Carousel ssr responsive={responsive} showDots centerMode>
+            <Carousel ssr responsive={responsive} showDots centerMode={false}>
                 {products.map((product) => (
-                    <RelatedProduct product={product} />
+                    <RelatedProduct key={product.id} product={product} />
                 ))}
             </Carousel>
         </>
