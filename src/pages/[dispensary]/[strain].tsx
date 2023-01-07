@@ -49,12 +49,6 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
 
     const prisma = new PrismaClient();
 
-    console.log({
-        strain: formatDashedString(strain as string),
-        dispensaryName,
-        dispensaryLocation,
-    });
-
     const product = await prisma.product.findFirst({
         where: {
             dispensaryName: {
@@ -75,8 +69,6 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
             promoPrice: true,
         },
     });
-
-    console.log(product);
 
     if (!product) {
         return {
