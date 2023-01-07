@@ -1,6 +1,5 @@
 import * as React from 'react';
-import { createStyles, Drawer } from '@mantine/core';
-import { useMediaQuery } from '@mantine/hooks';
+import { createStyles, MediaQuery } from '@mantine/core';
 import PageContainer from '../molecules/PageContainer';
 import CategoryFilter from '../organisms/CategoryFilter';
 import ProductList from '../organisms/ProductList';
@@ -24,9 +23,7 @@ const useStyles = createStyles((theme) => ({
 }));
 
 interface Props {
-    // isLoading, error, data, isFetching
     products: Product[];
-    // error
     isLoading: boolean;
     isFetching: boolean;
     isError: boolean;
@@ -41,23 +38,19 @@ const PLPTemplate: React.FC<Props> = ({
     error,
 }) => {
     const { classes } = useStyles();
-    const isDesktop = useMediaQuery('(min-width: 1200px)');
-
-    if (isLoading || isFetching) {
-    }
-
     const resultAmount: number = products?.length || 0;
+
+    // TODO: Add error handling
 
     return (
         <PageContainer>
             {/* PLP */}
-
             <div className={classes.root}>
-                {isDesktop && (
+                <MediaQuery smallerThan="lg" styles={{ display: 'none' }}>
                     <div className={classes.leftColumn}>
                         <CategoryFilter />
                     </div>
-                )}
+                </MediaQuery>
 
                 <div className={classes.rightColumn}>
                     <ProductListActions
