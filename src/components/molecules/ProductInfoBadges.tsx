@@ -3,10 +3,7 @@ import { Badge, createStyles } from '@mantine/core';
 import CategoryBadge from '../atoms/CategoryBadge';
 import type { Product } from '../../lib/interfaces';
 
-const useStyles = createStyles((theme) => ({
-    badgeContainer: {
-        height: '25px',
-    },
+const useStyles = createStyles(() => ({
     location: {
         alignSelf: 'end',
     },
@@ -20,7 +17,7 @@ interface Props {
 const ProductInfoBadges: React.FC<Props> = ({ product, hasSalePrice }) => {
     const { classes } = useStyles();
     return (
-        <div className={classes.badgeContainer}>
+        <div>
             {hasSalePrice && <Badge color="green">Sale</Badge>}
             <CategoryBadge categoryType={product.categoryType} />
             <Badge color="gray" className={classes.location}>
