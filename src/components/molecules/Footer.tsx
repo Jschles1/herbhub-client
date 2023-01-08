@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { Footer as MantineFooter, createStyles, Text } from '@mantine/core';
+import { useMediaQuery } from '@mantine/hooks';
 
 const useStyles = createStyles((theme) => ({
     root: {
@@ -13,6 +14,16 @@ const useStyles = createStyles((theme) => ({
         '& > div:first-of-type': {
             flexBasis: '70%',
         },
+        [`@media (max-width: ${theme.breakpoints.lg}px)`]: {
+            padding: '1rem',
+            fontSize: '0.7rem',
+            display: 'block',
+        },
+    },
+    copy: {
+        [`@media (max-width: ${theme.breakpoints.lg}px)`]: {
+            marginBottom: '0.8rem',
+        },
     },
 }));
 
@@ -22,10 +33,14 @@ interface Props {
 
 const Footer: React.FC<Props> = ({ hidden }) => {
     const { classes } = useStyles();
+    const isDesktop = useMediaQuery('(min-width: 1200px)');
+
     return hidden ? null : (
-        <MantineFooter height={90}>
+        <MantineFooter height={isDesktop ? 90 : 'auto'}>
             <div className={classes.root}>
-                <div>&copy; {new Date().getFullYear()} HerbHub</div>
+                <div className={classes.copy}>
+                    &copy; {new Date().getFullYear()} HerbHub
+                </div>
                 <div>
                     <Text weight="bold">Disclaimer:</Text>
                     <Text italic>
