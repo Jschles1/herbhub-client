@@ -1,19 +1,12 @@
-import {
-    Card,
-    createStyles,
-    Text,
-    Image,
-    Badge,
-    MediaQuery,
-} from '@mantine/core';
 import * as React from 'react';
-import CategoryBadge from '../atoms/CategoryBadge';
+import { Card, createStyles, Text, Image, MediaQuery } from '@mantine/core';
 import { Product } from '../../lib/interfaces';
 import {
     mapProductImage,
     getProductPrices,
     getProductUrl,
 } from '../../lib/helpers';
+import ProductInfoBadges from './ProductInfoBadges';
 
 const useStyles = createStyles((theme) => ({
     root: {
@@ -103,14 +96,10 @@ const ProductListItem: React.FC<Props> = ({ product }) => {
 
             <div className={classes.info}>
                 <div className={classes.topRow}>
-                    <div className={classes.badge}>
-                        {hasSalePrice && <Badge color="green">Sale</Badge>}
-                        <CategoryBadge categoryType={product.categoryType} />
-                        <Badge color="gray" className={classes.location}>
-                            {product.dispensaryName},{' '}
-                            {product.dispensaryLocation}
-                        </Badge>
-                    </div>
+                    <ProductInfoBadges
+                        product={product}
+                        hasSalePrice={hasSalePrice}
+                    />
                     <MediaQuery smallerThan="md" styles={{ display: 'none' }}>
                         <div className={classes.priceInfo}>
                             {hasSalePrice && (

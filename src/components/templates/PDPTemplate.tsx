@@ -7,10 +7,10 @@ import {
     Button,
     Text,
 } from '@mantine/core';
-import CategoryBadge from '../atoms/CategoryBadge';
 import { mapProductImage, getProductPrices } from '../../lib/helpers';
 import { Product } from '../../lib/interfaces';
 import RelatedProducts from '../organisms/RelatedProducts';
+import ProductInfoBadges from '../molecules/ProductInfoBadges';
 
 const useStyles = createStyles((theme) => ({
     root: {
@@ -62,7 +62,10 @@ const PDPTemplate: React.FC<Props> = ({ product, relatedProducts }) => {
                         />
                     </div>
                     <div className={classes.infoContainer}>
-                        <CategoryBadge categoryType={product.categoryType} />
+                        <ProductInfoBadges
+                            product={product}
+                            hasSalePrice={hasSalePrice}
+                        />
                         <Text component="h1" className={classes.strain}>
                             {product.strain}
                         </Text>
