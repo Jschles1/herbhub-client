@@ -6,6 +6,9 @@ import { SORT_BY_OPTIONS } from '../../lib/constants';
 const useStyles = createStyles((theme) => ({
     root: {
         width: '250px',
+        [`@media (max-width: ${theme.breakpoints.md}px)`]: {
+            width: 'auto',
+        },
     },
 }));
 

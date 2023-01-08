@@ -17,11 +17,18 @@ const useStyles = createStyles((theme) => ({
     },
     skeleton: {
         float: 'right',
+        [`@media (max-width: ${theme.breakpoints.md}px)`]: {
+            float: 'none',
+        },
     },
     results: {
         flex: 1,
         textAlign: 'right',
         alignSelf: 'center',
+        [`@media (max-width: ${theme.breakpoints.md}px)`]: {
+            textAlign: 'left',
+            marginTop: '1rem',
+        },
     },
 }));
 
@@ -33,10 +40,6 @@ interface Props {
 const ProductListActions: React.FC<Props> = ({ resultAmount, isLoading }) => {
     const { classes } = useStyles();
     const [_, dispatch] = useQueryParams();
-
-    const handleReset = () => {
-        dispatch({ type: 'reset', payload: { value: '' } });
-    };
 
     return (
         <Card withBorder className={classes.cardRoot} mb="1rem">

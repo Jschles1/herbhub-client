@@ -1,12 +1,5 @@
 import * as React from 'react';
-import {
-    Accordion,
-    Checkbox,
-    createStyles,
-    Card,
-    Text,
-    Radio,
-} from '@mantine/core';
+import { Checkbox, createStyles, Card, Text } from '@mantine/core';
 import { useQueryParams } from '../../store';
 import { CATEGORY_FILTERS } from '../../lib/constants';
 import { useEffect } from 'react';
