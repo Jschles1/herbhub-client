@@ -5,7 +5,6 @@ import Logo from '../atoms/Logo';
 const useStyles = createStyles((theme) => ({
     headerRoot: {
         backgroundColor: '#fff',
-        // borderBottom: '1px solid #0b9e43',
     },
     root: {
         height: '100%',
