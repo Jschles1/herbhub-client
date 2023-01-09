@@ -5,6 +5,9 @@ import { CATEGORY_FILTERS } from '../../lib/constants';
 import { useEffect } from 'react';
 
 const useStyles = createStyles((theme) => ({
+    root: {
+        overflow: 'unset',
+    },
     label: {
         fontSize: '13px',
         cursor: 'pointer',
@@ -39,7 +42,7 @@ const CategoryFilter = () => {
     }, [CATEGORY_FILTERS]);
 
     return (
-        <Card withBorder radius="md" py="0" mr="1rem">
+        <Card withBorder radius="md" py="0" mr="1rem" className={classes.root}>
             {CATEGORY_FILTERS.map((category) => (
                 <React.Fragment key={category.name}>
                     <Card.Section inheritPadding py="xs">

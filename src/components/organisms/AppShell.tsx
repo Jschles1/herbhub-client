@@ -8,6 +8,7 @@ import {
     Burger,
     MediaQuery,
 } from '@mantine/core';
+import CategoryFilter from './CategoryFilter';
 import Logo from '../atoms/Logo';
 import Footer from '../molecules/Footer';
 
@@ -51,7 +52,7 @@ const AppShell: React.FC<Props> = ({ children }) => {
                         hidden={!opened}
                         width={{ sm: 200, lg: 300 }}
                     >
-                        <Text>Application navbar</Text>
+                        <CategoryFilter />
                     </Navbar>
                 </MediaQuery>
             }
