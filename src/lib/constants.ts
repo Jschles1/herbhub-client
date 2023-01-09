@@ -214,14 +214,6 @@ export const CATEGORY_FILTERS = [
                 value: 'loc/rise-bloomfield',
             },
             {
-                name: 'MPXNJ - Atlantic City',
-                value: 'loc/mpxnj-atlantic-city',
-            },
-            {
-                name: 'Harmony - Secaucus',
-                value: 'loc/harmony-secaucus',
-            },
-            {
                 name: 'Zen Leaf - Neptune',
                 value: 'loc/zenleaf-neptune',
             },
