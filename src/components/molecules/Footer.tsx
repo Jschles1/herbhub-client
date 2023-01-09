@@ -58,4 +58,4 @@ const Footer: React.FC<Props> = ({ hidden }) => {
     );
 };
 
-export default Footer;
+export default React.memo(Footer);

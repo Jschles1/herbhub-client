@@ -32,4 +32,4 @@ const SortBy = () => {
     );
 };
 
-export default SortBy;
+export default React.memo(SortBy);

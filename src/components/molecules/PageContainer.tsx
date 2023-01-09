@@ -18,4 +18,4 @@ const PageContainer: React.FC<Props> = ({ children }) => {
     return <div className={classes.root}>{children}</div>;
 };
 
-export default PageContainer;
+export default React.memo(PageContainer);

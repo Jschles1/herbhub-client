@@ -1,3 +1,4 @@
+import * as React from 'react';
 import { Badge } from '@mantine/core';
 
 const CategoryBadge: React.FC<{ categoryType: string }> = ({
@@ -33,4 +34,4 @@ const CategoryBadge: React.FC<{ categoryType: string }> = ({
     return <Badge color={color}>{categoryType}</Badge>;
 };
 
-export default CategoryBadge;
+export default React.memo(CategoryBadge);
