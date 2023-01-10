@@ -28,13 +28,16 @@ const useStyles = createStyles((theme) => ({
         alignSelf: 'flex-start',
     },
     strain: {
-        margin: 0,
         fontSize: '2rem',
     },
     button: {
         textTransform: 'uppercase',
         letterSpacing: '0.1rem',
         fontSize: '0.8rem',
+    },
+    topSpacing: {
+        marginTop: theme.spacing.md,
+        marginBottom: 0,
     },
 }));
 
@@ -44,7 +47,7 @@ interface Props {
 }
 
 const PDPTemplate: React.FC<Props> = ({ product, relatedProducts }) => {
-    const { classes } = useStyles();
+    const { classes, cx } = useStyles();
     const prices = getProductPrices(product);
     const hasSalePrice = parseInt(prices.promoPrice) > 0;
 
@@ -66,13 +69,19 @@ const PDPTemplate: React.FC<Props> = ({ product, relatedProducts }) => {
                             product={product}
                             hasSalePrice={hasSalePrice}
                         />
-                        <Text component="h1" className={classes.strain}>
+                        <Text
+                            component="h1"
+                            className={cx(classes.strain, classes.topSpacing)}
+                        >
                             {product.strain}
                         </Text>
                         {product.url && (
                             <Button
                                 variant="light"
-                                className={classes.button}
+                                className={cx(
+                                    classes.button,
+                                    classes.topSpacing,
+                                )}
                                 component="a"
                                 href={product.url}
                                 target="_blank"
@@ -81,23 +90,7 @@ const PDPTemplate: React.FC<Props> = ({ product, relatedProducts }) => {
                                 {product.dispensaryLocation}
                             </Button>
                         )}
-                        {/* {hasSalePrice && (
-                            <Text weight="bold" color="green">
-                                {`$${prices.promoPrice}`}
-                                <Text
-                                    component="span"
-                                    weight="normal"
-                                >{` per ${prices.weight}`}</Text>
-                            </Text>
-                        )}
-                        <Text strikethrough={hasSalePrice} weight="bold">
-                            {`$${prices.price}`}
-                            <Text
-                                component="span"
-                                weight="normal"
-                            >{` per ${prices.weight}`}</Text>
-                        </Text> */}
-                        <Text weight="bold">
+                        <Text weight="bold" className={classes.topSpacing}>
                             {hasSalePrice && (
                                 <Text
                                     weight="bold"
@@ -118,8 +111,15 @@ const PDPTemplate: React.FC<Props> = ({ product, relatedProducts }) => {
                             >{` per ${prices.weight}`}</Text>
                         </Text>
 
-                        <Text component="h2">Product Description:</Text>
-                        <Text>{product.description}</Text>
+                        <Text component="h2" className={classes.topSpacing}>
+                            Product Description:
+                        </Text>
+                        <Text
+                            className={classes.topSpacing}
+                            dangerouslySetInnerHTML={{
+                                __html: product.description,
+                            }}
+                        />
                     </div>
                 </div>
             </Card>

@@ -6,6 +6,7 @@ import type {
 } from 'next';
 import Head from 'next/head';
 import { PrismaClient } from '@prisma/client';
+import sanitizeHtml from 'sanitize-html';
 import { Product } from '../../lib/interfaces';
 import PDPTemplate from '../../components/templates/PDPTemplate';
 
@@ -75,6 +76,8 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
             notFound: true,
             props: {},
         };
+    } else {
+        product.description = sanitizeHtml(product.description);
     }
 
     const relatedProducts = await prisma.product.findMany({
