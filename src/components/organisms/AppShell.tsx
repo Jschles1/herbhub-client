@@ -7,6 +7,7 @@ import {
     Text,
     Burger,
     MediaQuery,
+    Drawer,
 } from '@mantine/core';
 import CategoryFilter from './CategoryFilter';
 import Logo from '../atoms/Logo';
@@ -31,6 +32,9 @@ const useStyles = createStyles((theme) => ({
     headerLeft: { display: 'flex', alignItems: 'center' },
     headerRight: {},
     burger: { marginRight: theme.spacing.xs },
+    drawer: {
+        overflowX: 'scroll',
+    },
 }));
 
 interface Props {
@@ -44,44 +48,57 @@ const AppShell: React.FC<Props> = ({ children }) => {
         <MantineAppShell
             classNames={{ main: classes.main }}
             padding="md"
-            navbar={
-                <MediaQuery largerThan="md" styles={{ display: 'none' }}>
-                    <Navbar
-                        p="md"
-                        hiddenBreakpoint="md"
-                        hidden={!opened}
-                        width={{ sm: 200, lg: 300 }}
-                    >
-                        <CategoryFilter />
-                    </Navbar>
-                </MediaQuery>
-            }
+            // navbar={
+            //     <MediaQuery largerThan="lg" styles={{ display: 'none' }}>
+            //         <Navbar
+            //             p="md"
+            //             hiddenBreakpoint="md"
+            //             hidden={!opened}
+            //             width={{ sm: 200, md: 300, lg: 300 }}
+            //         >
+            //             <CategoryFilter />
+            //         </Navbar>
+            //     </MediaQuery>
+            // }
             fixed={opened}
             header={
-                <Header
-                    height={60}
-                    p="md"
-                    classNames={{ root: classes.headerRoot }}
-                    withBorder
-                >
-                    <div className={classes.headerContainer}>
-                        <div className={classes.headerLeft}>
-                            <MediaQuery
-                                largerThan="lg"
-                                styles={{ display: 'none' }}
-                            >
-                                <Burger
-                                    opened={opened}
-                                    onClick={() => setOpened((o) => !o)}
-                                    size="sm"
-                                    className={classes.burger}
-                                />
-                            </MediaQuery>
-                            <Logo />
+                <>
+                    <Drawer
+                        opened={opened}
+                        onClose={() => setOpened(false)}
+                        title="Filter Products"
+                        padding="xl"
+                        size="xl"
+                        className={classes.drawer}
+                        withinPortal={false}
+                    >
+                        <CategoryFilter />
+                    </Drawer>
+                    <Header
+                        height={60}
+                        p="md"
+                        classNames={{ root: classes.headerRoot }}
+                        withBorder
+                    >
+                        <div className={classes.headerContainer}>
+                            <div className={classes.headerLeft}>
+                                <MediaQuery
+                                    largerThan="lg"
+                                    styles={{ display: 'none' }}
+                                >
+                                    <Burger
+                                        opened={opened}
+                                        onClick={() => setOpened((o) => !o)}
+                                        size="sm"
+                                        className={classes.burger}
+                                    />
+                                </MediaQuery>
+                                <Logo />
+                            </div>
+                            <div className={classes.headerRight}></div>
                         </div>
-                        <div className={classes.headerRight}></div>
-                    </div>
-                </Header>
+                    </Header>
+                </>
             }
             footer={<Footer hidden={opened} />}
         >

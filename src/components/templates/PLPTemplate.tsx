@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { createStyles, MediaQuery } from '@mantine/core';
+import { useMediaQuery } from '@mantine/hooks';
 import PageContainer from '../molecules/PageContainer';
 import CategoryFilter from '../organisms/CategoryFilter';
 import ProductList from '../organisms/ProductList';
@@ -38,19 +39,18 @@ const PLPTemplate: React.FC<Props> = ({
     error,
 }) => {
     const { classes } = useStyles();
+    const isDesktop = useMediaQuery('(min-width: 1200px)');
     const resultAmount: number = products?.length || 0;
-
-    // TODO: Add error handling
 
     return (
         <PageContainer>
             {/* PLP */}
             <div className={classes.root}>
-                <MediaQuery smallerThan="lg" styles={{ display: 'none' }}>
+                {isDesktop && (
                     <div className={classes.leftColumn}>
                         <CategoryFilter />
                     </div>
-                </MediaQuery>
+                )}
 
                 <div className={classes.rightColumn}>
                     <ProductListActions
