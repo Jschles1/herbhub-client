@@ -44,6 +44,8 @@ interface Props {
 const RelatedProducts: React.FC<Props> = ({ products }) => {
     const { classes } = useStyles();
 
+    if (!products.length) return null;
+
     const location = `${products[0].dispensaryName} - ${products[0].dispensaryLocation}:`;
 
     return (
