@@ -11,6 +11,7 @@ import { mapProductImage, getProductPrices } from '../../lib/helpers';
 import { Product } from '../../lib/interfaces';
 import RelatedProducts from '../organisms/RelatedProducts';
 import ProductInfoBadges from '../molecules/ProductInfoBadges';
+import PDPStrainInfo from '../molecules/PDPStrainInfo';
 
 const useStyles = createStyles((theme) => ({
     root: {
@@ -77,6 +78,7 @@ const PDPTemplate: React.FC<Props> = ({ product, relatedProducts }) => {
                         </Text>
                         {product.url && (
                             <Button
+                                color="green"
                                 variant="light"
                                 className={cx(
                                     classes.button,
@@ -110,6 +112,8 @@ const PDPTemplate: React.FC<Props> = ({ product, relatedProducts }) => {
                                 weight="normal"
                             >{` per ${prices.weight}`}</Text>
                         </Text>
+
+                        <PDPStrainInfo product={product} />
 
                         <Text component="h2" className={classes.topSpacing}>
                             Product Description:
