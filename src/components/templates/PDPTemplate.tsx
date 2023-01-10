@@ -81,8 +81,8 @@ const PDPTemplate: React.FC<Props> = ({ product, relatedProducts }) => {
                                 {product.dispensaryLocation}
                             </Button>
                         )}
-                        {hasSalePrice && (
-                            <Text weight="bold">
+                        {/* {hasSalePrice && (
+                            <Text weight="bold" color="green">
                                 {`$${prices.promoPrice}`}
                                 <Text
                                     component="span"
@@ -92,6 +92,26 @@ const PDPTemplate: React.FC<Props> = ({ product, relatedProducts }) => {
                         )}
                         <Text strikethrough={hasSalePrice} weight="bold">
                             {`$${prices.price}`}
+                            <Text
+                                component="span"
+                                weight="normal"
+                            >{` per ${prices.weight}`}</Text>
+                        </Text> */}
+                        <Text weight="bold">
+                            {hasSalePrice && (
+                                <Text
+                                    weight="bold"
+                                    color="green"
+                                    component="span"
+                                >
+                                    {`$${prices.promoPrice} `}
+                                </Text>
+                            )}
+                            <Text
+                                component="span"
+                                strikethrough={hasSalePrice}
+                            >{`$${prices.price}`}</Text>
+
                             <Text
                                 component="span"
                                 weight="normal"

@@ -110,19 +110,18 @@ const ProductListItem: React.FC<Props> = ({ product }) => {
                                     className={classes.inlineText}
                                 >
                                     {`$${prices.promoPrice}`}
-                                    <Text
-                                        component="span"
-                                        weight="normal"
-                                    >{` per ${prices.weight}`}</Text>
                                 </Text>
                             )}
                             <Text
                                 size={14}
                                 weight="bold"
                                 className={classes.inlineText}
-                                strikethrough={hasSalePrice}
                             >
-                                {`$${prices.price}`}
+                                <Text
+                                    component="span"
+                                    strikethrough={hasSalePrice}
+                                >{`$${prices.price}`}</Text>
+
                                 <Text
                                     component="span"
                                     weight="normal"
