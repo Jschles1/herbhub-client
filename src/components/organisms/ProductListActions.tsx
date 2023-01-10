@@ -2,7 +2,6 @@ import * as React from 'react';
 import { Card, createStyles, Text, Skeleton, Button } from '@mantine/core';
 import SearchInput from '../molecules/SearchInput';
 import SortBy from '../molecules/SortBy';
-import { useQueryParams } from '../../store';
 
 const useStyles = createStyles((theme) => ({
     cardRoot: {
@@ -39,7 +38,6 @@ interface Props {
 
 const ProductListActions: React.FC<Props> = ({ resultAmount, isLoading }) => {
     const { classes } = useStyles();
-    const [_, dispatch] = useQueryParams();
 
     return (
         <Card withBorder className={classes.cardRoot} mb="1rem">

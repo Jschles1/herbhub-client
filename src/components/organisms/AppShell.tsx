@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { useRouter } from 'next/router';
 import {
     AppShell as MantineAppShell,
     Header,
@@ -44,22 +45,12 @@ interface Props {
 const AppShell: React.FC<Props> = ({ children }) => {
     const { classes } = useStyles();
     const [opened, setOpened] = React.useState(false);
+    const router = useRouter();
+    const showBurger = router.pathname === '/';
     return (
         <MantineAppShell
             classNames={{ main: classes.main }}
             padding="md"
-            // navbar={
-            //     <MediaQuery largerThan="lg" styles={{ display: 'none' }}>
-            //         <Navbar
-            //             p="md"
-            //             hiddenBreakpoint="md"
-            //             hidden={!opened}
-            //             width={{ sm: 200, md: 300, lg: 300 }}
-            //         >
-            //             <CategoryFilter />
-            //         </Navbar>
-            //     </MediaQuery>
-            // }
             fixed={opened}
             header={
                 <>
@@ -82,17 +73,19 @@ const AppShell: React.FC<Props> = ({ children }) => {
                     >
                         <div className={classes.headerContainer}>
                             <div className={classes.headerLeft}>
-                                <MediaQuery
-                                    largerThan="lg"
-                                    styles={{ display: 'none' }}
-                                >
-                                    <Burger
-                                        opened={opened}
-                                        onClick={() => setOpened((o) => !o)}
-                                        size="sm"
-                                        className={classes.burger}
-                                    />
-                                </MediaQuery>
+                                {showBurger && (
+                                    <MediaQuery
+                                        largerThan="lg"
+                                        styles={{ display: 'none' }}
+                                    >
+                                        <Burger
+                                            opened={opened}
+                                            onClick={() => setOpened((o) => !o)}
+                                            size="sm"
+                                            className={classes.burger}
+                                        />
+                                    </MediaQuery>
+                                )}
                                 <Logo />
                             </div>
                             <div className={classes.headerRight}></div>
