@@ -36,7 +36,7 @@ const Footer: React.FC<Props> = ({ hidden }) => {
     const isDesktop = useMediaQuery('(min-width: 1200px)');
 
     return hidden ? null : (
-        <MantineFooter height={isDesktop ? 90 : 'auto'}>
+        <MantineFooter height={isDesktop ? 90 : 'auto'} px="sm">
             <div className={classes.root}>
                 <div className={classes.copy}>
                     &copy; {new Date().getFullYear()} HerbHub
