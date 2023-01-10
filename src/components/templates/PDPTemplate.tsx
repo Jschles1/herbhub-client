@@ -7,6 +7,7 @@ import {
     Button,
     Text,
 } from '@mantine/core';
+import Link from 'next/link';
 import { mapProductImage, getProductPrices } from '../../lib/helpers';
 import { Product } from '../../lib/interfaces';
 import RelatedProducts from '../organisms/RelatedProducts';
@@ -40,6 +41,12 @@ const useStyles = createStyles((theme) => ({
         marginTop: theme.spacing.md,
         marginBottom: 0,
     },
+    link: {
+        color: 'black',
+        fontWeight: 'bold',
+        marginBottom: '1rem',
+        display: 'block',
+    },
 }));
 
 interface Props {
@@ -54,6 +61,9 @@ const PDPTemplate: React.FC<Props> = ({ product, relatedProducts }) => {
 
     return (
         <Container>
+            <Link href="/" className={classes.link}>
+                &lt; Back
+            </Link>
             <Card withBorder shadow="sm">
                 <div className={classes.root}>
                     <div className={classes.imageContainer}>

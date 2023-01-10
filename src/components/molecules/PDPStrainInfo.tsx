@@ -18,10 +18,10 @@ const PDPStrainInfo: React.FC<Props> = ({ product }) => {
     return (
         <div className={classes.root}>
             <Badge color="gray">Type: {product.strainType}</Badge>
-            {product.thc && (
+            {!!product.thc && (
                 <Badge color="gray">THC: {product.thc.toFixed(2)}%</Badge>
             )}
-            {product.cbd && (
+            {!!product.cbd && (
                 <Badge color="gray">CBD: {product.cbd.toFixed(2)}%</Badge>
             )}
         </div>
