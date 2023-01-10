@@ -26,7 +26,6 @@ const useStyles = createStyles((theme) => ({
     },
     info: {
         margin: '0 auto',
-        // minWidth: '90%',
         width: '90%',
     },
     inlineText: {

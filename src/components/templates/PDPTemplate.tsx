@@ -76,6 +76,9 @@ const PDPTemplate: React.FC<Props> = ({ product, relatedProducts }) => {
                         >
                             {product.strain}
                         </Text>
+                        <Text className={classes.topSpacing}>
+                            {product.brand}
+                        </Text>
                         {product.url && (
                             <Button
                                 color="green"
