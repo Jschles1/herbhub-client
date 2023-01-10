@@ -57,8 +57,8 @@ const PDPTemplate: React.FC<Props> = ({ product, relatedProducts }) => {
                             src={mapProductImage(product)}
                             imageProps={{ srcSet: mapProductImage(product) }}
                             alt={product.strain}
-                            height={250}
-                            width={250}
+                            height={400}
+                            width={400}
                         />
                     </div>
                     <div className={classes.infoContainer}>

@@ -28,7 +28,11 @@ const responsive = {
     },
 };
 
-const useStyles = createStyles((theme) => ({}));
+const useStyles = createStyles((theme) => ({
+    item: {
+        padding: '0.5rem',
+    },
+}));
 
 interface Props {
     products: Product[];
@@ -37,10 +41,17 @@ interface Props {
 const RelatedProducts: React.FC<Props> = ({ products }) => {
     const { classes } = useStyles();
 
+    const location = `${products[0].dispensaryName} - ${products[0].dispensaryLocation}`;
+
     return (
         <>
-            <Text component="h3">Related Products</Text>
-            <Carousel ssr responsive={responsive} showDots centerMode={false}>
+            <Text component="h3">Related Products from {location}</Text>
+            <Carousel
+                ssr
+                responsive={responsive}
+                centerMode={false}
+                itemClass={classes.item}
+            >
                 {products.map((product) => (
                     <RelatedProduct key={product.id} product={product} />
                 ))}
