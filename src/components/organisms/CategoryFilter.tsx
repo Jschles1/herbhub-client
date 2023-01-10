@@ -16,8 +16,15 @@ const useStyles = createStyles((theme) => ({
 
 const CategoryFilter = () => {
     const { classes } = useStyles();
-    const [_, dispatch] = useQueryParams();
+    const [params, dispatch] = useQueryParams();
     const checkboxRefs = React.useRef([]);
+    const filterParams =
+        !!params &&
+        decodeURIComponent(params)
+            .split('&')
+            .find((param) => param.includes('filter'))
+            ?.replace('filter=', '')
+            .split(',');
 
     const handleChange = (e: any) => {
         const payload = { value: e.target.value, checked: e.target.checked };
@@ -50,22 +57,28 @@ const CategoryFilter = () => {
                     </Card.Section>
 
                     <Card.Section inheritPadding py="xs">
-                        {category.options.map((option, i) => (
-                            <Checkbox
-                                ref={(el) =>
-                                    category.name === 'Dispensary' &&
-                                    ((checkboxRefs as any).current[i] = el)
-                                }
-                                data-category={category.name}
-                                key={option.name}
-                                label={option.name}
-                                value={option.value}
-                                classNames={{
-                                    label: classes.label,
-                                }}
-                                onChange={handleChange}
-                            />
-                        ))}
+                        {category.options.map((option, i) => {
+                            const checked = !!filterParams
+                                ? filterParams.includes(option.value)
+                                : false;
+                            return (
+                                <Checkbox
+                                    ref={(el) =>
+                                        category.name === 'Dispensary' &&
+                                        ((checkboxRefs as any).current[i] = el)
+                                    }
+                                    checked={checked}
+                                    data-category={category.name}
+                                    key={option.name}
+                                    label={option.name}
+                                    value={option.value}
+                                    classNames={{
+                                        label: classes.label,
+                                    }}
+                                    onChange={handleChange}
+                                />
+                            );
+                        })}
                     </Card.Section>
                 </React.Fragment>
             ))}
