@@ -32,6 +32,9 @@ const useStyles = createStyles((theme) => ({
     item: {
         padding: '0.5rem',
     },
+    location: {
+        textTransform: 'capitalize',
+    },
 }));
 
 interface Props {
@@ -41,11 +44,16 @@ interface Props {
 const RelatedProducts: React.FC<Props> = ({ products }) => {
     const { classes } = useStyles();
 
-    const location = `${products[0].dispensaryName} - ${products[0].dispensaryLocation}`;
+    const location = `${products[0].dispensaryName} - ${products[0].dispensaryLocation}:`;
 
     return (
         <>
-            <Text component="h3">Related Products from {location}</Text>
+            <Text component="h3">
+                Related Products from{' '}
+                <Text component="span" className={classes.location}>
+                    {location}
+                </Text>
+            </Text>
             <Carousel
                 ssr
                 responsive={responsive}
