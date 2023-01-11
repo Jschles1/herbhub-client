@@ -61,8 +61,6 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
         try {
             const { query } = req;
 
-            // console.log('query', query);
-
             await prisma.$connect();
 
             const whereInput: Prisma.ProductWhereInput = {};
@@ -201,8 +199,6 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
                     return 0;
                 });
             }
-
-            // console.log({ products });
 
             await prisma.$disconnect();
             res.status(200).json({ products });

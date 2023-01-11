@@ -8,10 +8,6 @@ import { Product } from '../lib/interfaces';
 const Home: NextPage = () => {
     const { isLoading, error, data, isFetching, isError } = useProductData();
 
-    if (data) {
-        // console.log(data);
-    }
-
     return (
         <>
             <Head>

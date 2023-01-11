@@ -13,29 +13,49 @@ import { Product } from '../../lib/interfaces';
 import RelatedProducts from '../organisms/RelatedProducts';
 import ProductInfoBadges from '../molecules/ProductInfoBadges';
 import PDPStrainInfo from '../molecules/PDPStrainInfo';
+import { useMediaQuery } from '@mantine/hooks';
 
 const useStyles = createStyles((theme) => ({
     root: {
         display: 'flex',
         alignItems: 'center',
+        [`@media (max-width: ${theme.breakpoints.sm}px)`]: {
+            flexDirection: 'column',
+        },
     },
     imageContainer: {
         width: '100%',
         height: '100%',
         flexBasis: '30%',
         marginRight: theme.spacing.md,
+        [`@media (max-width: ${theme.breakpoints.sm}px)`]: {
+            marginRight: 0,
+        },
     },
     infoContainer: {
         flexBasis: '80%',
         alignSelf: 'flex-start',
+        [`@media (max-width: ${theme.breakpoints.sm}px)`]: {
+            marginTop: '0.5rem',
+        },
     },
     strain: {
         fontSize: '2rem',
+        [`@media (max-width: ${theme.breakpoints.md}px)`]: {
+            fontSize: '1.5rem',
+        },
     },
     button: {
         textTransform: 'uppercase',
         letterSpacing: '0.1rem',
         fontSize: '0.8rem',
+        [`@media (max-width: ${theme.breakpoints.md}px)`]: {
+            fontSize: '0.6rem',
+            lineHeight: '1rem',
+            paddingTop: '0.25rem',
+            paddingBottom: '0.25rem',
+            height: '42px',
+        },
     },
     topSpacing: {
         marginTop: theme.spacing.md,
@@ -56,8 +76,10 @@ interface Props {
 
 const PDPTemplate: React.FC<Props> = ({ product, relatedProducts }) => {
     const { classes, cx } = useStyles();
+    const isMobile = useMediaQuery('(max-width: 900px)');
     const prices = getProductPrices(product);
     const hasSalePrice = parseInt(prices.promoPrice) > 0;
+    const imageDimensions = isMobile ? 300 : 400;
 
     return (
         <Container>
@@ -71,8 +93,8 @@ const PDPTemplate: React.FC<Props> = ({ product, relatedProducts }) => {
                             src={mapProductImage(product)}
                             imageProps={{ srcSet: mapProductImage(product) }}
                             alt={product.strain}
-                            height={400}
-                            width={400}
+                            height={imageDimensions}
+                            width={imageDimensions}
                         />
                     </div>
                     <div className={classes.infoContainer}>
@@ -101,7 +123,8 @@ const PDPTemplate: React.FC<Props> = ({ product, relatedProducts }) => {
                                 href={product.url}
                                 target="_blank"
                             >
-                                Purchase At {product.dispensaryName} -{' '}
+                                Purchase At {isMobile && <br />}
+                                {product.dispensaryName} -{' '}
                                 {product.dispensaryLocation}
                             </Button>
                         )}

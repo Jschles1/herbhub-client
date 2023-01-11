@@ -14,7 +14,6 @@ interface Props {
 
 const PDPStrainInfo: React.FC<Props> = ({ product }) => {
     const { classes } = useStyles();
-    console.log({ product });
     return (
         <div className={classes.root}>
             <Badge color="gray">Type: {product.strainType}</Badge>

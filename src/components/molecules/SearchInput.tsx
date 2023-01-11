@@ -31,8 +31,6 @@ const SearchInput: React.FC<Props> = (props) => {
     const [_, dispatch] = useQueryParams();
 
     const handleChange = (e: any) => {
-        console.log('change', e.target.value);
-        // const { value } = e.target;
         const value = e.target.value.trim();
         dispatch({ type: 'search', payload: { value } });
     };
