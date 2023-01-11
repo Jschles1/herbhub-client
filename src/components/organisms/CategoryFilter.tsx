@@ -46,7 +46,7 @@ const CategoryFilter = () => {
             0,
             CATEGORY_FILTERS.length,
         );
-    }, [CATEGORY_FILTERS]);
+    }, []);
 
     return (
         <Card withBorder radius="md" py="0" mr="1rem" className={classes.root}>

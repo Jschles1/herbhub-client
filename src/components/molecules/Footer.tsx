@@ -45,12 +45,12 @@ const Footer: React.FC<Props> = ({ hidden }) => {
                     <Text weight="bold">Disclaimer:</Text>
                     <Text italic>
                         HerbHub does not vet or endorse any retailer listed on
-                        this site. Also, retailers' web sites can change at any
-                        time and products listed may be sold out at the time of
-                        listing. This could have a negative effect on HerbHub's
-                        ability to obtain accurate (or any) information. HerbHub
-                        is not responsible for inaccurate product information
-                        displayed.
+                        this site. Also, retailers&apos; web sites can change at
+                        any time and products listed may be sold out at the time
+                        of listing. This could have a negative effect on
+                        HerbHub&apos;s ability to obtain accurate (or any)
+                        information. HerbHub is not responsible for inaccurate
+                        product information displayed.
                     </Text>
                 </div>
             </div>
