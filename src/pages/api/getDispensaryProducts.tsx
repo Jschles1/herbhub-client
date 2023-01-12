@@ -107,7 +107,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
             }
 
             let products = await prisma.product.findMany({
-                take: 20,
+                take: 100,
                 where: whereInput,
                 orderBy: orderByInputs,
                 include: {
