@@ -84,7 +84,6 @@ const createURLParams = (
 export const initialState = '';
 
 const reducer = (state: string, action: Action) => {
-    // console.log('reducer', action);
     switch (action.type) {
         case 'search':
         case 'filter':
