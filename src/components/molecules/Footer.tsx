@@ -39,7 +39,7 @@ const Footer: React.FC<Props> = ({ hidden }) => {
         <MantineFooter height={isDesktop ? 90 : 'auto'} px="sm">
             <div className={classes.root}>
                 <div className={classes.copy}>
-                    &copy; {new Date().getFullYear()} HerbHub
+                    &copy; {new Date().getFullYear()} John Schlesinger
                 </div>
                 <div>
                     <Text weight="bold">Disclaimer:</Text>
