@@ -110,10 +110,6 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
                 take: 100,
                 where: whereInput,
                 orderBy: orderByInputs,
-                include: {
-                    price: true,
-                    promoPrice: true,
-                },
             });
 
             if (query.sortBy === 'thc-low-to-high') {
@@ -134,20 +130,24 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 
             if (query.sortBy === 'price-low-to-high') {
                 products = products.sort((a, b) => {
-                    if (a.price && b.price && a.promoPrice && b.promoPrice) {
+                    const aPrice = (a as any).price;
+                    const bPrice = (b as any).price;
+                    const aPromoPrice = (a as any).promoPrice;
+                    const bPromoPrice = (b as any).promoPrice;
+                    if (aPrice && bPrice && aPromoPrice && bPromoPrice) {
                         let aAveragePrice: number;
                         let bAveragePrice: number;
-                        const aPrices = (Object.values(a.price) as any).filter(
+                        const aPrices = (Object.values(aPrice) as any).filter(
                             (pr: any) => typeof pr === 'number',
                         );
-                        const bPrices = (Object.values(b.price) as any).filter(
+                        const bPrices = (Object.values(bPrice) as any).filter(
                             (pr: any) => typeof pr === 'number',
                         );
                         const aPromoPrices = (
-                            Object.values(a.promoPrice) as any
+                            Object.values(aPromoPrice) as any
                         ).filter((pr: any) => typeof pr === 'number');
                         const bPromoPrices = (
-                            Object.values(b.promoPrice) as any
+                            Object.values(bPromoPrice) as any
                         ).filter((pr: any) => typeof pr === 'number');
 
                         if (aPromoPrices.length) {

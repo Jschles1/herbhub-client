@@ -7,6 +7,30 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+type PriceOptions {
+  id                     String
+  halfGram               Float?
+  gram                   Float?
+  twoGram                Float?
+  eighthOunce            Float?
+  quarterOunce           Float?
+  halfOunce              Float?
+  ounce                  Float?
+  other                  Float?
+}
+
+type PromoPriceOptions {
+  id                     String
+  halfGram               Float?
+  gram                   Float?
+  twoGram                Float?
+  eighthOunce            Float?
+  quarterOunce           Float?
+  halfOunce              Float?
+  ounce                  Float?
+  other                  Float?
+}
+
 model Product {
   id                 String        @id @default(auto()) @map("_id") @db.ObjectId
   dispensaryName     String
@@ -16,40 +40,12 @@ model Product {
   categoryType       String
   description        String
   weight             String[]
-  thc                Float
-  cbd                Float
-  price              PriceOptions? @relation("normal")
-  promoPrice         PromoPriceOptions? @relation("promo")
-  quantity           Int
+  thc                Float?
+  cbd                Float?
+  price              PriceOptions
+  promoPrice         PromoPriceOptions
+  quantity           Int?
   image              String?
   brand              String
   url                String?
-}
-
-model PriceOptions {
-  id                     String   @id @default(auto()) @map("_id") @db.ObjectId
-  halfGram               Float?
-  gram                   Float?
-  twoGram                Float?
-  eighthOunce            Float?
-  quarterOunce           Float?
-  halfOunce              Float?
-  ounce                  Float?
-  other                  Float?
-  productWithNormalPrice Product? @relation("normal", fields: [productNormalId], references: [id])
-  productNormalId        String?  @unique @db.ObjectId
-}
-
-model PromoPriceOptions {
-  id                     String   @id @default(auto()) @map("_id") @db.ObjectId
-  halfGram               Float?
-  gram                   Float?
-  twoGram                Float?
-  eighthOunce            Float?
-  quarterOunce           Float?
-  halfOunce              Float?
-  ounce                  Float?
-  other                  Float?
-  productWithPromoPrice  Product? @relation("promo", fields: [productPromoId], references: [id])
-  productPromoId         String?  @unique @db.ObjectId
 }
