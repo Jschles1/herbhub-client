@@ -1,6 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import { PrismaClient } from '@prisma/client';
-import type { Prisma } from '@prisma/client';
+import type { Prisma, Product } from '@prisma/client';
 
 const generateFilterWhereInput = (
     param: string,
@@ -52,6 +52,62 @@ const generateFilterWhereInput = (
         default:
             break;
     }
+};
+
+// For separating promotion products from regular in price sorting
+const sortByPromotionProducts = (products: Product[]) => {
+    return products.sort((a, b) => {
+        let aPrice = (a as any).price as any;
+        let bPrice = (b as any).price as any;
+        let aPromoPrice = (a as any).promoPrice;
+        let bPromoPrice = (b as any).promoPrice;
+        aPrice =
+            aPrice.halfGram ||
+            aPrice.gram ||
+            aPrice.twoGram ||
+            aPrice.eighthOunce ||
+            aPrice.quarterOunce ||
+            aPrice.halfOunce ||
+            aPrice.ounce ||
+            aPrice.other;
+        bPrice =
+            bPrice.halfGram ||
+            bPrice.gram ||
+            bPrice.twoGram ||
+            bPrice.eighthOunce ||
+            bPrice.quarterOunce ||
+            bPrice.halfOunce ||
+            bPrice.ounce ||
+            bPrice.other;
+        aPromoPrice =
+            aPromoPrice.halfGram ||
+            aPromoPrice.gram ||
+            aPromoPrice.twoGram ||
+            aPromoPrice.eighthOunce ||
+            aPromoPrice.quarterOunce ||
+            aPromoPrice.halfOunce ||
+            aPromoPrice.ounce ||
+            aPromoPrice.other;
+        bPromoPrice =
+            bPromoPrice.halfGram ||
+            bPromoPrice.gram ||
+            bPromoPrice.twoGram ||
+            bPromoPrice.eighthOunce ||
+            bPromoPrice.quarterOunce ||
+            bPromoPrice.halfOunce ||
+            bPromoPrice.ounce ||
+            bPromoPrice.other;
+
+        if (aPromoPrice && bPromoPrice) {
+            return 0;
+        } else if (aPromoPrice && !bPromoPrice) {
+            return -1;
+        } else if (!aPromoPrice && bPromoPrice) {
+            return 1;
+        } else {
+            return 0;
+        }
+    });
 };
 
 const prisma = new PrismaClient();
@@ -129,14 +185,15 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
             }
 
             if (query.sortBy === 'price-low-to-high') {
-                products = products.sort((a, b) => {
-                    const aPrice = (a as any).price;
-                    const bPrice = (b as any).price;
+                products = sortByPromotionProducts(products).sort((a, b) => {
+                    const aPrice: number = (a as any).price;
+                    const bPrice: number = (b as any).price;
                     const aPromoPrice = (a as any).promoPrice;
                     const bPromoPrice = (b as any).promoPrice;
                     if (aPrice && bPrice && aPromoPrice && bPromoPrice) {
-                        let aAveragePrice: number;
-                        let bAveragePrice: number;
+                        let aAveragePrice;
+                        let bAveragePrice;
+
                         const aPrices = (Object.values(aPrice) as any).filter(
                             (pr: any) => typeof pr === 'number',
                         );
@@ -145,12 +202,12 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
                         );
                         const aPromoPrices = (
                             Object.values(aPromoPrice) as any
-                        ).filter((pr: any) => typeof pr === 'number');
+                        ).filter((pr: any) => typeof pr === 'number' && pr > 0);
                         const bPromoPrices = (
                             Object.values(bPromoPrice) as any
-                        ).filter((pr: any) => typeof pr === 'number');
+                        ).filter((pr: any) => typeof pr === 'number' && pr > 0);
 
-                        if (aPromoPrices.length) {
+                        if (aPromoPrices.length && bPromoPrices.length) {
                             if (aPromoPrices.length > 1) {
                                 aAveragePrice =
                                     aPromoPrices.reduce(
@@ -159,6 +216,59 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
                                     ) / aPromoPrices.length;
                             } else {
                                 aAveragePrice = aPromoPrices[0];
+                            }
+                            if (bPromoPrices.length > 1) {
+                                bAveragePrice =
+                                    bPromoPrices.reduce(
+                                        (a: number, b: number) => a + b,
+                                        0,
+                                    ) / bPromoPrices.length;
+                            } else {
+                                bAveragePrice = bPromoPrices[0];
+                            }
+                        } else if (
+                            !aPromoPrices.length &&
+                            bPromoPrices.length
+                        ) {
+                            if (aPrices.length > 1) {
+                                aAveragePrice =
+                                    aPrices.reduce(
+                                        (a: number, b: number) => a + b,
+                                        0,
+                                    ) / aPrices.length;
+                            } else {
+                                aAveragePrice = aPrices[0];
+                            }
+                            if (bPromoPrices.length > 1) {
+                                bAveragePrice =
+                                    bPromoPrices.reduce(
+                                        (a: number, b: number) => a + b,
+                                        0,
+                                    ) / bPromoPrices.length;
+                            } else {
+                                bAveragePrice = bPromoPrices[0];
+                            }
+                        } else if (
+                            aPromoPrices.length &&
+                            !bPromoPrices.length
+                        ) {
+                            if (aPromoPrices.length > 1) {
+                                aAveragePrice =
+                                    aPromoPrices.reduce(
+                                        (a: number, b: number) => a + b,
+                                        0,
+                                    ) / aPromoPrices.length;
+                            } else {
+                                aAveragePrice = aPromoPrices[0];
+                            }
+                            if (aPrices.length > 1) {
+                                aAveragePrice =
+                                    aPrices.reduce(
+                                        (a: number, b: number) => a + b,
+                                        0,
+                                    ) / aPrices.length;
+                            } else {
+                                aAveragePrice = aPrices[0];
                             }
                         } else {
                             if (aPrices.length > 1) {
@@ -170,19 +280,6 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
                             } else {
                                 aAveragePrice = aPrices[0];
                             }
-                        }
-
-                        if (bPromoPrices.length) {
-                            if (bPromoPrices.length > 1) {
-                                bAveragePrice =
-                                    bPromoPrices.reduce(
-                                        (a: number, b: number) => a + b,
-                                        0,
-                                    ) / bPromoPrices.length;
-                            } else {
-                                bAveragePrice = bPromoPrices[0];
-                            }
-                        } else {
                             if (bPrices.length > 1) {
                                 bAveragePrice =
                                     bPrices.reduce(
@@ -193,11 +290,14 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
                                 bAveragePrice = bPrices[0];
                             }
                         }
-
                         return aAveragePrice - bAveragePrice;
                     }
                     return 0;
                 });
+            }
+
+            if (query.sortBy === 'price-high-to-low') {
+                // TODO
             }
 
             await prisma.$disconnect();
