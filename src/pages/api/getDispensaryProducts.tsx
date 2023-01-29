@@ -110,6 +110,95 @@ const sortByPromotionProducts = (products: Product[]) => {
     });
 };
 
+const getAveragePrices = (a: Product, b: Product) => {
+    const aPrice: number = (a as any).price;
+    const bPrice: number = (b as any).price;
+    const aPromoPrice = (a as any).promoPrice;
+    const bPromoPrice = (b as any).promoPrice;
+    if (aPrice && bPrice && aPromoPrice && bPromoPrice) {
+        let aAveragePrice;
+        let bAveragePrice;
+
+        const aPrices = (Object.values(aPrice) as any).filter(
+            (pr: any) => typeof pr === 'number',
+        );
+        const bPrices = (Object.values(bPrice) as any).filter(
+            (pr: any) => typeof pr === 'number',
+        );
+        const aPromoPrices = (Object.values(aPromoPrice) as any).filter(
+            (pr: any) => typeof pr === 'number' && pr > 0,
+        );
+        const bPromoPrices = (Object.values(bPromoPrice) as any).filter(
+            (pr: any) => typeof pr === 'number' && pr > 0,
+        );
+
+        if (aPromoPrices.length && bPromoPrices.length) {
+            if (aPromoPrices.length > 1) {
+                aAveragePrice =
+                    aPromoPrices.reduce((a: number, b: number) => a + b, 0) /
+                    aPromoPrices.length;
+            } else {
+                aAveragePrice = aPromoPrices[0];
+            }
+            if (bPromoPrices.length > 1) {
+                bAveragePrice =
+                    bPromoPrices.reduce((a: number, b: number) => a + b, 0) /
+                    bPromoPrices.length;
+            } else {
+                bAveragePrice = bPromoPrices[0];
+            }
+        } else if (!aPromoPrices.length && bPromoPrices.length) {
+            if (aPrices.length > 1) {
+                aAveragePrice =
+                    aPrices.reduce((a: number, b: number) => a + b, 0) /
+                    aPrices.length;
+            } else {
+                aAveragePrice = aPrices[0];
+            }
+            if (bPromoPrices.length > 1) {
+                bAveragePrice =
+                    bPromoPrices.reduce((a: number, b: number) => a + b, 0) /
+                    bPromoPrices.length;
+            } else {
+                bAveragePrice = bPromoPrices[0];
+            }
+        } else if (aPromoPrices.length && !bPromoPrices.length) {
+            if (aPromoPrices.length > 1) {
+                aAveragePrice =
+                    aPromoPrices.reduce((a: number, b: number) => a + b, 0) /
+                    aPromoPrices.length;
+            } else {
+                aAveragePrice = aPromoPrices[0];
+            }
+            if (aPrices.length > 1) {
+                aAveragePrice =
+                    aPrices.reduce((a: number, b: number) => a + b, 0) /
+                    aPrices.length;
+            } else {
+                aAveragePrice = aPrices[0];
+            }
+        } else {
+            if (aPrices.length > 1) {
+                aAveragePrice =
+                    aPrices.reduce((a: number, b: number) => a + b, 0) /
+                    aPrices.length;
+            } else {
+                aAveragePrice = aPrices[0];
+            }
+            if (bPrices.length > 1) {
+                bAveragePrice =
+                    bPrices.reduce((a: number, b: number) => a + b, 0) /
+                    bPrices.length;
+            } else {
+                bAveragePrice = bPrices[0];
+            }
+        }
+        return { aAveragePrice, bAveragePrice };
+    }
+
+    return { aAveragePrice: 0, bAveragePrice: 0 };
+};
+
 const prisma = new PrismaClient();
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
@@ -169,135 +258,47 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
             });
 
             if (query.sortBy === 'thc-low-to-high') {
-                products = products.sort((a, b) => a.thc - b.thc);
+                products = products.sort(
+                    (a, b) => (a.thc as number) - (b.thc as number),
+                );
             }
 
             if (query.sortBy === 'thc-high-to-low') {
-                products = products.sort((a, b) => b.thc - a.thc);
+                products = products.sort(
+                    (a, b) => (b.thc as number) - (a.thc as number),
+                );
             }
 
             if (query.sortBy === 'cbd-low-to-high') {
-                products = products.sort((a, b) => a.cbd - b.cbd);
+                products = products.sort(
+                    (a, b) => (a.cbd as number) - (b.cbd as number),
+                );
             }
 
             if (query.sortBy === 'cbd-high-to-low') {
-                products = products.sort((a, b) => b.cbd - a.cbd);
+                products = products.sort(
+                    (a, b) => (b.cbd as number) - (a.cbd as number),
+                );
             }
 
             if (query.sortBy === 'price-low-to-high') {
                 products = sortByPromotionProducts(products).sort((a, b) => {
-                    const aPrice: number = (a as any).price;
-                    const bPrice: number = (b as any).price;
-                    const aPromoPrice = (a as any).promoPrice;
-                    const bPromoPrice = (b as any).promoPrice;
-                    if (aPrice && bPrice && aPromoPrice && bPromoPrice) {
-                        let aAveragePrice;
-                        let bAveragePrice;
-
-                        const aPrices = (Object.values(aPrice) as any).filter(
-                            (pr: any) => typeof pr === 'number',
-                        );
-                        const bPrices = (Object.values(bPrice) as any).filter(
-                            (pr: any) => typeof pr === 'number',
-                        );
-                        const aPromoPrices = (
-                            Object.values(aPromoPrice) as any
-                        ).filter((pr: any) => typeof pr === 'number' && pr > 0);
-                        const bPromoPrices = (
-                            Object.values(bPromoPrice) as any
-                        ).filter((pr: any) => typeof pr === 'number' && pr > 0);
-
-                        if (aPromoPrices.length && bPromoPrices.length) {
-                            if (aPromoPrices.length > 1) {
-                                aAveragePrice =
-                                    aPromoPrices.reduce(
-                                        (a: number, b: number) => a + b,
-                                        0,
-                                    ) / aPromoPrices.length;
-                            } else {
-                                aAveragePrice = aPromoPrices[0];
-                            }
-                            if (bPromoPrices.length > 1) {
-                                bAveragePrice =
-                                    bPromoPrices.reduce(
-                                        (a: number, b: number) => a + b,
-                                        0,
-                                    ) / bPromoPrices.length;
-                            } else {
-                                bAveragePrice = bPromoPrices[0];
-                            }
-                        } else if (
-                            !aPromoPrices.length &&
-                            bPromoPrices.length
-                        ) {
-                            if (aPrices.length > 1) {
-                                aAveragePrice =
-                                    aPrices.reduce(
-                                        (a: number, b: number) => a + b,
-                                        0,
-                                    ) / aPrices.length;
-                            } else {
-                                aAveragePrice = aPrices[0];
-                            }
-                            if (bPromoPrices.length > 1) {
-                                bAveragePrice =
-                                    bPromoPrices.reduce(
-                                        (a: number, b: number) => a + b,
-                                        0,
-                                    ) / bPromoPrices.length;
-                            } else {
-                                bAveragePrice = bPromoPrices[0];
-                            }
-                        } else if (
-                            aPromoPrices.length &&
-                            !bPromoPrices.length
-                        ) {
-                            if (aPromoPrices.length > 1) {
-                                aAveragePrice =
-                                    aPromoPrices.reduce(
-                                        (a: number, b: number) => a + b,
-                                        0,
-                                    ) / aPromoPrices.length;
-                            } else {
-                                aAveragePrice = aPromoPrices[0];
-                            }
-                            if (aPrices.length > 1) {
-                                aAveragePrice =
-                                    aPrices.reduce(
-                                        (a: number, b: number) => a + b,
-                                        0,
-                                    ) / aPrices.length;
-                            } else {
-                                aAveragePrice = aPrices[0];
-                            }
-                        } else {
-                            if (aPrices.length > 1) {
-                                aAveragePrice =
-                                    aPrices.reduce(
-                                        (a: number, b: number) => a + b,
-                                        0,
-                                    ) / aPrices.length;
-                            } else {
-                                aAveragePrice = aPrices[0];
-                            }
-                            if (bPrices.length > 1) {
-                                bAveragePrice =
-                                    bPrices.reduce(
-                                        (a: number, b: number) => a + b,
-                                        0,
-                                    ) / bPrices.length;
-                            } else {
-                                bAveragePrice = bPrices[0];
-                            }
-                        }
-                        return aAveragePrice - bAveragePrice;
-                    }
-                    return 0;
+                    const { aAveragePrice, bAveragePrice } = getAveragePrices(
+                        a,
+                        b,
+                    );
+                    return aAveragePrice - bAveragePrice;
                 });
             }
 
             if (query.sortBy === 'price-high-to-low') {
-                // TODO
+                products = sortByPromotionProducts(products).sort((a, b) => {
+                    const { aAveragePrice, bAveragePrice } = getAveragePrices(
+                        a,
+                        b,
+                    );
+                    return bAveragePrice - aAveragePrice;
+                });
             }
 
             await prisma.$disconnect();
