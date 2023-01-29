@@ -1,6 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import { PrismaClient } from '@prisma/client';
 import type { Prisma, Product } from '@prisma/client';
+import { PriceOptions } from '../../lib/interfaces';
 
 const generateFilterWhereInput = (
     param: string,
@@ -54,6 +55,19 @@ const generateFilterWhereInput = (
     }
 };
 
+const getProductPrice = (prices: PriceOptions) => {
+    return (
+        prices.halfGram ||
+        prices.gram ||
+        prices.twoGram ||
+        prices.eighthOunce ||
+        prices.quarterOunce ||
+        prices.halfOunce ||
+        prices.ounce ||
+        prices.other
+    );
+};
+
 // For separating promotion products from regular in price sorting
 const sortByPromotionProducts = (products: Product[]) => {
     return products.sort((a, b) => {
@@ -61,42 +75,10 @@ const sortByPromotionProducts = (products: Product[]) => {
         let bPrice = (b as any).price as any;
         let aPromoPrice = (a as any).promoPrice;
         let bPromoPrice = (b as any).promoPrice;
-        aPrice =
-            aPrice.halfGram ||
-            aPrice.gram ||
-            aPrice.twoGram ||
-            aPrice.eighthOunce ||
-            aPrice.quarterOunce ||
-            aPrice.halfOunce ||
-            aPrice.ounce ||
-            aPrice.other;
-        bPrice =
-            bPrice.halfGram ||
-            bPrice.gram ||
-            bPrice.twoGram ||
-            bPrice.eighthOunce ||
-            bPrice.quarterOunce ||
-            bPrice.halfOunce ||
-            bPrice.ounce ||
-            bPrice.other;
-        aPromoPrice =
-            aPromoPrice.halfGram ||
-            aPromoPrice.gram ||
-            aPromoPrice.twoGram ||
-            aPromoPrice.eighthOunce ||
-            aPromoPrice.quarterOunce ||
-            aPromoPrice.halfOunce ||
-            aPromoPrice.ounce ||
-            aPromoPrice.other;
-        bPromoPrice =
-            bPromoPrice.halfGram ||
-            bPromoPrice.gram ||
-            bPromoPrice.twoGram ||
-            bPromoPrice.eighthOunce ||
-            bPromoPrice.quarterOunce ||
-            bPromoPrice.halfOunce ||
-            bPromoPrice.ounce ||
-            bPromoPrice.other;
+        aPrice = getProductPrice(aPrice);
+        bPrice = getProductPrice(bPrice);
+        aPromoPrice = getProductPrice(aPromoPrice);
+        bPromoPrice = getProductPrice(bPromoPrice);
 
         if (aPromoPrice && bPromoPrice) {
             return 0;
