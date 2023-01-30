@@ -4,8 +4,6 @@ import {
     AppShell as MantineAppShell,
     Header,
     createStyles,
-    Navbar,
-    Text,
     Burger,
     MediaQuery,
     Drawer,

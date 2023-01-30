@@ -10,12 +10,10 @@ import sanitizeHtml from 'sanitize-html';
 import { Product } from '../../lib/interfaces';
 import PDPTemplate from '../../components/templates/PDPTemplate';
 
-// function that capitalizes the first letter of a string
 function capitalizeFirstLetter(str: string) {
     return str.charAt(0).toUpperCase() + str.slice(1);
 }
 
-// function that takes a string, replaces all "-" with " ", and capitalizes the first letter of each word
 function formatDashedString(str: string, splitChar = '-') {
     return str
         .split(splitChar)
@@ -23,7 +21,6 @@ function formatDashedString(str: string, splitChar = '-') {
         .join(' ');
 }
 
-// function that takes a string that includes dispensary name and dispenary location separated by a dash, and returns an object with the dispensary name and location. dispensary location may possiblly have a dash in it, so we need to split the string by the first dash and then join the rest of the string back together
 function formatDispensaryName(str: string) {
     const [dispensaryName, ...dispensaryLocation] = str.split('-');
     return {

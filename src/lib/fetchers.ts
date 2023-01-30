@@ -18,14 +18,3 @@ export const getDispensaryProducts = async ({
         return Promise.reject(e);
     }
 };
-
-export const getDispensaryProductDetail = async (id: string) => {
-    try {
-        // const response = await axios.get('/api/getDispensaryProducts');
-        // const data = response.data;
-        // return data;
-    } catch (e) {
-        console.error('Error getting dispensary product detail: ', e);
-        return Promise.reject(e);
-    }
-};

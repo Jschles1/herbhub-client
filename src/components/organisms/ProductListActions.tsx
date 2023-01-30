@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Card, createStyles, Text, Skeleton, Button } from '@mantine/core';
+import { Card, createStyles, Text, Skeleton } from '@mantine/core';
 import SearchInput from '../molecules/SearchInput';
 import SortBy from '../molecules/SortBy';
 

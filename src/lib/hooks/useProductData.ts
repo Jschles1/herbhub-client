@@ -4,7 +4,6 @@ import { getDispensaryProducts } from '../fetchers';
 
 const useProductData = () => {
     const [params] = useQueryParams();
-    // console.log(params);
     return useQuery({
         queryKey: ['getDispensaryProducts', params],
         queryFn: getDispensaryProducts,

@@ -9,7 +9,6 @@ import {
 } from '@tanstack/react-query';
 import AppShell from '../components/organisms/AppShell';
 import { QueryParamsProvider } from '../store';
-import Footer from '../components/molecules/Footer';
 
 export default function App(props: AppProps) {
     const { Component, pageProps } = props;
@@ -48,20 +47,6 @@ export default function App(props: AppProps) {
                                 md: 900,
                                 lg: 1200,
                                 xl: 1440,
-                            },
-                            colors: {
-                                wgreen: [
-                                    '#E9FBF7',
-                                    '#C3F4E7',
-                                    '#9CEDD8',
-                                    '#75E6C9',
-                                    '#4EDFB9',
-                                    '#28D7AA',
-                                    '#20AC88',
-                                    '#188166',
-                                    '#105644',
-                                    '#082B22',
-                                ],
                             },
                             primaryColor: 'gray',
                         }}

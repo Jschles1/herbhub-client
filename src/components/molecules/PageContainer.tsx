@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { createStyles } from '@mantine/core';
 
-const useStyles = createStyles((theme) => ({
+const useStyles = createStyles(() => ({
     root: {
         maxWidth: '1440px',
         margin: '0 auto',

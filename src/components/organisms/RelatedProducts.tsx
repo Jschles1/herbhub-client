@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { createStyles, Card, Text } from '@mantine/core';
+import { createStyles, Text } from '@mantine/core';
 import Carousel from 'react-multi-carousel';
 import 'react-multi-carousel/lib/styles.css';
 import { Product } from '../../lib/interfaces';

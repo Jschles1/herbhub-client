@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Header as MantineHeader, createStyles, Drawer } from '@mantine/core';
+import { Header as MantineHeader, createStyles } from '@mantine/core';
 import Logo from '../atoms/Logo';
 
 const useStyles = createStyles((theme) => ({
