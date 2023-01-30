@@ -106,6 +106,16 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
         take: 6,
     });
 
+    console.log({
+        props: {
+            product,
+            relatedProducts,
+            seoProductName: strain,
+            seoDispensaryName: dispensaryName,
+            seoDispensaryLocation: dispensaryLocation,
+        },
+    });
+
     return {
         props: {
             product,
