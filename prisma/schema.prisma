@@ -7,45 +7,90 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-type PriceOptions {
-  id                     String
-  halfGram               Float?
-  gram                   Float?
-  twoGram                Float?
-  eighthOunce            Float?
-  quarterOunce           Float?
-  halfOunce              Float?
-  ounce                  Float?
-  other                  Float?
+type ProductPrice {
+  eighthOunce            Int?
+  gram                   Int?
+  halfGram               Int?
+  halfOunce              Int?
+  id                     String @db.ObjectId
+  other                  Int?
+  ounce                  Int?
+  productWithNormalPrice String @db.ObjectId
+  productWithPromoPrice  String @db.ObjectId
+  quarterOunce           Int?
+  twoGram                Int?
 }
 
-type PromoPriceOptions {
-  id                     String
-  halfGram               Float?
-  gram                   Float?
-  twoGram                Float?
-  eighthOunce            Float?
-  quarterOunce           Float?
-  halfOunce              Float?
-  ounce                  Float?
-  other                  Float?
+type ProductPromoPrice {
+  /// Multiple data types found: Float: 3.4%, Int: 96.6% out of 614 sampled entries
+  eighthOunce  Json?
+  gram         Int?
+  /// Multiple data types found: Float: 1.5%, Int: 98.5% out of 480 sampled entries
+  halfGram     Json?
+  halfOunce    Int?
+  id           String @db.ObjectId
+  /// Multiple data types found: Float: 18.3%, Int: 81.7% out of 93 sampled entries
+  other        Json?
+  ounce        Int?
+  /// Multiple data types found: Float: 0.7%, Int: 99.3% out of 422 sampled entries
+  quarterOunce Json?
+  twoGram      Int?
+}
+
+type ProductReviewStats {
+  /// Multiple data types found: Float: 17.6%, Int: 82.4% out of 159 sampled entries
+  averageRating Json
+  totalRatings  Int
+}
+
+model PriceOptions {
+  id              String @id @default(auto()) @map("_id") @db.ObjectId
+  eighthOunce     Float?
+  gram            Float?
+  halfGram        Float?
+  halfOunce       Float?
+  other           Float?
+  ounce           Float?
+  productNormalId String @db.ObjectId
+  quarterOunce    Float?
+  twoGram         Float?
 }
 
 model Product {
-  id                 String        @id @default(auto()) @map("_id") @db.ObjectId
-  dispensaryName     String
+  id                 String              @id @default(auto()) @map("_id") @db.ObjectId
+  brand              String
+  categoryType       String
+  /// Multiple data types found: Float: 5.3%, Int: 94.7% out of 1000 sampled entries
+  cbd                Json
+  description        String
   dispensaryLocation String
+  dispensaryName     String
+  id_                String              @map("id") @db.ObjectId
+  image              String?
+  price              ProductPrice
+  promoPrice         ProductPromoPrice
+  quantity           Int?
+  reviewStats        ProductReviewStats?
   strain             String
   strainType         String
-  categoryType       String
-  description        String
+  /// Multiple data types found: Float: 14.9%, Int: 85.1% out of 1000 sampled entries
+  thc                Json
+  url                String
   weight             String[]
-  thc                Float?
-  cbd                Float?
-  price              PriceOptions
-  promoPrice         PromoPriceOptions
-  quantity           Int?
-  image              String?
-  brand              String
-  url                String?
+}
+
+model PromoPriceOptions {
+  id             String @id @default(auto()) @map("_id") @db.ObjectId
+  eighthOunce    Float?
+  gram           Float?
+  halfGram       Float?
+  /// Could not determine type: the field only had null or empty values in the sample set.
+  halfOunce      Json?
+  other          Float?
+  /// Could not determine type: the field only had null or empty values in the sample set.
+  ounce          Json?
+  productPromoId String @db.ObjectId
+  quarterOunce   Float?
+  /// Could not determine type: the field only had null or empty values in the sample set.
+  twoGram        Json?
 }
