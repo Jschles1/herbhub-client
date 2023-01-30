@@ -1,10 +1,42 @@
 import * as React from 'react';
 import { Checkbox, createStyles, Card, Text } from '@mantine/core';
+import { event } from 'nextjs-google-analytics';
 import { useQueryParams } from '../../store';
 import { CATEGORY_FILTERS } from '../../lib/constants';
-import { useEffect } from 'react';
 
-const useStyles = createStyles((theme) => ({
+const getCategoryFilterEventParams = (payload: {
+    value: string;
+    checked: boolean;
+}) => {
+    const { value, checked } = payload;
+    const splitParams = value.split('/');
+    let category: string;
+    const label: string = splitParams[1];
+    switch (splitParams[0]) {
+        case 'str':
+            category = 'Strain Type';
+            break;
+        case 'br':
+            category = 'Brand';
+            break;
+        case 'type':
+            category = 'Product Type';
+            break;
+        case 'loc':
+            category = 'Dispensary';
+            break;
+        default:
+            category = 'Unknown';
+            break;
+    }
+    return {
+        category,
+        action: checked ? 'checked' : 'unchecked',
+        label,
+    };
+};
+
+const useStyles = createStyles(() => ({
     root: {
         overflow: 'unset',
     },
@@ -39,9 +71,11 @@ const CategoryFilter = () => {
         }
 
         dispatch({ type: 'filter', payload });
+
+        event('CategoryFilter', getCategoryFilterEventParams(payload));
     };
 
-    useEffect(() => {
+    React.useEffect(() => {
         checkboxRefs.current = checkboxRefs.current.slice(
             0,
             CATEGORY_FILTERS.length,
