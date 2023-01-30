@@ -32,10 +32,11 @@ export const getProductPrices = (product: Product) => {
     let promoPrice: number = 0;
     let weight = product.weight[0];
     const prices =
-        product.price &&
-        Object.values(product.price).filter(
-            (el) => el && typeof el !== 'string',
-        );
+        (product.price &&
+            Object.values(product.price).filter(
+                (el) => el && typeof el !== 'string',
+            )) ||
+        [];
     const promoPrices =
         (product.promoPrice &&
             Object.values(product.promoPrice).filter(
