@@ -1,5 +1,6 @@
 import * as React from 'react';
-import { Card, createStyles, Text, Image, MediaQuery } from '@mantine/core';
+import { Card, createStyles, Text, MediaQuery } from '@mantine/core';
+import Image from 'next/image';
 import { Product } from '../../lib/interfaces';
 import {
     mapProductImage,
@@ -73,7 +74,7 @@ const ProductListItem: React.FC<Props> = ({ product }) => {
     const cbdInfo = product.cbd ? ` - CBD: %${product.cbd.toFixed(2)}` : '';
 
     if (product.weight.length > 1) {
-        console.log({ weight: product.weight });
+        // console.log({ weight: product.weight });
     }
 
     return (
@@ -88,8 +89,7 @@ const ProductListItem: React.FC<Props> = ({ product }) => {
                 src={mapProductImage(product)}
                 width={100}
                 height={100}
-                pb="0.75rem"
-                imageProps={{ srcSet: mapProductImage(product) }}
+                priority
                 alt={product.strain}
             />
 

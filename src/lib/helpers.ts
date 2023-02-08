@@ -23,7 +23,7 @@ export const mapProductImage = (product: Product) => {
         case 'topical':
             return '/icons/icons8-cream-64.png';
         default:
-            break;
+            return '';
     }
 };
 

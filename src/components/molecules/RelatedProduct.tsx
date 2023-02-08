@@ -1,5 +1,6 @@
 import * as React from 'react';
-import { createStyles, Text, Card, Image } from '@mantine/core';
+import { createStyles, Text, Card } from '@mantine/core';
+import Image from 'next/image';
 import { Product } from '../../lib/interfaces';
 import {
     mapProductImage,
@@ -20,6 +21,11 @@ const useStyles = createStyles((theme) => ({
         marginTop: theme.spacing.md,
         marginBottom: 0,
     },
+    image: {
+        position: 'relative',
+        height: '100%',
+        width: '100%',
+    },
 }));
 
 interface Props {
@@ -28,6 +34,9 @@ interface Props {
 
 const RelatedProduct: React.FC<Props> = ({ product }) => {
     const { classes } = useStyles();
+    const ref = React.useRef<HTMLAnchorElement>(null);
+    const [height, setHeight] = React.useState(0);
+    const [width, setWidth] = React.useState(0);
     const productUrl = getProductUrl(product);
     const prices = getProductPrices(product);
     const hasSalePrice =
@@ -36,6 +45,13 @@ const RelatedProduct: React.FC<Props> = ({ product }) => {
     const thcInfo = product.thc ? ` - THC: %${product.thc.toFixed(2)}` : '';
     const cbdInfo = product.cbd ? ` - CBD: %${product.cbd.toFixed(2)}` : '';
 
+    React.useEffect(() => {
+        if (ref.current) {
+            setHeight(ref.current?.offsetHeight + 32);
+            setWidth(ref.current?.offsetWidth - 32);
+        }
+    }, [ref]);
+
     return (
         <Card
             component="a"
@@ -43,14 +59,14 @@ const RelatedProduct: React.FC<Props> = ({ product }) => {
             className={classes.root}
             shadow="sm"
             withBorder
+            ref={ref}
         >
             <Image
                 src={mapProductImage(product)}
-                width="100%"
-                height="100%"
-                pb="0.75rem"
-                imageProps={{ srcSet: mapProductImage(product) }}
+                height={height}
+                width={width}
                 alt={product.strain}
+                priority
             />
             <ProductInfoBadges product={product} hasSalePrice={hasSalePrice} />
             <Text weight="bold" className={classes.topSpacing}>

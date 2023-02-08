@@ -1,13 +1,7 @@
 import * as React from 'react';
-import {
-    Card,
-    Container,
-    createStyles,
-    Image,
-    Button,
-    Text,
-} from '@mantine/core';
+import { Card, Container, createStyles, Button, Text } from '@mantine/core';
 import Link from 'next/link';
+import Image from 'next/image';
 import { mapProductImage, getProductPrices } from '../../lib/helpers';
 import { Product } from '../../lib/interfaces';
 import RelatedProducts from '../organisms/RelatedProducts';
@@ -91,7 +85,7 @@ const PDPTemplate: React.FC<Props> = ({ product, relatedProducts }) => {
                     <div className={classes.imageContainer}>
                         <Image
                             src={mapProductImage(product)}
-                            imageProps={{ srcSet: mapProductImage(product) }}
+                            priority
                             alt={product.strain}
                             height={imageDimensions}
                             width={imageDimensions}
