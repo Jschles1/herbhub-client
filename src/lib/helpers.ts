@@ -70,8 +70,6 @@ export const getProductUrl = (product: Product) => {
             '-' +
             product.dispensaryLocation.toLowerCase(),
     );
-    const productSlug = encodeURIComponent(
-        product.strain.toLowerCase().replaceAll(' ', '-'),
-    );
+    const productSlug = encodeURIComponent(product.strain.replaceAll(' ', '-'));
     return `/${dispensarySlug}/${productSlug}`;
 };
