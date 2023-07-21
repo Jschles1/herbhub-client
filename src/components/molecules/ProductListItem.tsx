@@ -73,7 +73,7 @@ const ProductListItem: React.FC<Props> = ({ product }) => {
     const thcInfo = product.thc ? ` - THC: %${product.thc.toFixed(2)}` : '';
     const cbdInfo = product.cbd ? ` - CBD: %${product.cbd.toFixed(2)}` : '';
 
-    if (product.weight.length > 1) {
+    if (product.prices.length > 1) {
         // console.log({ weight: product.weight });
     }
 

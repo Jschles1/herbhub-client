@@ -11,6 +11,8 @@ export interface Product {
     cbd?: number;
     promoPrice?: PriceOptions;
     price: PriceOptions;
+    lowestPrice: number;
+    prices: ProductPrice[];
     quantity?: number;
     image?: string;
     brand: string;
@@ -19,6 +21,13 @@ export interface Product {
         averageRating: number;
     };
     url?: string;
+}
+
+export interface ProductPrice {
+    weight: number | string;
+    unit: string;
+    normal_price: number;
+    promo_price?: number;
 }
 
 export interface PriceOptions {

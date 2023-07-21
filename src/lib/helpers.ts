@@ -28,34 +28,17 @@ export const mapProductImage = (product: Product) => {
 };
 
 export const getProductPrices = (product: Product) => {
-    let price: number = 0;
-    let promoPrice: number = 0;
-    let weight = product.weight[0];
-    const prices =
-        (product.price &&
-            Object.values(product.price).filter(
-                (el) => el && typeof el !== 'string',
-            )) ||
-        [];
-    const promoPrices =
-        (product.promoPrice &&
-            Object.values(product.promoPrice).filter(
-                (el) => el && typeof el !== 'string',
-            )) ||
-        [];
-    if (prices.length === 1) {
-        price = prices[0];
-    } else if (prices.length > 1) {
-        console.warn(prices);
-        // TODO
+    const { prices } = product;
+
+    // TODO: Add logic to handle products with multiple weights
+    if (prices.length > 1) {
+        console.log('Multiple prices found', product);
     }
 
-    if (promoPrices.length === 1) {
-        promoPrice = promoPrices[0];
-    } else if (promoPrices.length > 1) {
-        console.warn(promoPrices);
-        // TODO
-    }
+    const basePrice = prices[0];
+    const price = basePrice.normal_price;
+    const promoPrice = basePrice?.promo_price || 0;
+    const weight = basePrice.unit;
 
     return {
         price: price.toFixed(2),

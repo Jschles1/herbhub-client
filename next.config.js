@@ -9,6 +9,11 @@ const nextConfig = {
             's3-us-west-2.amazonaws.com',
             'product-assets.iheartjane.com',
             'uploads.iheartjane.com',
+            'images.dutchie.com',
+            'leafly-public.s3-us-west-2.amazonaws.com',
+            'tymber-blaze-products.imgix.net',
+            'tymber-blaze-categories.imgix.net',
+            'leafly-public.imgix.net',
         ],
     },
 };

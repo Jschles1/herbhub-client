@@ -1,7 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import { PrismaClient } from '@prisma/client';
 import type { Prisma, Product } from '@prisma/client';
-import { PriceOptions } from '../../lib/interfaces';
+import { PriceOptions, ProductPrice } from '../../lib/interfaces';
 
 const generateFilterWhereInput = (
     param: string,
@@ -55,30 +55,13 @@ const generateFilterWhereInput = (
     }
 };
 
-const getProductPrice = (prices: PriceOptions) => {
-    return (
-        prices.halfGram ||
-        prices.gram ||
-        prices.twoGram ||
-        prices.eighthOunce ||
-        prices.quarterOunce ||
-        prices.halfOunce ||
-        prices.ounce ||
-        prices.other
-    );
-};
-
 // For separating promotion products from regular in price sorting
 const sortByPromotionProducts = (products: Product[]) => {
     return products.sort((a, b) => {
-        let aPrice = (a as any).price as any;
-        let bPrice = (b as any).price as any;
-        let aPromoPrice = (a as any).promoPrice;
-        let bPromoPrice = (b as any).promoPrice;
-        aPrice = getProductPrice(aPrice);
-        bPrice = getProductPrice(bPrice);
-        aPromoPrice = getProductPrice(aPromoPrice);
-        bPromoPrice = getProductPrice(bPromoPrice);
+        const aPriceObj = (a.prices as unknown as ProductPrice[])[0];
+        const bPriceObj = (b.prices as unknown as ProductPrice[])[0];
+        const aPromoPrice = aPriceObj?.promo_price || 0;
+        const bPromoPrice = bPriceObj?.promo_price || 0;
 
         if (aPromoPrice && bPromoPrice) {
             return 0;

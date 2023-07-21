@@ -91,10 +91,6 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
                 mode: 'insensitive',
             },
         },
-        include: {
-            price: true,
-            promoPrice: true,
-        },
         take: 6,
     });
 
@@ -126,8 +122,8 @@ const ProductPage: NextPage = ({
     seoDispensaryName,
     seoProductName,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
-    const p = product as Product;
-    const relatedPs = relatedProducts as Product[];
+    const p = product as unknown as Product;
+    const relatedPs = relatedProducts as unknown as Product[];
     return (
         <>
             <Head>
