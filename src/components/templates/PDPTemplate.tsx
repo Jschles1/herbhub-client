@@ -2,7 +2,11 @@ import * as React from 'react';
 import { Card, Container, createStyles, Button, Text } from '@mantine/core';
 import Link from 'next/link';
 import Image from 'next/image';
-import { mapProductImage, getProductPrices } from '../../lib/helpers';
+import {
+    mapProductImage,
+    getProductPrices,
+    parseProductWeightUnit,
+} from '../../lib/helpers';
 import { Product } from '../../lib/interfaces';
 import RelatedProducts from '../organisms/RelatedProducts';
 import ProductInfoBadges from '../molecules/ProductInfoBadges';
@@ -137,10 +141,9 @@ const PDPTemplate: React.FC<Props> = ({ product, relatedProducts }) => {
                                 strikethrough={hasSalePrice}
                             >{`$${prices.price}`}</Text>
 
-                            <Text
-                                component="span"
-                                weight="normal"
-                            >{` per ${prices.weight}`}</Text>
+                            <Text component="span" weight="normal">
+                                {parseProductWeightUnit(prices.weight)}
+                            </Text>
                         </Text>
 
                         <PDPStrainInfo product={product} />
@@ -151,6 +154,7 @@ const PDPTemplate: React.FC<Props> = ({ product, relatedProducts }) => {
                         <Text
                             className={classes.topSpacing}
                             dangerouslySetInnerHTML={{
+                                // Description already sanitized from server
                                 __html: product.description,
                             }}
                         />

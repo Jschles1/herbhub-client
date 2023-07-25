@@ -6,6 +6,7 @@ import {
     mapProductImage,
     getProductUrl,
     getProductPrices,
+    parseProductWeightUnit,
 } from '../../lib/helpers';
 import ProductInfoBadges from './ProductInfoBadges';
 
@@ -84,10 +85,9 @@ const RelatedProduct: React.FC<Props> = ({ product }) => {
                     strikethrough={hasSalePrice}
                 >{`$${prices.price}`}</Text>
 
-                <Text
-                    component="span"
-                    weight="normal"
-                >{` per ${prices.weight}`}</Text>
+                <Text component="span" weight="normal">
+                    {parseProductWeightUnit(prices.weight)}
+                </Text>
             </Text>
             <Text
                 size={12}

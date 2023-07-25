@@ -6,6 +6,7 @@ import {
     mapProductImage,
     getProductPrices,
     getProductUrl,
+    parseProductWeightUnit,
 } from '../../lib/helpers';
 import ProductInfoBadges from './ProductInfoBadges';
 
@@ -121,10 +122,9 @@ const ProductListItem: React.FC<Props> = ({ product }) => {
                                     strikethrough={hasSalePrice}
                                 >{`$${prices.price}`}</Text>
 
-                                <Text
-                                    component="span"
-                                    weight="normal"
-                                >{` per ${prices.weight}`}</Text>
+                                <Text component="span" weight="normal">
+                                    {parseProductWeightUnit(prices.weight)}
+                                </Text>
                             </Text>
                         </div>
                     </MediaQuery>
@@ -167,10 +167,9 @@ const ProductListItem: React.FC<Props> = ({ product }) => {
                                 className={classes.inlineText}
                             >
                                 {`$${prices.promoPrice}`}
-                                <Text
-                                    component="span"
-                                    weight="normal"
-                                >{` per ${prices.weight}`}</Text>
+                                <Text component="span" weight="normal">
+                                    {parseProductWeightUnit(prices.weight)}
+                                </Text>
                             </Text>
                         )}
                         <Text
@@ -180,10 +179,9 @@ const ProductListItem: React.FC<Props> = ({ product }) => {
                             strikethrough={hasSalePrice}
                         >
                             {`$${prices.price}`}
-                            <Text
-                                component="span"
-                                weight="normal"
-                            >{` per ${prices.weight}`}</Text>
+                            <Text component="span" weight="normal">
+                                {parseProductWeightUnit(prices.weight)}
+                            </Text>
                         </Text>
                     </div>
                 </MediaQuery>

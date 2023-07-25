@@ -27,6 +27,14 @@ export const mapProductImage = (product: Product) => {
     }
 };
 
+export const parseProductWeightUnit = (weight: string) => {
+    if (weight === 'each') {
+        return ` ${weight}`;
+    } else {
+        return ` per ${weight}`;
+    }
+};
+
 export const getProductPrices = (product: Product) => {
     const { prices } = product;
 
