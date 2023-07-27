@@ -22,6 +22,8 @@ const ProductList: React.FC<Props> = ({ products = [] }) => {
         (activePage - 1) * 20 + 20,
     );
 
+    const hasPages = pages > 1;
+
     if (isLoading || isFetching) {
         return (
             <Stack>
@@ -43,7 +45,7 @@ const ProductList: React.FC<Props> = ({ products = [] }) => {
                     <ProductListItem product={product} key={product.id} />
                 ))}
             </Stack>
-            {!!products.length && (
+            {hasPages && (
                 <Pagination
                     page={activePage}
                     onChange={setPage}
