@@ -59,6 +59,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
             },
             strain: {
                 equals: strain,
+                mode: 'insensitive',
             },
         },
     });
