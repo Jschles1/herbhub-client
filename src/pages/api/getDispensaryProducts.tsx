@@ -88,19 +88,40 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
             }
 
             if (query.sortBy) {
+                const orderByInput: Prisma.ProductOrderByWithRelationInput = {};
                 switch (query.sortBy) {
                     case 'alphabetical':
-                        const input: Prisma.ProductOrderByWithRelationInput = {
-                            strain: 'asc',
-                        };
-                        orderByInputs.push(input);
+                        orderByInput.strain = 'asc';
+                        orderByInputs.push(orderByInput);
+                        break;
+                    case 'price-low-to-high':
+                        orderByInput.lowestPrice = 'asc';
+                        orderByInputs.push(orderByInput);
+                        break;
+                    case 'price-high-to-low':
+                        orderByInput.lowestPrice = 'desc';
+                        orderByInputs.push(orderByInput);
                         break;
                     case 'thc-low-to-high':
+                        whereInput.thc = { not: 0 };
+                        orderByInput.thc = 'asc';
+                        orderByInputs.push(orderByInput);
+                        break;
                     case 'thc-high-to-low':
                         whereInput.thc = { not: 0 };
+                        orderByInput.thc = 'desc';
+                        orderByInputs.push(orderByInput);
+                        break;
                     case 'cbd-low-to-high':
+                        whereInput.cbd = { not: 0 };
+                        orderByInput.cbd = 'asc';
+                        orderByInputs.push(orderByInput);
+                        break;
                     case 'cbd-high-to-low':
                         whereInput.cbd = { not: 0 };
+                        orderByInput.cbd = 'desc';
+                        orderByInputs.push(orderByInput);
+                        break;
                     default:
                         break;
                 }
@@ -111,42 +132,6 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
                 where: whereInput,
                 orderBy: orderByInputs,
             });
-
-            if (query.sortBy === 'thc-low-to-high') {
-                products = products.sort(
-                    (a, b) => (a.thc as number) - (b.thc as number),
-                );
-            }
-
-            if (query.sortBy === 'thc-high-to-low') {
-                products = products.sort(
-                    (a, b) => (b.thc as number) - (a.thc as number),
-                );
-            }
-
-            if (query.sortBy === 'cbd-low-to-high') {
-                products = products.sort(
-                    (a, b) => (a.cbd as number) - (b.cbd as number),
-                );
-            }
-
-            if (query.sortBy === 'cbd-high-to-low') {
-                products = products.sort(
-                    (a, b) => (b.cbd as number) - (a.cbd as number),
-                );
-            }
-
-            if (query.sortBy === 'price-low-to-high') {
-                products = products.sort(
-                    (a, b) => a.lowestPrice - b.lowestPrice,
-                );
-            }
-
-            if (query.sortBy === 'price-high-to-low') {
-                products = products.sort(
-                    (a, b) => b.lowestPrice - a.lowestPrice,
-                );
-            }
 
             await prisma.$disconnect();
             res.status(200).json({ products });
