@@ -1,7 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import { PrismaClient } from '@prisma/client';
-import type { Prisma, Product } from '@prisma/client';
-import { PriceOptions, ProductPrice } from '../../lib/interfaces';
+import type { Prisma } from '@prisma/client';
 
 const generateFilterWhereInput = (
     param: string,
@@ -53,125 +52,6 @@ const generateFilterWhereInput = (
         default:
             break;
     }
-};
-
-// For separating promotion products from regular in price sorting
-const sortByPromotionProducts = (products: Product[]) => {
-    return products.sort((a, b) => {
-        const aPriceObj = (a.prices as unknown as ProductPrice[])[0];
-        const bPriceObj = (b.prices as unknown as ProductPrice[])[0];
-        const aPromoPrice = aPriceObj?.promo_price || 0;
-        const bPromoPrice = bPriceObj?.promo_price || 0;
-
-        if (aPromoPrice && bPromoPrice) {
-            return 0;
-        } else if (aPromoPrice && !bPromoPrice) {
-            return -1;
-        } else if (!aPromoPrice && bPromoPrice) {
-            return 1;
-        } else {
-            return 0;
-        }
-    });
-};
-
-const getAveragePrices = (a: Product, b: Product) => {
-    if (a && b) {
-        const aPrice: number = (a as any).price;
-        const bPrice: number = (b as any).price;
-        const aPromoPrice = (a as any).promoPrice;
-        const bPromoPrice = (b as any).promoPrice;
-        if (aPrice && bPrice && aPromoPrice && bPromoPrice) {
-            let aAveragePrice;
-            let bAveragePrice;
-
-            const aPrices = (Object.values(aPrice) as any).filter(
-                (pr: any) => typeof pr === 'number',
-            );
-            const bPrices = (Object.values(bPrice) as any).filter(
-                (pr: any) => typeof pr === 'number',
-            );
-            const aPromoPrices = (Object.values(aPromoPrice) as any).filter(
-                (pr: any) => typeof pr === 'number' && pr > 0,
-            );
-            const bPromoPrices = (Object.values(bPromoPrice) as any).filter(
-                (pr: any) => typeof pr === 'number' && pr > 0,
-            );
-
-            if (aPromoPrices.length && bPromoPrices.length) {
-                if (aPromoPrices.length > 1) {
-                    aAveragePrice =
-                        aPromoPrices.reduce(
-                            (a: number, b: number) => a + b,
-                            0,
-                        ) / aPromoPrices.length;
-                } else {
-                    aAveragePrice = aPromoPrices[0];
-                }
-                if (bPromoPrices.length > 1) {
-                    bAveragePrice =
-                        bPromoPrices.reduce(
-                            (a: number, b: number) => a + b,
-                            0,
-                        ) / bPromoPrices.length;
-                } else {
-                    bAveragePrice = bPromoPrices[0];
-                }
-            } else if (!aPromoPrices.length && bPromoPrices.length) {
-                if (aPrices.length > 1) {
-                    aAveragePrice =
-                        aPrices.reduce((a: number, b: number) => a + b, 0) /
-                        aPrices.length;
-                } else {
-                    aAveragePrice = aPrices[0];
-                }
-                if (bPromoPrices.length > 1) {
-                    bAveragePrice =
-                        bPromoPrices.reduce(
-                            (a: number, b: number) => a + b,
-                            0,
-                        ) / bPromoPrices.length;
-                } else {
-                    bAveragePrice = bPromoPrices[0];
-                }
-            } else if (aPromoPrices.length && !bPromoPrices.length) {
-                if (aPromoPrices.length > 1) {
-                    aAveragePrice =
-                        aPromoPrices.reduce(
-                            (a: number, b: number) => a + b,
-                            0,
-                        ) / aPromoPrices.length;
-                } else {
-                    aAveragePrice = aPromoPrices[0];
-                }
-                if (aPrices.length > 1) {
-                    aAveragePrice =
-                        aPrices.reduce((a: number, b: number) => a + b, 0) /
-                        aPrices.length;
-                } else {
-                    aAveragePrice = aPrices[0];
-                }
-            } else {
-                if (aPrices.length > 1) {
-                    aAveragePrice =
-                        aPrices.reduce((a: number, b: number) => a + b, 0) /
-                        aPrices.length;
-                } else {
-                    aAveragePrice = aPrices[0];
-                }
-                if (bPrices.length > 1) {
-                    bAveragePrice =
-                        bPrices.reduce((a: number, b: number) => a + b, 0) /
-                        bPrices.length;
-                } else {
-                    bAveragePrice = bPrices[0];
-                }
-            }
-            return { aAveragePrice, bAveragePrice };
-        }
-    }
-
-    return { aAveragePrice: 0, bAveragePrice: 0 };
 };
 
 const prisma = new PrismaClient();
@@ -257,23 +137,15 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
             }
 
             if (query.sortBy === 'price-low-to-high') {
-                products = sortByPromotionProducts(products).sort((a, b) => {
-                    const { aAveragePrice, bAveragePrice } = getAveragePrices(
-                        a,
-                        b,
-                    );
-                    return aAveragePrice - bAveragePrice;
-                });
+                products = products.sort(
+                    (a, b) => a.lowestPrice - b.lowestPrice,
+                );
             }
 
             if (query.sortBy === 'price-high-to-low') {
-                products = sortByPromotionProducts(products).sort((a, b) => {
-                    const { aAveragePrice, bAveragePrice } = getAveragePrices(
-                        a,
-                        b,
-                    );
-                    return bAveragePrice - aAveragePrice;
-                });
+                products = products.sort(
+                    (a, b) => b.lowestPrice - a.lowestPrice,
+                );
             }
 
             await prisma.$disconnect();
