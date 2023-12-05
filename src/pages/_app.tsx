@@ -7,7 +7,6 @@ import {
     QueryClient,
     QueryClientProvider,
 } from '@tanstack/react-query';
-import { GoogleAnalytics } from 'nextjs-google-analytics';
 import AppShell from '../components/organisms/AppShell';
 import { QueryParamsProvider } from '../store';
 
@@ -54,7 +53,6 @@ export default function App(props: AppProps) {
                     >
                         <QueryParamsProvider>
                             <AppShell>
-                                <GoogleAnalytics trackPageViews />
                                 <Component {...pageProps} />
                             </AppShell>
                         </QueryParamsProvider>
