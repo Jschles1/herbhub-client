@@ -14,6 +14,8 @@ const nextConfig = {
             'tymber-blaze-products.imgix.net',
             'tymber-blaze-categories.imgix.net',
             'leafly-public.imgix.net',
+            'harmony-dispensary.s3.amazonaws.com',
+            'imagedelivery.net',
         ],
     },
 };
