@@ -19,3 +19,4 @@ Visit the production website here: [https://herbhub-client.vercel.app/](https://
 -   Add pagination for data fetching to improve initial load
 -   Generate filter options via ISR API call
 -   Add ISR for PDP's
+-   Add age verification modal
