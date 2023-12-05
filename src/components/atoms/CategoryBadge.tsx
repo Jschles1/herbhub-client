@@ -5,7 +5,6 @@ const CategoryBadge: React.FC<{ categoryType: string }> = ({
     categoryType,
 }) => {
     let color;
-    // console.log({ categoryType: categoryType.toLowerCase() });
     switch (categoryType.toLowerCase()) {
         case 'pre-rolls':
         case 'pre_rolls':
@@ -17,6 +16,7 @@ const CategoryBadge: React.FC<{ categoryType: string }> = ({
             color = 'lime';
             break;
         case 'cartridges':
+        case 'cartridge':
         case 'vape':
         case 'vaporizers':
             color = 'orange';
