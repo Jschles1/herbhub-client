@@ -8,6 +8,7 @@ import {
     QueryClientProvider,
 } from '@tanstack/react-query';
 import AppShell from '../components/organisms/AppShell';
+import AgeVerificationModal from '../components/organisms/AgeVerificationModal';
 import { QueryParamsProvider } from '../store';
 
 export default function App(props: AppProps) {
@@ -53,6 +54,7 @@ export default function App(props: AppProps) {
                     >
                         <QueryParamsProvider>
                             <AppShell>
+                                <AgeVerificationModal />
                                 <Component {...pageProps} />
                             </AppShell>
                         </QueryParamsProvider>
