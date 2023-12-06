@@ -16,7 +16,7 @@ const useStyles = createStyles((theme) => ({
     },
     skeleton: {
         float: 'right',
-        [`@media (max-width: ${theme.breakpoints.md}px)`]: {
+        [`@media (max-width: ${theme.breakpoints.sm}px)`]: {
             float: 'none',
         },
     },
@@ -24,7 +24,7 @@ const useStyles = createStyles((theme) => ({
         flex: 1,
         textAlign: 'right',
         alignSelf: 'center',
-        [`@media (max-width: ${theme.breakpoints.md}px)`]: {
+        [`@media (max-width: ${theme.breakpoints.sm}px)`]: {
             textAlign: 'left',
             marginTop: '1rem',
         },

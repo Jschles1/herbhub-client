@@ -16,7 +16,7 @@ const useStyles = createStyles((theme) => ({
     root: {
         width: 300,
         marginRight: '1rem',
-        [`@media (max-width: ${theme.breakpoints.md}px)`]: {
+        [`@media (max-width: ${theme.breakpoints.sm}px)`]: {
             width: 'auto',
             marginRight: 0,
             marginBottom: '1rem',
