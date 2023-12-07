@@ -15,10 +15,21 @@ function capitalizeFirstLetter(str: string) {
 }
 
 function formatDashedString(str: string, splitChar = '-') {
-    return str
+    const hasDash = splitChar === '-' && str.includes('---');
+    if (hasDash) {
+        str = str.replace('---', '***');
+    }
+
+    let finalString = str
         .split(splitChar)
         .map((word) => capitalizeFirstLetter(word))
         .join(' ');
+
+    if (hasDash) {
+        finalString = finalString.replace('***', ' - ');
+    }
+
+    return finalString;
 }
 
 function formatDispensaryName(str: string) {
@@ -28,6 +39,8 @@ function formatDispensaryName(str: string) {
         dispensaryLocation: dispensaryLocation.join('-'),
     };
 }
+
+const prisma = new PrismaClient();
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
     let { strain, dispensary } = context.query;
@@ -45,21 +58,16 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
         };
     }
 
-    const prisma = new PrismaClient();
-
     const product = await prisma.product.findFirst({
         where: {
             dispensaryName: {
                 equals: dispensaryName,
-                mode: 'insensitive',
             },
             dispensaryLocation: {
                 equals: dispensaryLocation,
-                mode: 'insensitive',
             },
             strain: {
                 equals: strain,
-                mode: 'insensitive',
             },
         },
     });
@@ -104,6 +112,8 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
             seoDispensaryLocation: dispensaryLocation,
         },
     });
+
+    await prisma.$disconnect();
 
     return {
         props: {
