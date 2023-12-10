@@ -5,7 +5,7 @@ import Link from 'next/link';
 const Logo = () => {
     const theme = useMantineTheme();
     return (
-        <Text>
+        <Text size="xl">
             <Link
                 href="/"
                 style={{
@@ -14,7 +14,7 @@ const Logo = () => {
                     fontWeight: 'bold',
                 }}
             >
-                HerbHub NJ
+                Jersey Herbhub
             </Link>
         </Text>
     );
