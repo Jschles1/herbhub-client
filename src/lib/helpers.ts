@@ -44,8 +44,8 @@ export const getProductPrices = (product: Product) => {
     }
 
     const basePrice = prices[0];
-    const price = basePrice.normal_price;
-    const promoPrice = basePrice?.promo_price || 0;
+    const price = basePrice.normalPrice;
+    const promoPrice = basePrice?.promoPrice || 0;
     const weight = basePrice.unit;
 
     return {

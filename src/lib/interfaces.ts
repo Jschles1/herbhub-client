@@ -26,8 +26,8 @@ export interface Product {
 export interface ProductPrice {
     weight: number | string;
     unit: string;
-    normal_price: number;
-    promo_price?: number;
+    normalPrice: number;
+    promoPrice?: number;
 }
 
 export interface PriceOptions {
