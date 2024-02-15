@@ -16,7 +16,6 @@ function capitalizeFirstLetter(str: string) {
         .split(' ')
         .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
         .join(' ');
-    return str.charAt(0).toUpperCase() + str.slice(1);
 }
 
 function formatDashedString(str: string, splitChar = '-') {
@@ -66,7 +65,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
 
     console.log({ strain, dispensaryName, dispensaryLocation });
 
-    const product = await prisma.product.findFirst({
+    let product = await prisma.product.findFirst({
         where: {
             dispensaryName: {
                 equals: dispensaryName,
@@ -81,11 +80,30 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
     });
 
     if (!product) {
-        console.log('Product not found');
-        return {
-            notFound: true,
-            props: {},
-        };
+        console.log('Product not found, trying partial match');
+        product = await prisma.product.findFirst({
+            where: {
+                dispensaryName: {
+                    equals: dispensaryName,
+                },
+                dispensaryLocation: {
+                    equals: dispensaryLocation,
+                },
+                strain: {
+                    contains: strain.slice(0, 5),
+                },
+            },
+        });
+
+        if (!product) {
+            console.log('Product not found');
+            return {
+                notFound: true,
+                props: {},
+            };
+        } else {
+            product.description = sanitizeHtml(product.description);
+        }
     } else {
         product.description = sanitizeHtml(product.description);
     }
