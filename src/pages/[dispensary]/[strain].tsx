@@ -11,6 +11,11 @@ import { Product } from '../../lib/interfaces';
 import PDPTemplate from '../../components/templates/PDPTemplate';
 
 function capitalizeFirstLetter(str: string) {
+    console.log('capitalizeFirstLetter', str);
+    return str
+        .split(' ')
+        .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+        .join(' ');
     return str.charAt(0).toUpperCase() + str.slice(1);
 }
 
@@ -52,11 +57,14 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
     dispensaryLocation = formatDashedString(dispensaryLocation, ' ');
 
     if (!strain || !dispensaryName || !dispensaryLocation) {
+        console.log('Missing query params');
         return {
             notFound: true,
             props: {},
         };
     }
+
+    console.log({ strain, dispensaryName, dispensaryLocation });
 
     const product = await prisma.product.findFirst({
         where: {
@@ -73,6 +81,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
     });
 
     if (!product) {
+        console.log('Product not found');
         return {
             notFound: true,
             props: {},
