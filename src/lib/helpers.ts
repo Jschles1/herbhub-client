@@ -47,11 +47,18 @@ export const getProductPrices = (product: Product) => {
     const price = basePrice.normalPrice;
     const promoPrice = basePrice?.promoPrice || 0;
     const weight = basePrice.unit;
+    const weightAmount =
+        basePrice.weight === 1 ||
+        basePrice.weight === null ||
+        (typeof basePrice.weight === 'string' &&
+            (basePrice.weight as string).toLowerCase() === 'n/a')
+            ? ''
+            : basePrice.weight;
 
     return {
         price: price.toFixed(2),
         promoPrice: promoPrice.toFixed(2),
-        weight,
+        weight: `${weightAmount}${weight}`,
     };
 };
 

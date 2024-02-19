@@ -175,7 +175,7 @@ export const CATEGORY_FILTERS = [
             },
             {
                 name: 'Botanist - Egg Harbor',
-                value: 'loc/botanist-egg-harbor',
+                value: 'loc/botanist-egg-harbor-twp',
             },
             {
                 name: 'Botanist - Williamstown',
@@ -223,7 +223,7 @@ export const CATEGORY_FILTERS = [
             },
             {
                 name: 'Zen Leaf - Lawrence',
-                value: 'loc/zenleaf-lawrence',
+                value: 'loc/zenleaf-lawrence-twp',
             },
         ],
     },
