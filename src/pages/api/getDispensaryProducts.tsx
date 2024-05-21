@@ -1,6 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import { PrismaClient } from '@prisma/client';
 import type { Prisma } from '@prisma/client';
+import { getDispensaryNameFromParam } from '../../lib/helpers';
 
 const generateFilterWhereInput = (
     param: string,
@@ -9,9 +10,16 @@ const generateFilterWhereInput = (
     const paramSplit = param.split('/');
     const paramType = paramSplit[0];
     let paramValue = paramSplit[1];
+    let dispensaryName = '';
 
     if (paramType === 'loc') {
         const index = paramValue.indexOf('-');
+        const dispensaryNameFromParam = paramValue
+            .slice()
+            .split('')
+            .splice(0, index)
+            .join('');
+        dispensaryName = getDispensaryNameFromParam(dispensaryNameFromParam);
         paramValue = paramValue
             .split('')
             .splice(index)
@@ -28,6 +36,10 @@ const generateFilterWhereInput = (
         case 'loc':
             whereInput.dispensaryLocation = {
                 equals: paramValue,
+                mode: 'insensitive',
+            };
+            whereInput.dispensaryName = {
+                equals: dispensaryName,
                 mode: 'insensitive',
             };
             break;

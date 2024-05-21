@@ -225,6 +225,38 @@ export const CATEGORY_FILTERS = [
                 name: 'Zen Leaf - Lawrence',
                 value: 'loc/zenleaf-lawrence-twp',
             },
+            {
+                name: 'Doobiez - West Milford',
+                value: 'loc/doobiez-west-milford',
+            },
+            {
+                name: "URB'N Dispensary - Newark",
+                value: 'loc/urbn-newark',
+            },
+            {
+                name: 'Soulflora - Newfoundland',
+                value: 'loc/soulflora-newfoundland',
+            },
+            {
+                name: "Brute's Roots - Egg Harbor",
+                value: 'loc/brutes-egg-harbor-twp',
+            },
+            {
+                name: 'Valley Wellness LLC - Raritan',
+                value: 'loc/valleywellness-raritan',
+            },
+            {
+                name: 'Holistic Solutions LLC - Atco',
+                value: 'loc/holistic-atco',
+            },
+            {
+                name: 'Union Chill - Lambertville',
+                value: 'loc/unionchill-lambertville',
+            },
+            {
+                name: 'Phasal - Runnemede',
+                value: 'loc/phasal-runnemede',
+            },
         ],
     },
 ];

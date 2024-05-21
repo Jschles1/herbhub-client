@@ -11,6 +11,7 @@ import {
 import CategoryFilter from './CategoryFilter';
 import Logo from '../atoms/Logo';
 import Footer from '../molecules/Footer';
+import Link from 'next/link';
 
 const useStyles = createStyles((theme) => ({
     main: {
@@ -32,6 +33,10 @@ const useStyles = createStyles((theme) => ({
     burger: { marginRight: theme.spacing.xs },
     drawer: {
         overflowX: 'scroll',
+    },
+    faqLink: {
+        fontWeight: 'bold',
+        color: theme.colors.green[5],
     },
 }));
 
@@ -85,7 +90,11 @@ const AppShell: React.FC<Props> = ({ children }) => {
                                 )}
                                 <Logo />
                             </div>
-                            <div className={classes.headerRight}></div>
+                            <div className={classes.headerRight}>
+                                <Link className={classes.faqLink} href="/faq">
+                                    FAQ
+                                </Link>
+                            </div>
                         </div>
                     </Header>
                 </>

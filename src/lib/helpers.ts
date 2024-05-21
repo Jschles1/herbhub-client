@@ -71,3 +71,41 @@ export const getProductUrl = (product: Product) => {
     const productSlug = encodeURIComponent(product.strain.replaceAll(' ', '-'));
     return `/${dispensarySlug}/${productSlug}`;
 };
+
+export const addThe = (word: string) => {
+    return `the ${word}`;
+};
+
+export const getDispensaryNameFromParam = (param: string) => {
+    switch (param) {
+        case 'botanist':
+        case 'cannabist':
+            return addThe(param);
+        case 'apothecarium':
+            return 'Apothecarium Dispensary';
+        case 'ayr':
+            return 'Ayr Wellness';
+        case 'zenleaf':
+            return 'Zen Leaf';
+        case 'urbn':
+            return 'Urb’n Dispensary';
+        case 'brutes':
+            return "Brute's Roots";
+        case 'valleywellness':
+            return 'Valley Wellness Llc';
+        case 'holistic':
+            return 'Holistic Solutions Llc';
+        case 'unionchill':
+            return 'Union Chill';
+        case 'bloc':
+        case 'ascend':
+        case 'curaleaf':
+        case 'rise':
+        case 'doobiez':
+        case 'soulflora':
+        case 'phasal':
+            return param;
+        default:
+            return param;
+    }
+};
