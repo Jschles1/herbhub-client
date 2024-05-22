@@ -97,6 +97,8 @@ export const getDispensaryNameFromParam = (param: string) => {
             return 'Holistic Solutions Llc';
         case 'unionchill':
             return 'Union Chill';
+        case 'novafarms':
+            return 'Nova Farms';
         case 'bloc':
         case 'ascend':
         case 'curaleaf':

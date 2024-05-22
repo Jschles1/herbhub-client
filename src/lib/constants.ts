@@ -257,6 +257,10 @@ export const CATEGORY_FILTERS = [
                 name: 'Phasal - Runnemede',
                 value: 'loc/phasal-runnemede',
             },
+            {
+                name: 'Nova Farms - Woodbury',
+                value: 'loc/novafarms-woodbury',
+            },
         ],
     },
 ];
