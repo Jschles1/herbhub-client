@@ -12,6 +12,11 @@ const useStyles = createStyles((theme) => ({
         fontWeight: 'bold',
         marginBottom: '1rem',
         display: 'block',
+        textDecoration: 'none',
+        '&:hover': {
+            color: theme.colors.green[5],
+        },
+        transition: 'color 0.1s ease',
     },
 }));
 
@@ -21,7 +26,7 @@ export default function PDPSkeletons() {
     return (
         <Container>
             <Link href="/" className={classes.link}>
-                &lt; Back
+                ← Back
             </Link>
             <Skeleton height={550} />
             <br />

@@ -64,6 +64,11 @@ const useStyles = createStyles((theme) => ({
         fontWeight: 'bold',
         marginBottom: '1rem',
         display: 'block',
+        textDecoration: 'none',
+        '&:hover': {
+            color: theme.colors.green[5],
+        },
+        transition: 'color 0.1s ease',
     },
 }));
 
@@ -82,7 +87,7 @@ const PDPTemplate: React.FC<Props> = ({ product, relatedProducts }) => {
     return (
         <Container>
             <Link href="/" className={classes.link}>
-                &lt; Back
+                ← Back
             </Link>
             <Card withBorder shadow="sm">
                 <div className={classes.root}>

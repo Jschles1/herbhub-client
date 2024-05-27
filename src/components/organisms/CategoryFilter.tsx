@@ -36,7 +36,7 @@ const getCategoryFilterEventParams = (payload: {
     };
 };
 
-const useStyles = createStyles(() => ({
+const useStyles = createStyles((theme) => ({
     root: {
         overflow: 'unset',
     },
@@ -44,10 +44,21 @@ const useStyles = createStyles(() => ({
         fontSize: '13px',
         cursor: 'pointer',
     },
+    green: {
+        color: theme.colors.green[5],
+        fontWeight: 'bold',
+    },
+    input: {
+        cursor: 'pointer',
+        '&:checked': {
+            backgroundColor: theme.colors.green[5],
+            borderColor: theme.colors.green[5],
+        },
+    },
 }));
 
 const CategoryFilter = () => {
-    const { classes } = useStyles();
+    const { classes, cx } = useStyles();
     const [params, dispatch] = useQueryParams();
     const checkboxRefs = React.useRef([]);
     const filterParams =
@@ -107,7 +118,11 @@ const CategoryFilter = () => {
                                     label={option.name}
                                     value={option.value}
                                     classNames={{
-                                        label: classes.label,
+                                        label: cx(
+                                            classes.label,
+                                            checked && classes.green,
+                                        ),
+                                        input: classes.input,
                                     }}
                                     onChange={handleChange}
                                 />
