@@ -21,10 +21,12 @@ export const getDispensaryProducts = async ({
 
 export const getProductDetail = async ({
     strain,
-    dispensary,
+    dispensaryName,
+    dispensaryLocation,
 }: {
     strain: string;
-    dispensary: string;
+    dispensaryName: string;
+    dispensaryLocation: string;
 }): Promise<
     | {
           product: Product;
@@ -33,8 +35,12 @@ export const getProductDetail = async ({
     | undefined
 > => {
     try {
+        const params = new URLSearchParams();
+        params.append('strain', strain);
+        params.append('dispensaryName', dispensaryName);
+        params.append('dispensaryLocation', dispensaryLocation);
         const response = await axios.get(
-            `/api/getProductDetail?strain=${strain}&dispensary=${dispensary}`,
+            `/api/getProductDetail?${params.toString()}`,
         );
         const data = response.data;
         return {

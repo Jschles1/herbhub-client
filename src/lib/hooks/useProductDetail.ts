@@ -3,14 +3,22 @@ import { getProductDetail } from '../fetchers';
 
 const useProductDetail = ({
     strain,
-    dispensary,
+    dispensaryName,
+    dispensaryLocation,
 }: {
     strain: string;
-    dispensary: string;
+    dispensaryName: string;
+    dispensaryLocation: string;
 }) => {
     return useQuery({
-        queryKey: ['getProductDetail', strain, dispensary],
-        queryFn: () => getProductDetail({ strain, dispensary }),
+        queryKey: [
+            'getProductDetail',
+            strain,
+            dispensaryName,
+            dispensaryLocation,
+        ],
+        queryFn: () =>
+            getProductDetail({ strain, dispensaryName, dispensaryLocation }),
         refetchOnWindowFocus: false,
         refetchOnMount: false,
         refetchOnReconnect: false,

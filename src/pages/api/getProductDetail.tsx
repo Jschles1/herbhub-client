@@ -12,13 +12,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 
             await prisma.$connect();
 
-            let { strain, dispensary } = query;
-            let { dispensaryName, dispensaryLocation } = formatDispensaryName(
-                dispensary as string,
-            );
-            strain = formatDashedString(strain as string);
-            dispensaryName = formatDashedString(dispensaryName);
-            dispensaryLocation = formatDashedString(dispensaryLocation, ' ');
+            let { strain, dispensaryName, dispensaryLocation } = query;
 
             if (!strain || !dispensaryName || !dispensaryLocation) {
                 console.log('Missing query params');
@@ -31,13 +25,13 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
             let product = await prisma.product.findFirst({
                 where: {
                     dispensaryName: {
-                        equals: dispensaryName,
+                        equals: dispensaryName as string,
                     },
                     dispensaryLocation: {
-                        equals: dispensaryLocation,
+                        equals: dispensaryLocation as string,
                     },
                     strain: {
-                        equals: strain,
+                        equals: strain as string,
                     },
                 },
             });
@@ -47,13 +41,13 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
                 product = await prisma.product.findFirst({
                     where: {
                         dispensaryName: {
-                            equals: dispensaryName,
+                            equals: dispensaryName as string,
                         },
                         dispensaryLocation: {
-                            equals: dispensaryLocation,
+                            equals: dispensaryLocation as string,
                         },
                         strain: {
-                            contains: strain.slice(0, 5),
+                            contains: (strain as string).slice(0, 5),
                         },
                     },
                 });
@@ -74,11 +68,11 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
             const relatedProducts = await prisma.product.findMany({
                 where: {
                     dispensaryName: {
-                        equals: dispensaryName,
+                        equals: dispensaryName as string,
                         mode: 'insensitive',
                     },
                     dispensaryLocation: {
-                        equals: dispensaryLocation,
+                        equals: dispensaryLocation as string,
                         mode: 'insensitive',
                     },
                     categoryType: {

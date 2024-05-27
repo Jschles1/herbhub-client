@@ -31,24 +31,21 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
     return {
         props: {
             strain,
-            dispensary,
-            seoProductName: strain,
-            seoDispensaryName: dispensaryName,
-            seoDispensaryLocation: dispensaryLocation,
+            dispensaryName,
+            dispensaryLocation,
         },
     };
 }
 
 const ProductPage: NextPage = ({
     strain,
-    dispensary,
-    seoDispensaryLocation,
-    seoDispensaryName,
-    seoProductName,
+    dispensaryName,
+    dispensaryLocation,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
     const { data, isLoading } = useProductDetail({
         strain: strain as string,
-        dispensary: dispensary as string,
+        dispensaryName: dispensaryName as string,
+        dispensaryLocation: dispensaryLocation as string,
     });
 
     if (!data || isLoading) {
@@ -61,7 +58,7 @@ const ProductPage: NextPage = ({
         <>
             <Head>
                 <title>
-                    {`${seoProductName} - ${seoDispensaryName} ${seoDispensaryLocation}`}
+                    {`${strain} - ${dispensaryName} ${dispensaryLocation}`}
                 </title>
             </Head>
             <PDPTemplate product={p} relatedProducts={relatedPs} />
