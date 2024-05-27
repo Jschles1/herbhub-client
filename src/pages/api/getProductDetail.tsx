@@ -1,7 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import { PrismaClient } from '@prisma/client';
 import sanitizeHtml from 'sanitize-html';
-import { formatDashedString, formatDispensaryName } from '../../lib/helpers';
 
 const prisma = new PrismaClient();
 
