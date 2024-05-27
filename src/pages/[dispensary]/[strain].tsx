@@ -5,46 +5,11 @@ import type {
     InferGetServerSidePropsType,
 } from 'next';
 import Head from 'next/head';
-import { PrismaClient } from '@prisma/client';
-import sanitizeHtml from 'sanitize-html';
 import { Product } from '../../lib/interfaces';
 import PDPTemplate from '../../components/templates/PDPTemplate';
-
-function capitalizeFirstLetter(str: string) {
-    console.log('capitalizeFirstLetter', str);
-    return str
-        .split(' ')
-        .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
-        .join(' ');
-}
-
-function formatDashedString(str: string, splitChar = '-') {
-    const hasDash = splitChar === '-' && str.includes('---');
-    if (hasDash) {
-        str = str.replace('---', '***');
-    }
-
-    let finalString = str
-        .split(splitChar)
-        .map((word) => capitalizeFirstLetter(word))
-        .join(' ');
-
-    if (hasDash) {
-        finalString = finalString.replace('***', ' - ');
-    }
-
-    return finalString;
-}
-
-function formatDispensaryName(str: string) {
-    const [dispensaryName, ...dispensaryLocation] = str.split('-');
-    return {
-        dispensaryName: dispensaryName,
-        dispensaryLocation: dispensaryLocation.join('-'),
-    };
-}
-
-const prisma = new PrismaClient();
+import useProductDetail from '../../lib/hooks/useProductDetail';
+import { formatDashedString, formatDispensaryName } from '../../lib/helpers';
+import PDPSkeletons from '../../components/organisms/PDPSkeletons';
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
     let { strain, dispensary } = context.query;
@@ -63,89 +28,10 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
         };
     }
 
-    console.log({ strain, dispensaryName, dispensaryLocation });
-
-    let product = await prisma.product.findFirst({
-        where: {
-            dispensaryName: {
-                equals: dispensaryName,
-            },
-            dispensaryLocation: {
-                equals: dispensaryLocation,
-            },
-            strain: {
-                equals: strain,
-            },
-        },
-    });
-
-    if (!product) {
-        console.log('Product not found, trying partial match');
-        product = await prisma.product.findFirst({
-            where: {
-                dispensaryName: {
-                    equals: dispensaryName,
-                },
-                dispensaryLocation: {
-                    equals: dispensaryLocation,
-                },
-                strain: {
-                    contains: strain.slice(0, 5),
-                },
-            },
-        });
-
-        if (!product) {
-            console.log('Product not found');
-            return {
-                notFound: true,
-                props: {},
-            };
-        } else {
-            product.description = sanitizeHtml(product.description);
-        }
-    } else {
-        product.description = sanitizeHtml(product.description);
-    }
-
-    const relatedProducts = await prisma.product.findMany({
-        where: {
-            dispensaryName: {
-                equals: dispensaryName,
-                mode: 'insensitive',
-            },
-            dispensaryLocation: {
-                equals: dispensaryLocation,
-                mode: 'insensitive',
-            },
-            categoryType: {
-                equals: product.categoryType,
-                mode: 'insensitive',
-            },
-            strain: {
-                not: product.strain,
-                mode: 'insensitive',
-            },
-        },
-        take: 6,
-    });
-
-    console.log({
-        props: {
-            product,
-            relatedProducts,
-            seoProductName: strain,
-            seoDispensaryName: dispensaryName,
-            seoDispensaryLocation: dispensaryLocation,
-        },
-    });
-
-    await prisma.$disconnect();
-
     return {
         props: {
-            product,
-            relatedProducts,
+            strain,
+            dispensary,
             seoProductName: strain,
             seoDispensaryName: dispensaryName,
             seoDispensaryLocation: dispensaryLocation,
@@ -154,14 +40,23 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
 }
 
 const ProductPage: NextPage = ({
-    product,
-    relatedProducts,
+    strain,
+    dispensary,
     seoDispensaryLocation,
     seoDispensaryName,
     seoProductName,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
-    const p = product as unknown as Product;
-    const relatedPs = relatedProducts as unknown as Product[];
+    const { data, isLoading } = useProductDetail({
+        strain: strain as string,
+        dispensary: dispensary as string,
+    });
+
+    if (!data || isLoading) {
+        return <PDPSkeletons />;
+    }
+
+    const p = data.product as unknown as Product;
+    const relatedPs = data.relatedProducts as unknown as Product[];
     return (
         <>
             <Head>

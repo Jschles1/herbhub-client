@@ -18,3 +18,31 @@ export const getDispensaryProducts = async ({
         return Promise.reject(e);
     }
 };
+
+export const getProductDetail = async ({
+    strain,
+    dispensary,
+}: {
+    strain: string;
+    dispensary: string;
+}): Promise<
+    | {
+          product: Product;
+          relatedProducts: Product[];
+      }
+    | undefined
+> => {
+    try {
+        const response = await axios.get(
+            `/api/getProductDetail?strain=${strain}&dispensary=${dispensary}`,
+        );
+        const data = response.data;
+        return {
+            product: data.product,
+            relatedProducts: data.relatedProducts,
+        };
+    } catch (e) {
+        console.error('Error getting product detail: ', e);
+        return Promise.reject(e);
+    }
+};

@@ -111,3 +111,36 @@ export const getDispensaryNameFromParam = (param: string) => {
             return param;
     }
 };
+
+export function capitalizeFirstLetter(str: string) {
+    return str
+        .split(' ')
+        .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+        .join(' ');
+}
+
+export function formatDashedString(str: string, splitChar = '-') {
+    const hasDash = splitChar === '-' && str.includes('---');
+    if (hasDash) {
+        str = str.replace('---', '***');
+    }
+
+    let finalString = str
+        .split(splitChar)
+        .map((word) => capitalizeFirstLetter(word))
+        .join(' ');
+
+    if (hasDash) {
+        finalString = finalString.replace('***', ' - ');
+    }
+
+    return finalString;
+}
+
+export function formatDispensaryName(str: string) {
+    const [dispensaryName, ...dispensaryLocation] = str.split('-');
+    return {
+        dispensaryName: dispensaryName,
+        dispensaryLocation: dispensaryLocation.join('-'),
+    };
+}
