@@ -39,7 +39,7 @@ export default function App(props: AppProps) {
                                     ...theme.fn.fontStyles(),
                                     padding: 0,
                                     margin: 0,
-                                    background: theme.colors.gray[1],
+                                    background: '#fff',
                                 },
                             }),
                             breakpoints: {

@@ -29,9 +29,21 @@ export default function PDPSkeletons() {
             <br />
             {!isMobile ? (
                 <div className={classes.desktopRelatedProducts}>
-                    <Skeleton height={475} />
-                    <Skeleton height={475} />
-                    <Skeleton height={475} />
+                    <Skeleton
+                        height={475}
+                        animate
+                        sx={{ backgroundColor: '#fff' }}
+                    />
+                    <Skeleton
+                        height={475}
+                        animate
+                        sx={{ backgroundColor: '#fff' }}
+                    />
+                    <Skeleton
+                        height={475}
+                        animate
+                        sx={{ backgroundColor: '#fff' }}
+                    />
                 </div>
             ) : (
                 <Skeleton height={475} />

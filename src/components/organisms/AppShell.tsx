@@ -18,7 +18,7 @@ const useStyles = createStyles((theme) => ({
         minHeight: 'calc(100vh - 150px)',
     },
     headerRoot: {
-        backgroundColor: '#fff',
+        backgroundColor: theme.colors.gray[1],
     },
     headerContainer: {
         height: '100%',
@@ -36,7 +36,12 @@ const useStyles = createStyles((theme) => ({
     },
     faqLink: {
         fontWeight: 'bold',
-        color: theme.colors.green[5],
+        color: '#000',
+        textDecoration: 'none',
+        '&:hover': {
+            color: theme.colors.green[5],
+        },
+        transition: 'color 0.2s ease',
     },
 }));
 
