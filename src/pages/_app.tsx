@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { AppProps } from 'next/app';
 import Head from 'next/head';
+import { Analytics } from '@vercel/analytics/react';
 import { MantineProvider } from '@mantine/core';
 import {
     Hydrate,
@@ -56,6 +57,7 @@ export default function App(props: AppProps) {
                             <AppShell>
                                 <AgeVerificationModal />
                                 <Component {...pageProps} />
+                                <Analytics />
                             </AppShell>
                         </QueryParamsProvider>
                     </MantineProvider>
