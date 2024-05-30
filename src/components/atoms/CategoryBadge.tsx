@@ -40,7 +40,7 @@ const CategoryBadge: React.FC<{ categoryType: string }> = ({
             color = 'violet';
             break;
         default:
-            console.log('default', categoryType.toLowerCase());
+            break;
     }
     return <Badge color={color}>{categoryType}</Badge>;
 };

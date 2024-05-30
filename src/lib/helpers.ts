@@ -144,3 +144,10 @@ export function formatDispensaryName(str: string) {
         dispensaryLocation: dispensaryLocation.join('-'),
     };
 }
+
+export function getDisplayDispensaryName(dispensaryName: string) {
+    if (dispensaryName.includes('Mpx') || dispensaryName.includes('Urb')) {
+        return dispensaryName.replace('Dispensary', '').toUpperCase();
+    }
+    return dispensaryName.replace('Dispensary', '').replace('Llc', 'LLC');
+}

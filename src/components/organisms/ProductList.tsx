@@ -1,8 +1,9 @@
 import * as React from 'react';
-import { Stack, Skeleton, Pagination } from '@mantine/core';
+import { Stack, Skeleton, Pagination, Group } from '@mantine/core';
 import { Product } from '../../lib/interfaces';
 import ProductListItem from '../molecules/ProductListItem';
 import useProductData from '../../lib/hooks/useProductData';
+import { useMediaQuery } from '@mantine/hooks';
 
 interface Props {
     products: Product[];
@@ -11,6 +12,7 @@ interface Props {
 const ProductList: React.FC<Props> = ({ products = [] }) => {
     const [activePage, setPage] = React.useState(1);
     const { isLoading, isFetching } = useProductData();
+    const isMobile = useMediaQuery('(max-width: 750px)');
     const pages = Math.floor(products.length / 20);
 
     React.useEffect(() => {
@@ -40,11 +42,19 @@ const ProductList: React.FC<Props> = ({ products = [] }) => {
     }
     return (
         <>
-            <Stack mb="md">
-                {showProducts?.map((product) => (
-                    <ProductListItem product={product} key={product.id} />
-                ))}
-            </Stack>
+            {isMobile ? (
+                <Group mb="md">
+                    {showProducts?.map((product) => (
+                        <ProductListItem product={product} key={product.id} />
+                    ))}
+                </Group>
+            ) : (
+                <Stack mb="md">
+                    {showProducts?.map((product) => (
+                        <ProductListItem product={product} key={product.id} />
+                    ))}
+                </Stack>
+            )}
             {hasPages && (
                 <Pagination
                     page={activePage}
