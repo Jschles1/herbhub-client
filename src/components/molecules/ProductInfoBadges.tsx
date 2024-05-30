@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { useRouter } from 'next/router';
-import { Badge, createStyles } from '@mantine/core';
+import { Badge, MediaQuery, createStyles } from '@mantine/core';
 import CategoryBadge from '../atoms/CategoryBadge';
 import type { Product } from '../../lib/interfaces';
 import { getDisplayDispensaryName } from '../../lib/helpers';
@@ -17,6 +17,7 @@ const useStyles = createStyles((theme) => ({
         fontSize: '0.8rem',
         color: 'gray',
         marginTop: '0.5rem',
+        display: 'none',
     },
 }));
 
@@ -35,9 +36,19 @@ const ProductInfoBadges: React.FC<Props> = ({ product, hasSalePrice }) => {
             {hasSalePrice && <Badge color="green">Sale</Badge>}
             <CategoryBadge categoryType={product.categoryType} />
             {showLocation && (
-                <div className={classes.location}>
-                    {dispensaryName} - {product.dispensaryLocation}
-                </div>
+                <>
+                    <MediaQuery largerThan="md" styles={{ display: 'block' }}>
+                        <div className={classes.location}>
+                            {dispensaryName} - {product.dispensaryLocation}
+                        </div>
+                    </MediaQuery>
+                    <MediaQuery smallerThan="md" styles={{ display: 'block' }}>
+                        <div className={classes.location}>
+                            <div>{dispensaryName}</div>
+                            <div>{product.dispensaryLocation}</div>
+                        </div>
+                    </MediaQuery>
+                </>
             )}
         </div>
     );
