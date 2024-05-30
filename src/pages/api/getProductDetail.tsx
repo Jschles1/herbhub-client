@@ -4,6 +4,19 @@ import sanitizeHtml from 'sanitize-html';
 
 const prisma = new PrismaClient();
 
+const generateProductDescription = (
+    description: string,
+    url: string | null,
+) => {
+    if (url) {
+        let domain = new URL(url).origin;
+        description = description.replace(/href="([^"]*)"/g, (match, p1) => {
+            return p1.startsWith('http') ? match : `href="${domain}${p1}"`;
+        });
+    }
+    return sanitizeHtml(description);
+};
+
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     if (req.method === 'GET') {
         try {
@@ -58,10 +71,16 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
                         props: {},
                     };
                 } else {
-                    product.description = sanitizeHtml(product.description);
+                    product.description = generateProductDescription(
+                        product.description,
+                        product.url,
+                    );
                 }
             } else {
-                product.description = sanitizeHtml(product.description);
+                product.description = generateProductDescription(
+                    product.description,
+                    product.url,
+                );
             }
 
             const relatedProducts = await prisma.product.findMany({
