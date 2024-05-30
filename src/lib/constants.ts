@@ -124,10 +124,6 @@ export const CATEGORY_FILTERS = [
                 value: 'br/terrascend',
             },
             {
-                name: 'Garden State Dispensary',
-                value: 'br/garden-state-dispensary',
-            },
-            {
                 name: 'Other',
                 value: 'br/other',
             },
