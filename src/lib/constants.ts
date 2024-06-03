@@ -92,10 +92,6 @@ export const CATEGORY_FILTERS = [
                 value: 'br/kind-tree',
             },
             {
-                name: 'Tyson 2.0',
-                value: 'br/tyson',
-            },
-            {
                 name: 'Valhalla',
                 value: 'br/valhalla',
             },
@@ -256,6 +252,14 @@ export const CATEGORY_FILTERS = [
             {
                 name: 'Nova Farms - Woodbury',
                 value: 'loc/novafarms-woodbury',
+            },
+            {
+                name: 'Sweet Spot - Voorhees',
+                value: 'loc/sweetspot-voorhees',
+            },
+            {
+                name: 'Earth & Ivy - New Brunswick',
+                value: 'loc/earth-new-brunswick',
             },
         ],
     },

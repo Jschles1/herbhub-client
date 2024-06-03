@@ -99,6 +99,10 @@ export const getDispensaryNameFromParam = (param: string) => {
             return 'Union Chill';
         case 'novafarms':
             return 'Nova Farms';
+        case 'sweetspot':
+            return 'Sweet Spot';
+        case 'earth':
+            return 'Earth & Ivy';
         case 'bloc':
         case 'ascend':
         case 'curaleaf':
