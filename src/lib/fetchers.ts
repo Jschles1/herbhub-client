@@ -19,6 +19,23 @@ export const getDispensaryProducts = async ({
     }
 };
 
+export const getProductBrands = async ({
+    query,
+}: {
+    query: string;
+}): Promise<any> => {
+    try {
+        const response = await axios.get(
+            `/api/getProductBrands?search=${query}`,
+        );
+        const data = response.data;
+        return data.brands;
+    } catch (e) {
+        console.error('Error getting product brands: ', e);
+        return Promise.reject(e);
+    }
+};
+
 export const getProductDetail = async ({
     strain,
     dispensaryName,

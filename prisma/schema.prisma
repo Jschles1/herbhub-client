@@ -24,3 +24,9 @@ model Product {
   thc               Float?
   cbd               Float?
 }
+
+model Brand {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+  name String
+  value String
+}

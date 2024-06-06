@@ -40,7 +40,7 @@ export const getProductPrices = (product: Product) => {
 
     // TODO: Add logic to handle products with multiple weights
     if (prices.length > 1) {
-        console.log('Multiple prices found', product);
+        // console.log('Multiple prices found', product);
     }
 
     const basePrice = prices[0];
@@ -155,3 +155,13 @@ export function getDisplayDispensaryName(dispensaryName: string) {
     }
     return dispensaryName.replace('Dispensary', '').replace('Llc', 'LLC');
 }
+
+export const debounce = (func: any, timeout = 600) => {
+    let timer: ReturnType<typeof setTimeout>;
+    return (...args: any) => {
+        clearTimeout(timer);
+        timer = setTimeout(() => {
+            func.apply(this, args);
+        }, timeout);
+    };
+};

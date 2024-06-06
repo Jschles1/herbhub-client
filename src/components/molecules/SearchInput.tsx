@@ -1,16 +1,7 @@
 import * as React from 'react';
 import { createStyles, TextInput, TextInputProps } from '@mantine/core';
 import { useQueryParams } from '../../store';
-
-export const debounce = (func: any, timeout = 600) => {
-    let timer: ReturnType<typeof setTimeout>;
-    return (...args: any) => {
-        clearTimeout(timer);
-        timer = setTimeout(() => {
-            func.apply(this, args);
-        }, timeout);
-    };
-};
+import { debounce } from '../../lib/helpers';
 
 const useStyles = createStyles((theme) => ({
     root: {
@@ -30,7 +21,7 @@ const SearchInput: React.FC<Props> = (props) => {
     const { classes } = useStyles();
     const [_, dispatch] = useQueryParams();
 
-    const handleChange = (e: any) => {
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const value = e.target.value.trim();
         dispatch({ type: 'search', payload: { value } });
     };

@@ -30,6 +30,14 @@ const generateFilterWhereInput = (
 
     if (paramType === 'br') {
         paramValue = paramValue.replace(/-/g, ' ').trim();
+        if (paramValue.includes('  ')) {
+            paramValue = paramValue.replace('  ', '- ');
+        }
+    }
+
+    // Remove Parentheses from paramValue
+    if (paramValue.includes('(') && paramValue.includes(')')) {
+        paramValue = paramValue.replace('(', '\\(').replace(')', '\\)');
     }
 
     switch (paramType) {

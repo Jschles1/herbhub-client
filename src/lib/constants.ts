@@ -119,10 +119,6 @@ export const CATEGORY_FILTERS = [
                 name: 'TerrAscend',
                 value: 'br/terrascend',
             },
-            {
-                name: 'Other',
-                value: 'br/other',
-            },
         ],
     },
     {
