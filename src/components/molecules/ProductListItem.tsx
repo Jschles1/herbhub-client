@@ -125,6 +125,7 @@ const ProductListItem: React.FC<Props> = ({ product }) => {
                 priority
                 className={classes.imageContainer}
                 alt={product.strain}
+                unoptimized
             />
 
             <div className={classes.info}>
