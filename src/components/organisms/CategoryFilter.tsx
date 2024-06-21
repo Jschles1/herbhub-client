@@ -90,7 +90,12 @@ const CategoryFilter = () => {
         if (e.target.dataset && e.target.dataset.category === 'Dispensary') {
             const checkboxes = checkboxRefs.current as HTMLInputElement[];
             for (let i = 0; i < checkboxes.length; i++) {
-                if (payload && checkboxes[i].value !== payload.value) {
+                if (
+                    payload &&
+                    checkboxes[i].value !== payload.value &&
+                    checkboxes[i].checked &&
+                    checkboxes[i].dataset.category === 'Dispensary'
+                ) {
                     checkboxes[i].checked = false;
                 }
             }
@@ -123,14 +128,15 @@ const CategoryFilter = () => {
         );
         if (!uriParams.filter) return;
         const filter = uriParams.filter;
-        const selectedBrands = filter.split(',');
+        const selectedBrands = filter
+            .split(',')
+            .filter((param) => param.startsWith('br'));
         const brandsShown: Record<string, boolean> = {};
         brandData.forEach((item: { value: string }) => {
             brandsShown[item.value] = true;
         });
         for (const brand of selectedBrands) {
             if (!brandsShown[brand]) {
-                console.log('brand', brand);
                 dispatch({
                     type: 'filter',
                     payload: { value: brand, checked: false },
