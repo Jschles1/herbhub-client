@@ -23,6 +23,7 @@ model Product {
   url               String?
   thc               Float?
   cbd               Float?
+  lastSold          DateTime?
 }
 
 model Brand {
