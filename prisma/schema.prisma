@@ -23,7 +23,7 @@ model Product {
   url                String?
   thc                Float?
   cbd                Float?
-  lastSold           DateTime? @default(now())
+  lastSold           String
 }
 
 model Brand {
