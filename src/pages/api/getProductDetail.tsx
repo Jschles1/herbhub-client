@@ -1,8 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
-import { PrismaClient } from '@prisma/client';
 import sanitizeHtml from 'sanitize-html';
-
-const prisma = new PrismaClient();
+import prismadb from '../../lib/prisma-db';
 
 const generateProductDescription = (
     description: string,
@@ -22,7 +20,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
         try {
             const { query } = req;
 
-            await prisma.$connect();
+            await prismadb.$connect();
 
             let { strain, dispensaryName, dispensaryLocation } = query;
 
@@ -34,7 +32,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
                 };
             }
 
-            let product = await prisma.product.findFirst({
+            let product = await prismadb.product.findFirst({
                 where: {
                     dispensaryName: {
                         equals: dispensaryName as string,
@@ -50,7 +48,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 
             if (!product) {
                 console.log('Product not found, trying partial match');
-                product = await prisma.product.findFirst({
+                product = await prismadb.product.findFirst({
                     where: {
                         dispensaryName: {
                             equals: dispensaryName as string,
@@ -83,7 +81,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
                 );
             }
 
-            const relatedProducts = await prisma.product.findMany({
+            const relatedProducts = await prismadb.product.findMany({
                 where: {
                     dispensaryName: {
                         equals: dispensaryName as string,
@@ -105,11 +103,11 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
                 take: 6,
             });
 
-            await prisma.$disconnect();
+            await prismadb.$disconnect();
             res.status(200).json({ product, relatedProducts });
         } catch (e) {
             console.error(e);
-            await prisma.$disconnect();
+            await prismadb.$disconnect();
             res.status(500).json({ message: e });
         }
     } else {

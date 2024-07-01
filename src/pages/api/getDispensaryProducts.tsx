@@ -2,6 +2,7 @@ import type { NextApiRequest, NextApiResponse } from 'next';
 import { PrismaClient } from '@prisma/client';
 import type { Prisma } from '@prisma/client';
 import { getDispensaryNameFromParam } from '../../lib/helpers';
+import prismadb from '../../lib/prisma-db';
 
 const generateFilterWhereInput = (
     param: string,
@@ -18,7 +19,8 @@ const generateFilterWhereInput = (
             .slice()
             .split('')
             .splice(0, index)
-            .join('');
+            .join('')
+            .replace('#', ' ');
         dispensaryName = getDispensaryNameFromParam(dispensaryNameFromParam);
         paramValue = paramValue
             .split('')
@@ -74,14 +76,12 @@ const generateFilterWhereInput = (
     }
 };
 
-const prisma = new PrismaClient();
-
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     if (req.method === 'GET') {
         try {
             const { query } = req;
 
-            await prisma.$connect();
+            await prismadb.$connect();
 
             const whereInput: Prisma.ProductWhereInput = {};
             const orderByInputs: Prisma.ProductOrderByWithRelationInput[] = [];
@@ -147,17 +147,19 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
                 }
             }
 
-            let products = await prisma.product.findMany({
+            console.log({ whereInput });
+
+            let products = await prismadb.product.findMany({
                 take: 100,
                 where: whereInput,
                 orderBy: orderByInputs,
             });
 
-            await prisma.$disconnect();
+            await prismadb.$disconnect();
             res.status(200).json({ products });
         } catch (e) {
             console.error(e);
-            await prisma.$disconnect();
+            await prismadb.$disconnect();
             res.status(500).json({ message: e });
         }
     } else {

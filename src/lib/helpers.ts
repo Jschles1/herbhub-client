@@ -103,6 +103,10 @@ export const getDispensaryNameFromParam = (param: string) => {
             return 'Sweet Spot';
         case 'earth':
             return 'Earth & Ivy';
+        case 'cloudnine':
+            return 'Cloud Nine Dispensary';
+        case 'dankpoet':
+            return 'Dank Poet Dispensary';
         case 'bloc':
         case 'ascend':
         case 'curaleaf':

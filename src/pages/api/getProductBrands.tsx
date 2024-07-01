@@ -1,15 +1,14 @@
 import { PrismaClient } from '@prisma/client';
 import type { Prisma } from '@prisma/client';
 import { NextApiRequest, NextApiResponse } from 'next';
-
-const prisma = new PrismaClient();
+import prismadb from '../../lib/prisma-db';
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     if (req.method === 'GET') {
         try {
             const { query } = req;
 
-            await prisma.$connect();
+            await prismadb.$connect();
 
             let { search } = query;
 
@@ -25,16 +24,16 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
                 },
             };
 
-            const brands = await prisma.brand.findMany({
+            const brands = await prismadb.brand.findMany({
                 where: whereInput,
                 take: 15,
             });
 
-            await prisma.$disconnect();
+            await prismadb.$disconnect();
             res.status(200).json({ brands });
         } catch (e) {
             console.error(e);
-            await prisma.$disconnect();
+            await prismadb.$disconnect();
             res.status(500).json({ message: e });
         }
     } else {
