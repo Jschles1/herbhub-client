@@ -149,11 +149,19 @@ const CategoryFilter = () => {
         <Card withBorder radius="md" py="0" mr="1rem" className={classes.root}>
             {CATEGORY_FILTERS.map((category) => {
                 const isBrand = category.name === 'Brand';
+                const isDispensary = category.name === 'Dispensary';
                 const options = isBrand
                     ? (brandData as {
                           name: string;
                           value: string;
                       }[])
+                    : isDispensary
+                    ? (
+                          category.options as {
+                              name: string;
+                              value: string;
+                          }[]
+                      ).sort((a, b) => a.name.localeCompare(b.name))
                     : category.options;
                 const brandsLoading = isBrand && (isFetching || isLoading);
                 return (
@@ -199,8 +207,7 @@ const CategoryFilter = () => {
                                     return (
                                         <Checkbox
                                             ref={(el) =>
-                                                category.name ===
-                                                    'Dispensary' &&
+                                                isDispensary &&
                                                 ((checkboxRefs as any).current[
                                                     i
                                                 ] = el)
