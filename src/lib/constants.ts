@@ -126,10 +126,6 @@ export const CATEGORY_FILTERS = [
         paramName: 'dispensary',
         options: [
             {
-                name: 'Ascend - Montclair',
-                value: 'loc/ascend-montclair',
-            },
-            {
                 name: 'Ascend - Fort Lee',
                 value: 'loc/ascend-fort-lee',
             },
