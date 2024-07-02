@@ -20,7 +20,10 @@ const generateFilterWhereInput = (
             .split('')
             .splice(0, index)
             .join('')
-            .replace('#', ' ');
+            .replaceAll('#', ' ')
+            .replace('__and__', '&')
+            .replace('$', '-')
+            .replace('@', ',');
         dispensaryName = getDispensaryNameFromParam(dispensaryNameFromParam);
         paramValue = paramValue
             .split('')
