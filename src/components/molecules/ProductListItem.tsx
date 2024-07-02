@@ -103,7 +103,7 @@ const ProductListItem: React.FC<Props> = ({ product }) => {
     const thcInfo = product.thc ? ` - THC: %${product.thc.toFixed(2)}` : '';
     const cbdInfo = product.cbd ? ` - CBD: %${product.cbd.toFixed(2)}` : '';
     const dimensions = isMobile
-        ? { width: 140, height: 140 }
+        ? { width: 130, height: 140 }
         : { width: 100, height: 100 };
 
     if (product.prices.length > 1) {

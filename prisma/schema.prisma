@@ -24,6 +24,7 @@ model Product {
   thc                Float?
   cbd                Float?
   lastSold           String
+  lowestWeight       String
 }
 
 model Brand {

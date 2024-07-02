@@ -52,6 +52,8 @@ const useStyles = createStyles((theme) => ({
     label: {
         fontSize: '13px',
         cursor: 'pointer',
+        display: 'flex',
+        alignItems: 'center',
     },
     green: {
         color: theme.colors.green[5],
@@ -63,6 +65,18 @@ const useStyles = createStyles((theme) => ({
             backgroundColor: theme.colors.green[5],
             borderColor: theme.colors.green[5],
         },
+    },
+    body: {
+        display: 'flex',
+        alignItems: 'center',
+    },
+    labelContainer: {
+        display: 'flex',
+        alignItems: 'center',
+    },
+    checkboxRoot: {
+        marginTop: '0.5rem',
+        marginBottom: '0.5rem',
     },
 }));
 
@@ -83,6 +97,8 @@ const CategoryFilter = () => {
             .find((param) => param.includes('filter'))
             ?.replace('filter=', '')
             .split(',');
+
+    console.log({ filterParams });
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const payload = { value: e.target.value, checked: e.target.checked };
@@ -182,7 +198,7 @@ const CategoryFilter = () => {
                         <Card.Section
                             inheritPadding
                             py="xs"
-                            style={{ height: isBrand ? '425px' : 'auto' }}
+                            style={{ height: isBrand ? '445px' : 'auto' }}
                         >
                             {brandsLoading ? (
                                 <div
@@ -215,7 +231,15 @@ const CategoryFilter = () => {
                                             checked={checked}
                                             data-category={category.name}
                                             key={option.name}
-                                            label={option.name}
+                                            label={
+                                                <div
+                                                    className={
+                                                        classes.labelContainer
+                                                    }
+                                                >
+                                                    {option.name}
+                                                </div>
+                                            }
                                             value={option.value}
                                             classNames={{
                                                 label: cx(
@@ -223,6 +247,8 @@ const CategoryFilter = () => {
                                                     checked && classes.green,
                                                 ),
                                                 input: classes.input,
+                                                body: classes.body,
+                                                root: classes.checkboxRoot,
                                             }}
                                             onChange={handleChange}
                                         />
