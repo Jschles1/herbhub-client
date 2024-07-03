@@ -1,7 +1,10 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import { PrismaClient } from '@prisma/client';
 import type { Prisma } from '@prisma/client';
-import { getDispensaryNameFromParam } from '../../lib/helpers';
+import {
+    getCurrentDateString,
+    getDispensaryNameFromParam,
+} from '../../lib/helpers';
 import prismadb from '../../lib/prisma-db';
 
 const generateFilterWhereInput = (
@@ -86,7 +89,9 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 
             await prismadb.$connect();
 
-            const whereInput: Prisma.ProductWhereInput = {};
+            const whereInput: Prisma.ProductWhereInput = {
+                lastSold: getCurrentDateString(),
+            };
             const orderByInputs: Prisma.ProductOrderByWithRelationInput[] = [];
 
             if (query.search) {

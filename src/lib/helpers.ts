@@ -173,3 +173,8 @@ export const debounce = (func: any, timeout = 600) => {
         }, timeout);
     };
 };
+
+export function getCurrentDateString() {
+    const now = new Date();
+    return `${now.getFullYear()}/${now.getMonth() + 1}/${now.getDate()}`;
+}
