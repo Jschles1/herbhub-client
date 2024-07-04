@@ -90,7 +90,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
             await prismadb.$connect();
 
             const whereInput: Prisma.ProductWhereInput = {
-                lastSold: getCurrentDateString(),
+                // lastSold: getCurrentDateString(),
             };
             const orderByInputs: Prisma.ProductOrderByWithRelationInput[] = [];
 
