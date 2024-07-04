@@ -7,6 +7,7 @@ import {
     TextInput,
     LoadingOverlay,
 } from '@mantine/core';
+import CategoryFilterLabel from '../molecules/CategoryFilterLabel';
 import { event } from 'nextjs-google-analytics';
 import { useQueryParams } from '../../store';
 import { CATEGORY_FILTERS } from '../../lib/constants';
@@ -232,13 +233,10 @@ const CategoryFilter = () => {
                                             data-category={category.name}
                                             key={option.name}
                                             label={
-                                                <div
-                                                    className={
-                                                        classes.labelContainer
-                                                    }
-                                                >
-                                                    {option.name}
-                                                </div>
+                                                <CategoryFilterLabel
+                                                    name={option.name}
+                                                    category={category.name}
+                                                />
                                             }
                                             value={option.value}
                                             classNames={{
