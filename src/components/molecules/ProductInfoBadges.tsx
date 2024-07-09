@@ -33,7 +33,6 @@ const ProductInfoBadges: React.FC<Props> = ({ product, hasSalePrice }) => {
     const dispensaryName = getDisplayDispensaryName(product.dispensaryName);
     return (
         <div className={classes.root}>
-            {hasSalePrice && <Badge color="green">Sale</Badge>}
             <CategoryBadge categoryType={product.categoryType} />
             {showLocation && (
                 <>

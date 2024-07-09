@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Card, createStyles, Text, MediaQuery } from '@mantine/core';
+import { Card, createStyles, Text, MediaQuery, Badge } from '@mantine/core';
 import Image from 'next/image';
 import { Product } from '../../lib/interfaces';
 import {
@@ -118,15 +118,25 @@ const ProductListItem: React.FC<Props> = ({ product }) => {
             shadow="sm"
             withBorder
         >
-            <Image
-                src={mapProductImage(product)}
-                width={dimensions.width}
-                height={dimensions.height}
-                priority
-                className={classes.imageContainer}
-                alt={product.strain}
-                unoptimized
-            />
+            <div style={{ position: 'relative' }}>
+                {hasSalePrice && (
+                    <Badge
+                        color="green"
+                        sx={{ position: 'absolute', top: '4px' }}
+                    >
+                        Sale
+                    </Badge>
+                )}
+                <Image
+                    src={mapProductImage(product)}
+                    width={dimensions.width}
+                    height={dimensions.height}
+                    priority
+                    className={classes.imageContainer}
+                    alt={product.strain}
+                    unoptimized
+                />
+            </div>
 
             <div className={classes.info}>
                 <div className={classes.topRow}>
