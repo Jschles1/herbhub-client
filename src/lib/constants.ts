@@ -43,7 +43,7 @@ export const CATEGORY_FILTERS = [
             },
             {
                 name: 'Edibles',
-                value: 'type/edibles',
+                value: 'type/edible',
             },
             {
                 name: 'Topical',
