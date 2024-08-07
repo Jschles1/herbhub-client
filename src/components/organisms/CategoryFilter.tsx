@@ -99,7 +99,7 @@ const CategoryFilter = () => {
             ?.replace('filter=', '')
             .split(',');
 
-    console.log({ filterParams });
+    // console.log({ filterParams });
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const payload = { value: e.target.value, checked: e.target.checked };
