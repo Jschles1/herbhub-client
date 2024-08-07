@@ -25,6 +25,10 @@ model Product {
   cbd                Json?
   lastSold           String
   lowestWeight       String
+  thcPercent         Float?
+  cbdPercent         Float?
+  thcContent         Int?
+  cbdContent         Int?
 }
 
 model Brand {
