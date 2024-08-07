@@ -21,8 +21,8 @@ model Product {
   image              String?
   brand              String
   url                String?
-  thc                Float?
-  cbd                Float?
+  thc                Json?
+  cbd                Json?
   lastSold           String
   lowestWeight       String
 }
