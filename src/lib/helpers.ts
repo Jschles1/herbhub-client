@@ -176,5 +176,13 @@ export const debounce = (func: any, timeout = 600) => {
 
 export function getCurrentDateString() {
     const now = new Date();
+    const hour = now.getHours();
+    const minutes = now.getMinutes();
+
+    // If current time is between 12AM and 8:30AM, return the previous day
+    if (hour < 8 || (hour === 8 && minutes < 30)) {
+        now.setDate(now.getDate() - 1);
+    }
+
     return `${now.getFullYear()}/${now.getMonth() + 1}/${now.getDate()}`;
 }
