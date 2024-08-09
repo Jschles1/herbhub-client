@@ -131,23 +131,43 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
                         orderByInputs.push(orderByInput);
                         break;
                     case 'thc-low-to-high':
-                        whereInput.thc = { not: 0 };
-                        orderByInput.thc = 'asc';
+                        whereInput.thcPercent = { not: null };
+                        orderByInput.thcPercent = 'asc';
                         orderByInputs.push(orderByInput);
                         break;
                     case 'thc-high-to-low':
-                        whereInput.thc = { not: 0 };
-                        orderByInput.thc = 'desc';
+                        whereInput.thcPercent = { not: null };
+                        orderByInput.thcPercent = 'desc';
+                        orderByInputs.push(orderByInput);
+                        break;
+                    case 'thc-content-low-to-high':
+                        whereInput.thcContent = { not: null };
+                        orderByInput.thcContent = 'asc';
+                        orderByInputs.push(orderByInput);
+                        break;
+                    case 'thc-content-high-to-low':
+                        whereInput.thcContent = { not: null };
+                        orderByInput.thcContent = 'desc';
                         orderByInputs.push(orderByInput);
                         break;
                     case 'cbd-low-to-high':
-                        whereInput.cbd = { not: 0 };
-                        orderByInput.cbd = 'asc';
+                        whereInput.cbdPercent = { not: null };
+                        orderByInput.cbdPercent = 'asc';
                         orderByInputs.push(orderByInput);
                         break;
                     case 'cbd-high-to-low':
-                        whereInput.cbd = { not: 0 };
-                        orderByInput.cbd = 'desc';
+                        whereInput.cbdPercent = { not: null };
+                        orderByInput.cbdPercent = 'desc';
+                        orderByInputs.push(orderByInput);
+                        break;
+                    case 'cbd-content-low-to-high':
+                        whereInput.cbdContent = { not: null };
+                        orderByInput.cbdContent = 'asc';
+                        orderByInputs.push(orderByInput);
+                        break;
+                    case 'cbd-content-high-to-low':
+                        whereInput.cbdContent = { not: null };
+                        orderByInput.cbdContent = 'desc';
                         orderByInputs.push(orderByInput);
                         break;
                     default:

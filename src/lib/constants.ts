@@ -660,11 +660,27 @@ export const SORT_BY_OPTIONS = [
         value: 'thc-high-to-low',
     },
     {
+        label: 'Sort By: THC Content Low to High',
+        value: 'thc-content-low-to-high',
+    },
+    {
+        label: 'Sort By: THC Content High to Low',
+        value: 'thc-content-high-to-low',
+    },
+    {
         label: 'Sort By: CBD% Low to High',
         value: 'cbd-low-to-high',
     },
     {
         label: 'Sort By: CBD% High to Low',
         value: 'cbd-high-to-low',
+    },
+    {
+        label: 'Sort By: CBD Content Low to High',
+        value: 'cbd-content-low-to-high',
+    },
+    {
+        label: 'Sort By: CBD Content High to Low',
+        value: 'cbd-content-high-to-low',
     },
 ];
