@@ -78,6 +78,9 @@ const createURLParams = (
         }
     }
 
+    const currentHourTimestamp = new Date().toISOString().slice(0, 13);
+    urlParams.set('timestamp', currentHourTimestamp);
+
     return urlParams.toString();
 };
 
