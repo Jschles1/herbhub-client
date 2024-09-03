@@ -27,19 +27,19 @@ export const CATEGORY_FILTERS = [
             },
             {
                 name: 'Pre-rolls',
-                value: 'type/pre-rolls',
+                value: 'type/pre-roll',
             },
             {
                 name: 'Cartridges',
-                value: 'type/cartridges',
+                value: 'type/cartridge',
             },
             {
                 name: 'Concentrates',
-                value: 'type/concentrates',
+                value: 'type/concentrate',
             },
             {
                 name: 'Extracts',
-                value: 'type/extracts',
+                value: 'type/extract',
             },
             {
                 name: 'Edibles',
@@ -51,7 +51,7 @@ export const CATEGORY_FILTERS = [
             },
             {
                 name: 'Tinctures',
-                value: 'type/tinctures',
+                value: 'type/tincture',
             },
         ],
     },
@@ -94,10 +94,6 @@ export const CATEGORY_FILTERS = [
             {
                 name: 'Valhalla',
                 value: 'br/valhalla',
-            },
-            {
-                name: 'Gage',
-                value: 'br/gage',
             },
             {
                 name: 'Simply Herb',
