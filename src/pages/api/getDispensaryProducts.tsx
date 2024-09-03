@@ -89,8 +89,14 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 
             await prismadb.$connect();
 
+            const lastUpdated = await prismadb.lastUpdated.findFirst();
+
+            if (!lastUpdated) {
+                throw new Error('No last updated date found');
+            }
+
             const whereInput: Prisma.ProductWhereInput = {
-                lastSold: getCurrentDateString(),
+                lastSold: lastUpdated.date,
             };
             const orderByInputs: Prisma.ProductOrderByWithRelationInput[] = [];
 
