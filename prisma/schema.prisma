@@ -29,10 +29,16 @@ model Product {
   cbdPercent         Float?
   thcContent         Int?
   cbdContent         Int?
+  menuType           String
 }
 
 model Brand {
   id    String @id @default(auto()) @map("_id") @db.ObjectId
   name  String
   value String
+}
+
+model LastUpdated {
+  id    String @id @default(auto()) @map("_id") @db.ObjectId
+  date  String
 }
