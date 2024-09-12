@@ -79,6 +79,21 @@ const useStyles = createStyles((theme) => ({
         marginTop: '0.5rem',
         marginBottom: '0.5rem',
     },
+    scrollableSection: {
+        '&::-webkit-scrollbar': {
+            width: '8px',
+        },
+        '&::-webkit-scrollbar-track': {
+            background: theme.colors.gray[1],
+        },
+        '&::-webkit-scrollbar-thumb': {
+            background: theme.colors.gray[5],
+            borderRadius: '4px',
+        },
+        '&::-webkit-scrollbar-thumb:hover': {
+            background: theme.colors.gray[7],
+        },
+    },
 }));
 
 const CategoryFilter = () => {
@@ -199,7 +214,15 @@ const CategoryFilter = () => {
                         <Card.Section
                             inheritPadding
                             py="xs"
-                            style={{ height: isBrand ? '445px' : 'auto' }}
+                            className={classes.scrollableSection}
+                            style={{
+                                height: isBrand ? '445px' : 'auto',
+                                maxHeight: isDispensary ? '600px' : 'auto',
+                                overflowY: isDispensary ? 'auto' : 'unset',
+                                borderTop: isDispensary
+                                    ? '1px solid #dee2e6'
+                                    : 'unset',
+                            }}
                         >
                             {brandsLoading ? (
                                 <div
