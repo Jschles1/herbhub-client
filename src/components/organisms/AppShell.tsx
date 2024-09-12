@@ -7,6 +7,7 @@ import {
     Burger,
     MediaQuery,
     Drawer,
+    Button,
 } from '@mantine/core';
 import CategoryFilter from './CategoryFilter';
 import Logo from '../atoms/Logo';
@@ -43,6 +44,10 @@ const useStyles = createStyles((theme) => ({
         },
         transition: 'color 0.2s ease',
     },
+    applyButton: {
+        marginTop: theme.spacing.md,
+        width: 'calc(100% - 1rem)',
+    },
 }));
 
 interface Props {
@@ -71,6 +76,15 @@ const AppShell: React.FC<Props> = ({ children }) => {
                         withinPortal={false}
                     >
                         <CategoryFilter />
+                        <Button
+                            color="green"
+                            variant="light"
+                            size="lg"
+                            onClick={() => setOpened(false)}
+                            className={classes.applyButton}
+                        >
+                            Apply
+                        </Button>
                     </Drawer>
                     <Header
                         height={60}
