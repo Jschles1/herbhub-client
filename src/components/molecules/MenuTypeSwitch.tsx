@@ -7,6 +7,10 @@ const useStyles = createStyles((theme) => ({
         display: 'flex',
         justifyContent: 'space-between',
         alignItems: 'center',
+        [`@media (max-width: ${theme.breakpoints.md}px)`]: {
+            marginTop: '1rem',
+            justifyContent: 'start',
+        },
     },
     switchBody: {
         display: 'flex',
@@ -17,6 +21,10 @@ const useStyles = createStyles((theme) => ({
     text: {
         marginLeft: '2rem',
         marginRight: '0.5rem',
+        fontWeight: 'bold',
+        [`@media (max-width: ${theme.breakpoints.md}px)`]: {
+            marginLeft: '0',
+        },
     },
 }));
 
@@ -42,7 +50,7 @@ const MenuTypeSwitch: React.FC<Props> = () => {
 
     return (
         <div className={classes.root}>
-            <Text className={classes.text}>Menu Type</Text>
+            <Text className={classes.text}>Menu Type: </Text>
             <Switch
                 checked={value}
                 onLabel="Adult Use"
