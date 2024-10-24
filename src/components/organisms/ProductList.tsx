@@ -62,6 +62,13 @@ const ProductList: React.FC<Props> = ({ products = [] }) => {
                     total={pages}
                     initialPage={1}
                     position="center"
+                    getItemAriaLabel={(page) => {
+                        if (page === 'prev') return 'Previous page';
+                        if (page === 'next') return 'Next page';
+                        const numberSuffix =
+                            page === 2 ? 'nd' : page === 1 ? 'st' : 'th';
+                        return `${page}${numberSuffix} page`;
+                    }}
                 />
             )}
         </>
