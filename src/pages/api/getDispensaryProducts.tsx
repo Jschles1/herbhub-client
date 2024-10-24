@@ -95,8 +95,14 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
                 throw new Error('No last updated date found');
             }
 
+            const menuType =
+                query.menuType === 'rec'
+                    ? 'Recreational cannabis only'
+                    : 'Medicinal cannabis only';
+
             const whereInput: Prisma.ProductWhereInput = {
                 lastSold: lastUpdated.date,
+                menuType: menuType,
             };
             const orderByInputs: Prisma.ProductOrderByWithRelationInput[] = [];
 

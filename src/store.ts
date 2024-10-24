@@ -1,6 +1,6 @@
 import { createReducerContext } from 'react-use';
 
-type ActionType = 'search' | 'filter' | 'sortBy' | 'reset';
+type ActionType = 'search' | 'filter' | 'sortBy' | 'menuType' | 'reset';
 
 type Action = {
     type: ActionType;
@@ -20,6 +20,7 @@ const createURLParams = (
     const isFilterChange = newParamType === 'filter';
     const isSearchChange = newParamType === 'search';
     const isSortByChange = newParamType === 'sortBy';
+    const isMenuTypeChange = newParamType === 'menuType';
 
     if (isSortByChange && newParam === null) {
         urlParams.delete(newParamType);
@@ -36,7 +37,7 @@ const createURLParams = (
             : urlParams.set(newParamType, newParam);
     }
 
-    if (isSortByChange) {
+    if (isSortByChange || isMenuTypeChange) {
         urlParams.set(newParamType, newParam);
     }
 
@@ -84,20 +85,23 @@ const createURLParams = (
     return urlParams.toString();
 };
 
-export const initialState = '';
+export const initialState = new URLSearchParams(
+    `?timestamp=${new Date().toISOString().slice(0, 13)}&menuType=rec`,
+).toString();
 
 const reducer = (state: string, action: Action) => {
     switch (action.type) {
         case 'search':
         case 'filter':
         case 'sortBy':
+        case 'menuType':
             return createURLParams(
                 state,
                 action.type,
                 action.payload.value,
                 action.payload.checked,
             );
-        case 'reset':
+        case 'reset': // Deprecated
         default:
             return initialState;
     }

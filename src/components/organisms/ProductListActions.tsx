@@ -2,6 +2,7 @@ import * as React from 'react';
 import { Card, createStyles, Text, Skeleton } from '@mantine/core';
 import SearchInput from '../molecules/SearchInput';
 import SortBy from '../molecules/SortBy';
+import MenuTypeSwitch from '../molecules/MenuTypeSwitch';
 
 const useStyles = createStyles((theme) => ({
     cardRoot: {
@@ -44,6 +45,7 @@ const ProductListActions: React.FC<Props> = ({ resultAmount, isLoading }) => {
             <div className={classes.root}>
                 <SearchInput />
                 <SortBy />
+                <MenuTypeSwitch />
                 <div className={classes.results}>
                     <Skeleton
                         visible={isLoading}
