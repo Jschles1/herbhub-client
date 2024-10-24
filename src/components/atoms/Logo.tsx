@@ -23,6 +23,9 @@ const useStyles = createStyles((theme) => ({
             color: theme.colors.green[5],
         },
         transition: 'color 0.2s ease',
+        [`@media (max-width: ${theme.breakpoints.lg}px)`]: {
+            fontSize: '1rem',
+        },
     },
 }));
 
@@ -35,7 +38,7 @@ const Logo = () => {
             <Image src={WeedIcon} alt="Weed Icon" width={32} height={32} />
             <Text size="xl">
                 <Link href="/" className={classes.link}>
-                    Jersey Herbhub
+                    Garden State Herbhub
                 </Link>
             </Text>
         </div>
