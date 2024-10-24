@@ -18,7 +18,7 @@ const FAQ: NextPage = () => {
     return (
         <>
             <Head>
-                <title>HerbHub NJ</title>
+                <title>Garden State Herbhub</title>
             </Head>
             <PageContainer>
                 <h1 className={classes.header}>Frequently Asked Questions</h1>

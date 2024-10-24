@@ -40,3 +40,8 @@ export interface PriceOptions {
     ounce?: number;
     other?: number;
 }
+
+export interface ProductData {
+    products: Product[];
+    lastUpdated: string;
+}

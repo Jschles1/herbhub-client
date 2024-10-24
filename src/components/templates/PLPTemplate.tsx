@@ -25,6 +25,7 @@ const useStyles = createStyles((theme) => ({
 
 interface Props {
     products: Product[];
+    lastUpdated: string;
     isLoading: boolean;
     isFetching: boolean;
     isError: boolean;
@@ -33,6 +34,7 @@ interface Props {
 
 const PLPTemplate: React.FC<Props> = ({
     products,
+    lastUpdated,
     isLoading,
     isFetching,
     isError,
@@ -56,6 +58,7 @@ const PLPTemplate: React.FC<Props> = ({
                     <ProductListActions
                         resultAmount={resultAmount}
                         isLoading={isLoading || isFetching}
+                        lastUpdated={lastUpdated}
                     />
                     <ProductList products={products} />
                 </div>

@@ -30,14 +30,26 @@ const useStyles = createStyles((theme) => ({
             marginTop: '1rem',
         },
     },
+    lastUpdated: {
+        fontStyle: 'italic',
+        fontSize: '0.8rem',
+    },
+    resultAmount: {
+        fontSize: '0.8rem',
+    },
 }));
 
 interface Props {
     resultAmount: number;
     isLoading: boolean;
+    lastUpdated: string;
 }
 
-const ProductListActions: React.FC<Props> = ({ resultAmount, isLoading }) => {
+const ProductListActions: React.FC<Props> = ({
+    resultAmount,
+    isLoading,
+    lastUpdated,
+}) => {
     const { classes } = useStyles();
 
     return (
@@ -49,10 +61,17 @@ const ProductListActions: React.FC<Props> = ({ resultAmount, isLoading }) => {
                 <div className={classes.results}>
                     <Skeleton
                         visible={isLoading}
-                        width={100}
+                        width={200}
                         className={classes.skeleton}
                     >
-                        <Text>{resultAmount} Results</Text>
+                        <div>
+                            <Text className={classes.lastUpdated}>
+                                Last Updated: {lastUpdated}
+                            </Text>
+                            <Text className={classes.resultAmount}>
+                                {resultAmount} Results
+                            </Text>
+                        </div>
                     </Skeleton>
                 </div>
             </div>

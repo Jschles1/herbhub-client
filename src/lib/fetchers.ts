@@ -1,10 +1,12 @@
 import { QueryFunctionContext } from '@tanstack/react-query';
 import axios from 'axios';
-import { Product } from './interfaces';
+import { Product, ProductData } from './interfaces';
 
 export const getDispensaryProducts = async ({
     queryKey,
-}: QueryFunctionContext<[string, string]>): Promise<Product[] | undefined> => {
+}: QueryFunctionContext<[string, string]>): Promise<
+    ProductData | undefined
+> => {
     try {
         const [_key, param] = queryKey;
         const queryParams = param.length ? `?${param}` : '';
@@ -12,7 +14,7 @@ export const getDispensaryProducts = async ({
             `/api/getDispensaryProducts${queryParams}`,
         );
         const data = response.data;
-        return data.products;
+        return { products: data.products, lastUpdated: data.lastUpdated };
     } catch (e) {
         console.error('Error getting dispensary products: ', e);
         return Promise.reject(e);

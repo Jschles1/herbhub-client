@@ -196,7 +196,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
             });
 
             await prismadb.$disconnect();
-            res.status(200).json({ products });
+            res.status(200).json({ products, lastUpdated: lastUpdated.date });
         } catch (e) {
             console.error(e);
             await prismadb.$disconnect();
