@@ -14,6 +14,7 @@ export const mapProductImage = (product: Product) => {
         case 'vaporizer':
             return '/icons/icons8-cartridge-64.png';
         case 'extracts':
+        case 'extract':
             return '/icons/icons8-extraction-64.png';
         case 'edibles':
         case 'edible':
