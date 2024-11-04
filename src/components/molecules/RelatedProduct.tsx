@@ -9,6 +9,7 @@ import {
     parseProductWeightUnit,
 } from '../../lib/helpers';
 import ProductInfoBadges from './ProductInfoBadges';
+import CategoryText from '../atoms/CategoryText';
 
 const useStyles = createStyles((theme) => ({
     root: {
@@ -20,13 +21,34 @@ const useStyles = createStyles((theme) => ({
         flex: 1,
     },
     topSpacing: {
-        marginTop: theme.spacing.md,
+        marginTop: theme.spacing.sm,
         marginBottom: 0,
     },
     image: {
+        // position: 'relative',
+        marginBottom: '0.5rem',
+        borderRadius: '4px',
+        border: '1px solid #dee2e6',
+    },
+    imageContainer: {
         position: 'relative',
-        height: '100%',
-        width: '100%',
+    },
+    saleTag: {
+        position: 'absolute',
+        bottom: '0.5rem',
+        right: 0,
+        paddingLeft: '0.4rem',
+        paddingRight: '0.4rem',
+        paddingTop: '0.1rem',
+        paddingBottom: '0.1rem',
+        backgroundColor: 'green',
+        borderTopLeftRadius: '4px',
+        [`@media (min-width: ${theme.breakpoints.md}px)`]: {
+            // bottom: '0.5px',
+        },
+    },
+    strainTypeText: {
+        color: theme.colors.gray[6],
     },
 }));
 
@@ -35,7 +57,7 @@ interface Props {
 }
 
 const RelatedProduct: React.FC<Props> = ({ product }) => {
-    const { classes } = useStyles();
+    const { classes, cx } = useStyles();
     const ref = React.useRef<HTMLAnchorElement>(null);
     const [width, setWidth] = React.useState(0);
     const productUrl = getProductUrl(product);
@@ -43,8 +65,12 @@ const RelatedProduct: React.FC<Props> = ({ product }) => {
     const hasSalePrice =
         parseInt(prices.promoPrice) > 0 &&
         parseInt(prices.promoPrice) !== parseInt(prices.price);
-    const thcInfo = product.thc ? ` - THC: %${product.thc.toFixed(2)}` : '';
-    const cbdInfo = product.cbd ? ` - CBD: %${product.cbd.toFixed(2)}` : '';
+    const thcInfo = product.thcPercent
+        ? ` - THC: ${product.thcPercent.toFixed(2)}%`
+        : '';
+    const cbdInfo = product.cbdPercent
+        ? ` - CBD: %${product.cbdPercent.toFixed(2)}`
+        : '';
 
     React.useEffect(() => {
         if (ref.current) {
@@ -61,14 +87,24 @@ const RelatedProduct: React.FC<Props> = ({ product }) => {
             withBorder
             ref={ref}
         >
-            <Image
-                src={mapProductImage(product)}
-                height={275}
-                width={width}
-                alt={product.strain}
-                priority
-            />
-            <ProductInfoBadges product={product} hasSalePrice={hasSalePrice} />
+            <div className={classes.imageContainer}>
+                {hasSalePrice && (
+                    <div className={classes.saleTag}>
+                        <Text size={16} color="white">
+                            Sale!
+                        </Text>
+                    </div>
+                )}
+                <Image
+                    src={mapProductImage(product)}
+                    height={290}
+                    width={width}
+                    alt={product.strain}
+                    className={classes.image}
+                    priority
+                />
+            </div>
+            <CategoryText categoryType={product.categoryType} />
             <Text weight="bold" className={classes.topSpacing}>
                 {product.strain}
             </Text>
@@ -91,8 +127,7 @@ const RelatedProduct: React.FC<Props> = ({ product }) => {
             <Text
                 size={12}
                 weight={300}
-                className={classes.topSpacing}
-                color="gray"
+                className={cx(classes.topSpacing, classes.strainTypeText)}
             >
                 {product.strainType.toUpperCase() + thcInfo + cbdInfo}
             </Text>

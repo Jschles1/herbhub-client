@@ -16,12 +16,18 @@ const PDPStrainInfo: React.FC<Props> = ({ product }) => {
     const { classes } = useStyles();
     return (
         <div className={classes.root}>
-            <Badge color="gray">Type: {product.strainType}</Badge>
-            {!!product.thc && (
-                <Badge color="gray">THC: {product.thc.toFixed(1)}%</Badge>
+            <Badge color="gray">{product.strainType}</Badge>
+            {!!product.thcPercent && (
+                <Badge color="gray">THC: {product.thcPercent}%</Badge>
             )}
-            {!!product.cbd && (
-                <Badge color="gray">CBD: {product.cbd.toFixed(1)}%</Badge>
+            {!!product.cbdPercent && (
+                <Badge color="gray">CBD: {product.cbdPercent}%</Badge>
+            )}
+            {!!product.thcContent && (
+                <Badge color="gray">THC: {product.thcContent}mg</Badge>
+            )}
+            {!!product.cbdContent && (
+                <Badge color="gray">CBD: {product.cbdContent}mg</Badge>
             )}
         </div>
     );

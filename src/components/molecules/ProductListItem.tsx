@@ -67,6 +67,9 @@ const useStyles = createStyles((theme) => ({
         marginTop: '0.2rem',
         marginBottom: '0.2rem',
     },
+    strainTypeText: {
+        color: theme.colors.gray[6],
+    },
     badge: {
         height: '25px',
     },
@@ -122,8 +125,16 @@ const ProductListItem: React.FC<Props> = ({ product }) => {
     const hasSalePrice =
         parseInt(prices.promoPrice) > 0 &&
         parseInt(prices.promoPrice) !== parseInt(prices.price);
-    const thcInfo = product.thc ? ` - THC: %${product.thc.toFixed(2)}` : '';
-    const cbdInfo = product.cbd ? ` - CBD: %${product.cbd.toFixed(2)}` : '';
+    const thcInfo = product.thcPercent
+        ? ` - THC: ${product.thcPercent.toFixed(2)}%`
+        : product.thcContent
+        ? ` - THC: ${product.thcContent}mg`
+        : '';
+    const cbdInfo = product.cbdPercent
+        ? ` - CBD: ${product.cbdPercent.toFixed(2)}%`
+        : product.cbdContent
+        ? ` - CBD: ${product.cbdContent}mg`
+        : '';
     const dimensions = isMobile
         ? { width: 146, height: 140 }
         : { width: 110, height: 110 };
@@ -153,9 +164,6 @@ const ProductListItem: React.FC<Props> = ({ product }) => {
                     width={dimensions.width}
                     height={dimensions.height}
                     priority
-                    // style={{
-                    //     border: !product.image ? 'none' : '1px solid #dee2e6',
-                    // }}
                     className={classes.imageContainer}
                     alt={product.strain}
                     unoptimized
@@ -217,8 +225,10 @@ const ProductListItem: React.FC<Props> = ({ product }) => {
 
                     <Text
                         size={12}
-                        className={classes.productText}
-                        color="gray"
+                        className={cx(
+                            classes.productText,
+                            classes.strainTypeText,
+                        )}
                     >
                         {product.strainType.toUpperCase() + thcInfo + cbdInfo}
                     </Text>

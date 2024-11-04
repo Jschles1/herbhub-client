@@ -15,7 +15,7 @@ const useStyles = createStyles((theme) => ({
     location: {
         alignSelf: 'end',
         fontSize: '0.8rem',
-        color: 'gray',
+        color: theme.colors.gray[6],
         marginTop: '0.3rem',
         display: 'none',
     },

@@ -9,14 +9,13 @@ import {
 } from '../../lib/helpers';
 import { Product } from '../../lib/interfaces';
 import RelatedProducts from '../organisms/RelatedProducts';
-import ProductInfoBadges from '../molecules/ProductInfoBadges';
 import PDPStrainInfo from '../molecules/PDPStrainInfo';
 import { useMediaQuery } from '@mantine/hooks';
 
 const useStyles = createStyles((theme) => ({
     root: {
         display: 'flex',
-        alignItems: 'center',
+        alignItems: 'flex-start',
         [`@media (max-width: ${theme.breakpoints.sm}px)`]: {
             flexDirection: 'column',
         },
@@ -24,8 +23,10 @@ const useStyles = createStyles((theme) => ({
     imageContainer: {
         width: '100%',
         height: '100%',
-        flexBasis: '30%',
-        marginRight: theme.spacing.md,
+        flexBasis: '20%',
+        marginRight: '4rem',
+        borderRadius: '4px',
+        border: '1px solid #dee2e6',
         [`@media (max-width: ${theme.breakpoints.sm}px)`]: {
             marginRight: 0,
         },
@@ -39,16 +40,14 @@ const useStyles = createStyles((theme) => ({
     },
     strain: {
         fontSize: '2rem',
+        margin: 0,
         [`@media (max-width: ${theme.breakpoints.md}px)`]: {
             fontSize: '1.5rem',
         },
     },
     button: {
         textTransform: 'uppercase',
-        // letterSpacing: '0.1rem',
-        fontSize: '0.8rem',
         [`@media (max-width: ${theme.breakpoints.md}px)`]: {
-            fontSize: '0.6rem',
             lineHeight: '1rem',
             paddingTop: '0.25rem',
             paddingBottom: '0.25rem',
@@ -74,6 +73,14 @@ const useStyles = createStyles((theme) => ({
         // fontSize: '1.2rem',
         fontStyle: 'italic',
     },
+    brandText: {
+        fontWeight: 'bold',
+        textTransform: 'uppercase',
+        color: theme.colors.gray[6],
+    },
+    description: {
+        fontSize: '0.8rem',
+    },
 }));
 
 interface Props {
@@ -86,94 +93,75 @@ const PDPTemplate: React.FC<Props> = ({ product, relatedProducts }) => {
     const isMobile = useMediaQuery('(max-width: 900px)');
     const prices = getProductPrices(product);
     const hasSalePrice = parseInt(prices.promoPrice) > 0;
-    const imageDimensions = isMobile ? 300 : 400;
+    const imageDimensions = isMobile ? 200 : 300;
 
     return (
         <Container>
             <Link href="/" className={classes.link}>
                 ← Back
             </Link>
-            <Card withBorder shadow="sm">
-                <div className={classes.root}>
-                    <div className={classes.imageContainer}>
-                        <Image
-                            src={mapProductImage(product)}
-                            priority
-                            alt={product.strain}
-                            height={imageDimensions}
-                            width={imageDimensions}
-                        />
-                    </div>
-                    <div className={classes.infoContainer}>
-                        <ProductInfoBadges
-                            product={product}
-                            hasSalePrice={hasSalePrice}
-                        />
-                        <Text
-                            component="h1"
-                            className={cx(classes.strain, classes.topSpacing)}
-                        >
-                            {product.strain}
-                        </Text>
-                        <Text className={classes.topSpacing}>
-                            {product.brand}
-                        </Text>
-                        <Text
-                            className={cx(classes.topSpacing, classes.location)}
-                        >
-                            {product.dispensaryName} -{' '}
-                            {product.dispensaryLocation}
-                        </Text>
-                        {product.url && (
-                            <Button
-                                color="green"
-                                variant="light"
-                                className={cx(
-                                    classes.button,
-                                    classes.topSpacing,
-                                )}
-                                component="a"
-                                href={product.url}
-                                target="_blank"
-                            >
-                                Purchase
-                            </Button>
-                        )}
-                        <Text weight="bold" className={classes.topSpacing}>
-                            {hasSalePrice && (
-                                <Text
-                                    weight="bold"
-                                    color="green"
-                                    component="span"
-                                >
-                                    {`$${prices.promoPrice} `}
-                                </Text>
-                            )}
-                            <Text
-                                component="span"
-                                strikethrough={hasSalePrice}
-                            >{`$${prices.price}`}</Text>
-
-                            <Text component="span" weight="normal">
-                                {parseProductWeightUnit(prices.weight)}
-                            </Text>
-                        </Text>
-
-                        <PDPStrainInfo product={product} />
-
-                        <Text component="h2" className={classes.topSpacing}>
-                            Product Description:
-                        </Text>
-                        <Text
-                            className={classes.topSpacing}
-                            dangerouslySetInnerHTML={{
-                                // Description already sanitized from server
-                                __html: product.description,
-                            }}
-                        />
-                    </div>
+            {/* <Card withBorder shadow="sm"> */}
+            <div className={classes.root}>
+                <div className={classes.imageContainer}>
+                    <Image
+                        src={mapProductImage(product)}
+                        priority
+                        alt={product.strain}
+                        height={imageDimensions}
+                        width={imageDimensions}
+                        style={{ margin: '0 auto', display: 'block' }}
+                    />
                 </div>
-            </Card>
+                <div className={classes.infoContainer}>
+                    {/* <CategoryText categoryType={product.categoryType} /> */}
+                    <Text className={classes.brandText}>{product.brand}</Text>
+                    <Text component="h1" className={cx(classes.strain)}>
+                        {product.strain}
+                    </Text>
+
+                    <Text className={cx(classes.topSpacing, classes.location)}>
+                        {product.dispensaryName} - {product.dispensaryLocation}
+                    </Text>
+                    {product.url && (
+                        <Button
+                            color="green"
+                            variant="light"
+                            className={cx(classes.button, classes.topSpacing)}
+                            component="a"
+                            href={product.url}
+                            target="_blank"
+                        >
+                            Purchase
+                        </Button>
+                    )}
+                    <Text weight="bold" className={classes.topSpacing}>
+                        {hasSalePrice && (
+                            <Text weight="bold" color="green" component="span">
+                                {`$${prices.promoPrice} `}
+                            </Text>
+                        )}
+                        <Text
+                            component="span"
+                            strikethrough={hasSalePrice}
+                        >{`$${prices.price}`}</Text>
+
+                        <Text component="span" weight="normal">
+                            {parseProductWeightUnit(prices.weight)}
+                        </Text>
+                    </Text>
+
+                    <PDPStrainInfo product={product} />
+
+                    <Text
+                        className={cx(classes.topSpacing, classes.description)}
+                        dangerouslySetInnerHTML={{
+                            // Description already sanitized from server
+                            __html: product.description,
+                        }}
+                    />
+                </div>
+            </div>
+            {/* </Card> */}
             <br />
             <RelatedProducts products={relatedProducts} />
         </Container>

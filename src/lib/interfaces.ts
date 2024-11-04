@@ -7,8 +7,10 @@ export interface Product {
     categoryType: string;
     description: string;
     weight: string | string[];
-    thc?: number;
-    cbd?: number;
+    thcPercent?: number;
+    cbdPercent?: number;
+    thcContent?: number;
+    cbdContent?: number;
     promoPrice?: PriceOptions;
     price: PriceOptions;
     lowestPrice: number;
