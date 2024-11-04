@@ -1,13 +1,13 @@
 import * as React from 'react';
 import { useRouter } from 'next/router';
 import { Badge, MediaQuery, createStyles } from '@mantine/core';
-import CategoryBadge from '../atoms/CategoryBadge';
+import CategoryBadge from '../atoms/CategoryText';
 import type { Product } from '../../lib/interfaces';
 import { getDisplayDispensaryName } from '../../lib/helpers';
 
 const useStyles = createStyles((theme) => ({
     root: {
-        marginLeft: '0.5rem',
+        marginLeft: '0.8rem',
         [`@media (max-width: ${theme.breakpoints.sm}px)`]: {
             marginLeft: '0',
         },
@@ -16,7 +16,7 @@ const useStyles = createStyles((theme) => ({
         alignSelf: 'end',
         fontSize: '0.8rem',
         color: 'gray',
-        marginTop: '0.5rem',
+        marginTop: '0.3rem',
         display: 'none',
     },
 }));

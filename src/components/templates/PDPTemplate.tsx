@@ -45,7 +45,7 @@ const useStyles = createStyles((theme) => ({
     },
     button: {
         textTransform: 'uppercase',
-        letterSpacing: '0.1rem',
+        // letterSpacing: '0.1rem',
         fontSize: '0.8rem',
         [`@media (max-width: ${theme.breakpoints.md}px)`]: {
             fontSize: '0.6rem',
@@ -56,7 +56,7 @@ const useStyles = createStyles((theme) => ({
         },
     },
     topSpacing: {
-        marginTop: theme.spacing.md,
+        marginTop: theme.spacing.sm,
         marginBottom: 0,
     },
     link: {
@@ -69,6 +69,10 @@ const useStyles = createStyles((theme) => ({
             color: theme.colors.green[5],
         },
         transition: 'color 0.1s ease',
+    },
+    location: {
+        // fontSize: '1.2rem',
+        fontStyle: 'italic',
     },
 }));
 
@@ -114,6 +118,12 @@ const PDPTemplate: React.FC<Props> = ({ product, relatedProducts }) => {
                         <Text className={classes.topSpacing}>
                             {product.brand}
                         </Text>
+                        <Text
+                            className={cx(classes.topSpacing, classes.location)}
+                        >
+                            {product.dispensaryName} -{' '}
+                            {product.dispensaryLocation}
+                        </Text>
                         {product.url && (
                             <Button
                                 color="green"
@@ -126,9 +136,7 @@ const PDPTemplate: React.FC<Props> = ({ product, relatedProducts }) => {
                                 href={product.url}
                                 target="_blank"
                             >
-                                Purchase At {isMobile && <br />}
-                                {product.dispensaryName} -{' '}
-                                {product.dispensaryLocation}
+                                Purchase
                             </Button>
                         )}
                         <Text weight="bold" className={classes.topSpacing}>

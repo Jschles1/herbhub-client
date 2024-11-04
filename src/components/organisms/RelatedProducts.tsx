@@ -31,6 +31,7 @@ const responsive = {
 const useStyles = createStyles((theme) => ({
     item: {
         padding: '0.5rem',
+        display: 'flex',
     },
     location: {
         textTransform: 'capitalize',

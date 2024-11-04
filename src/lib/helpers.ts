@@ -8,13 +8,15 @@ export const mapProductImage = (product: Product) => {
     switch (product.categoryType) {
         case 'flower':
             return '/icons/icons8-weed-64.png';
-        case 'pre-rolls':
+        case 'pre-roll':
             return '/icons/icons8-joint-64.png';
         case 'cartridges':
+        case 'vaporizer':
             return '/icons/icons8-cartridge-64.png';
         case 'extracts':
             return '/icons/icons8-extraction-64.png';
         case 'edibles':
+        case 'edible':
             return '/icons/icons8-cupcake-64.png';
         case 'concentrates':
             return '/icons/icons8-crystals-64.png';

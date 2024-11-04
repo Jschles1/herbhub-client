@@ -15,8 +15,9 @@ const useStyles = createStyles((theme) => ({
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'start',
-        justifyContent: 'center',
+        justifyContent: 'space-around',
         padding: '1rem',
+        flex: 1,
     },
     topSpacing: {
         marginTop: theme.spacing.md,
@@ -36,7 +37,6 @@ interface Props {
 const RelatedProduct: React.FC<Props> = ({ product }) => {
     const { classes } = useStyles();
     const ref = React.useRef<HTMLAnchorElement>(null);
-    const [height, setHeight] = React.useState(0);
     const [width, setWidth] = React.useState(0);
     const productUrl = getProductUrl(product);
     const prices = getProductPrices(product);
@@ -48,7 +48,6 @@ const RelatedProduct: React.FC<Props> = ({ product }) => {
 
     React.useEffect(() => {
         if (ref.current) {
-            setHeight(ref.current?.offsetHeight + 32);
             setWidth(ref.current?.offsetWidth - 32);
         }
     }, [ref]);
@@ -64,7 +63,7 @@ const RelatedProduct: React.FC<Props> = ({ product }) => {
         >
             <Image
                 src={mapProductImage(product)}
-                height={height}
+                height={275}
                 width={width}
                 alt={product.strain}
                 priority

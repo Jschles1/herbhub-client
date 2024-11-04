@@ -15,8 +15,10 @@ const useStyles = createStyles((theme) => ({
     root: {
         display: 'flex',
         flexDirection: 'row',
-        alignItems: 'flex-start',
+        // alignItems: 'flex-start',
+        alignItems: 'center',
         transition: 'border ease 0.1s',
+        position: 'relative',
         '&:hover': {
             border: '1px solid',
             borderColor: '#b3b6b9',
@@ -46,13 +48,13 @@ const useStyles = createStyles((theme) => ({
         display: 'inline-block',
     },
     productTextContainer: {
-        marginLeft: '0.5rem',
+        marginLeft: '0.8rem',
         [`@media (max-width: ${theme.breakpoints.sm}px)`]: {
             marginLeft: '0',
         },
     },
     productText: {
-        marginTop: '0.5rem',
+        marginTop: '0.3rem',
         [`@media (max-width: ${theme.breakpoints.sm}px)`]: {
             overflow: 'hidden',
             textOverflow: 'ellipsis',
@@ -61,10 +63,16 @@ const useStyles = createStyles((theme) => ({
             '-webkit-box-orient': 'vertical',
         },
     },
+    strainText: {
+        marginTop: '0.2rem',
+        marginBottom: '0.2rem',
+    },
     badge: {
         height: '25px',
     },
     imageContainer: {
+        borderRadius: '4px',
+        border: '1px solid #dee2e6',
         [`@media (max-width: ${theme.breakpoints.sm}px)`]: {
             margin: '0 auto 0.5rem',
         },
@@ -85,6 +93,20 @@ const useStyles = createStyles((theme) => ({
             bottom: '1rem',
         },
     },
+    saleTag: {
+        position: 'absolute',
+        bottom: '0.525rem',
+        right: 0,
+        paddingLeft: '0.4rem',
+        paddingRight: '0.4rem',
+        paddingTop: '0.1rem',
+        paddingBottom: '0.1rem',
+        backgroundColor: 'green',
+        borderTopLeftRadius: '4px',
+        [`@media (min-width: ${theme.breakpoints.md}px)`]: {
+            bottom: '0.5px',
+        },
+    },
 }));
 
 interface Props {
@@ -92,7 +114,7 @@ interface Props {
 }
 
 const ProductListItem: React.FC<Props> = ({ product }) => {
-    const { classes } = useStyles();
+    const { classes, cx } = useStyles();
     const isMobile = useMediaQuery('(max-width: 750px)');
 
     const prices = getProductPrices(product);
@@ -103,8 +125,8 @@ const ProductListItem: React.FC<Props> = ({ product }) => {
     const thcInfo = product.thc ? ` - THC: %${product.thc.toFixed(2)}` : '';
     const cbdInfo = product.cbd ? ` - CBD: %${product.cbd.toFixed(2)}` : '';
     const dimensions = isMobile
-        ? { width: 130, height: 140 }
-        : { width: 100, height: 100 };
+        ? { width: 146, height: 140 }
+        : { width: 110, height: 110 };
 
     if (product.prices.length > 1) {
         // console.log({ weight: product.weight });
@@ -120,18 +142,20 @@ const ProductListItem: React.FC<Props> = ({ product }) => {
         >
             <div style={{ position: 'relative' }}>
                 {hasSalePrice && (
-                    <Badge
-                        color="green"
-                        sx={{ position: 'absolute', top: '4px' }}
-                    >
-                        Sale
-                    </Badge>
+                    <div className={classes.saleTag}>
+                        <Text size={13} color="white">
+                            Sale!
+                        </Text>
+                    </div>
                 )}
                 <Image
                     src={mapProductImage(product)}
                     width={dimensions.width}
                     height={dimensions.height}
                     priority
+                    // style={{
+                    //     border: !product.image ? 'none' : '1px solid #dee2e6',
+                    // }}
                     className={classes.imageContainer}
                     alt={product.strain}
                     unoptimized
@@ -178,7 +202,7 @@ const ProductListItem: React.FC<Props> = ({ product }) => {
                     <Text
                         size={14}
                         weight={700}
-                        className={classes.productText}
+                        className={cx(classes.productText, classes.strainText)}
                     >
                         {product.strain}
                     </Text>
@@ -193,7 +217,6 @@ const ProductListItem: React.FC<Props> = ({ product }) => {
 
                     <Text
                         size={12}
-                        weight={300}
                         className={classes.productText}
                         color="gray"
                     >
