@@ -18,7 +18,6 @@ const useStyles = createStyles((theme) => ({
         textDecoration: 'none',
         color: '#000',
         fontWeight: 'bold',
-        letterSpacing: '0.1rem',
         '&:hover': {
             color: theme.colors.green[5],
         },
