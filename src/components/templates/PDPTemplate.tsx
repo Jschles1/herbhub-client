@@ -11,6 +11,7 @@ import { Product } from '../../lib/interfaces';
 import RelatedProducts from '../organisms/RelatedProducts';
 import PDPStrainInfo from '../molecules/PDPStrainInfo';
 import { useMediaQuery } from '@mantine/hooks';
+import ProductLabs from '../molecules/ProductLabs';
 
 const useStyles = createStyles((theme) => ({
     root: {
@@ -24,7 +25,7 @@ const useStyles = createStyles((theme) => ({
         width: '100%',
         height: '100%',
         flexBasis: '20%',
-        marginRight: '4rem',
+        marginRight: '2rem',
         borderRadius: '4px',
         border: '1px solid #dee2e6',
         [`@media (max-width: ${theme.breakpoints.sm}px)`]: {
@@ -93,7 +94,7 @@ const PDPTemplate: React.FC<Props> = ({ product, relatedProducts }) => {
     const isMobile = useMediaQuery('(max-width: 900px)');
     const prices = getProductPrices(product);
     const hasSalePrice = parseInt(prices.promoPrice) > 0;
-    const imageDimensions = isMobile ? 200 : 300;
+    const imageDimensions = isMobile ? 200 : 250;
 
     return (
         <Container>
@@ -152,13 +153,20 @@ const PDPTemplate: React.FC<Props> = ({ product, relatedProducts }) => {
 
                     <PDPStrainInfo product={product} />
 
-                    <Text
-                        className={cx(classes.topSpacing, classes.description)}
-                        dangerouslySetInnerHTML={{
-                            // Description already sanitized from server
-                            __html: product.description,
-                        }}
-                    />
+                    {product.description && (
+                        <Text
+                            className={cx(
+                                classes.topSpacing,
+                                classes.description,
+                            )}
+                            dangerouslySetInnerHTML={{
+                                // Description already sanitized from server
+                                __html: product.description,
+                            }}
+                        />
+                    )}
+
+                    <ProductLabs product={product} />
                 </div>
             </div>
             {/* </Card> */}

@@ -1,3 +1,10 @@
+interface LabCompound {
+    name: string;
+    value: number;
+    unit: '%' | 'mg';
+    type: 'cannabinoid' | 'terpene';
+}
+
 export interface Product {
     id?: string;
     dispensaryName: string;
@@ -12,6 +19,10 @@ export interface Product {
     thcContent?: number;
     cbdContent?: number;
     promoPrice?: PriceOptions;
+    terpenes: LabCompound[];
+    cannabinoids: LabCompound[];
+    includedTerpenes: string;
+    includedCannabinoids: string;
     price: PriceOptions;
     lowestPrice: number;
     prices: ProductPrice[];

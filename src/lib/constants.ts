@@ -680,3 +680,138 @@ export const SORT_BY_OPTIONS = [
         value: 'cbd-content-high-to-low',
     },
 ];
+
+export const TERPENES_MAP = {
+    betacaryophyllene: 'Beta Caryophyllene',
+    limonene: 'Limonene',
+    betamyrcene: 'Beta Myrcene',
+    bmyrcene: 'Beta Myrcene',
+    linalool: 'Linalool',
+    alphapinene: 'Alpha Pinene',
+    apinene: 'Alpha Pinene',
+    betaeudesmol: 'Beta Eudesmol',
+    beudesmol: 'Beta Eudesmol',
+    betapinene: 'Beta Pinene',
+    bisabolol: 'Bisabolol',
+    caryophylleneoxide: 'Caryophyllene Oxide',
+    guaiol: 'Guaiol',
+    humulene: 'Humulene',
+    ocimene: 'Ocimene',
+    terpinene: 'Terpinene',
+    threecarene: 'Three Carene',
+    transnerolidol: 'Trans Nerolidol',
+    nerolidol: 'Nerolidol',
+    eucalyptol: 'Eucalyptol',
+    myrcene: 'Myrcene',
+    terpinolene: 'Terpinolene',
+    terpineol: 'Terpineol',
+    alphabisabolol: 'Alpha Bisabolol',
+    abisabolol: 'Alpha Bisabolol',
+    caryophyllene: 'Caryophyllene',
+    betacaryophylleneoxide: 'Beta Caryophyllene Oxide',
+    bcaryophylleneoxide: 'Beta Caryophyllene Oxide',
+    pinene: 'Pinene',
+    fenchol: 'Fenchol',
+    cedrene: 'Cedrene',
+    valencene: 'Valencene',
+    camphene: 'Camphene',
+    phellandrene: 'Phellandrene',
+    geranylacetate: 'Geranyl Acetate',
+    transcaryophyllene: 'Trans Caryophyllene',
+    geraniol: 'Geraniol',
+    borneol: 'Borneol',
+    paracymene: 'Para Cymene',
+    isopulegol: 'Isopulegol',
+    carene: 'Carene',
+    sabinene: 'Sabinene',
+    fenchylalcohol: 'Fenchyl Alcohol',
+    bpinene: 'Beta Pinene',
+};
+
+export const TERPENES_INFO_MAP = {
+    betacaryophyllene:
+        "Beta Caryophyllene is a spicy, woody terpene commonly found in black pepper, cloves, and various herbs. It is unique among terpenes as it can interact with the body's endocannabinoid system. Known for its potential anti-inflammatory properties, it has been studied for possible therapeutic applications in pain and anxiety management.",
+    limonene:
+        'Limonene is a citrusy terpene predominantly found in citrus fruit peels, particularly lemons and oranges. It gives these fruits their characteristic fresh, energizing scent. Studies suggest it may have mood-elevating properties and potential anti-anxiety effects.',
+    betamyrcene:
+        "Beta Myrcene is one of the most abundant terpenes found in cannabis, with an earthy, musky aroma similar to cloves. It's also commonly found in hops, bay leaves, and mangoes. Research indicates it may have sedative and muscle-relaxing properties.",
+    bmyrcene:
+        "Beta Myrcene is one of the most abundant terpenes found in cannabis, with an earthy, musky aroma similar to cloves. It's also commonly found in hops, bay leaves, and mangoes. Research indicates it may have sedative and muscle-relaxing properties.",
+    linalool:
+        'Linalool is a floral terpene most famously found in lavender plants. It has been traditionally used in aromatherapy for its calming and relaxing properties. Studies suggest it may have anxiety-reducing and sleep-promoting effects.',
+    alphapinene:
+        "Alpha Pinene is the most commonly found terpene in nature, responsible for the fresh, crisp scent of pine needles and rosemary. It's known for its potential anti-inflammatory and bronchodilating properties. Research suggests it may help counter some of the memory impairment associated with THC.",
+    apinene:
+        "Alpha Pinene is the most commonly found terpene in nature, responsible for the fresh, crisp scent of pine needles and rosemary. It's known for its potential anti-inflammatory and bronchodilating properties. Research suggests it may help counter some of the memory impairment associated with THC.",
+    betaeudesmol:
+        'Beta Eudesmol is a sesquiterpene alcohol found in various plants including certain cannabis strains and eucalyptus. It has a woody, earthy aroma and is being studied for its potential therapeutic properties. Research suggests it may have neurological benefits.',
+    beudesmol:
+        'Beta Eudesmol is a sesquiterpene alcohol found in various plants including certain cannabis strains and eucalyptus. It has a woody, earthy aroma and is being studied for its potential therapeutic properties. Research suggests it may have neurological benefits.',
+    betapinene:
+        'Beta Pinene is a terpene found in pine needles, rosemary, and dill with a fresh, woody aroma. It shares many properties with its isomer Alpha Pinene but has its own unique characteristics. Studies suggest it may have anti-inflammatory and antimicrobial properties.',
+    bisabolol:
+        'Bisabolol is a floral terpene commonly found in chamomile flowers. It has a subtle, sweet floral aroma and has been used in cosmetics for its gentle properties. Research indicates it may have anti-inflammatory and anti-irritant properties.',
+    caryophylleneoxide:
+        "Caryophyllene Oxide is the oxidized form of Beta Caryophyllene, with a lightly spicy, woody scent. It's the compound drug-sniffing dogs are trained to detect in cannabis. Studies suggest it may have antifungal and anti-inflammatory properties.",
+    guaiol: 'Guaiol is a terpene alcohol with a piney, woody scent found in guaiacum and cypress pine. It has been used in traditional medicine by various cultures throughout history. Modern research suggests it may have antimicrobial and anti-inflammatory properties.',
+    humulene:
+        'Humulene is a woody, earthy terpene prominently found in hops and cannabis. It contributes to the distinct aroma of beer and many cannabis strains. Research indicates it may have anti-inflammatory properties and potential appetite-suppressing effects.',
+    ocimene:
+        'Ocimene is a sweet, herbaceous terpene found in mint, parsley, and orchids. It produces a pleasant, floral aroma with woody undertones. Studies suggest it may have antifungal and anti-inflammatory properties.',
+    terpinene:
+        "Terpinene is a terpene with a citrusy, woody aroma found in tea tree oil and various citrus fruits. It's often used in the perfume industry for its pleasant scent. Research suggests it may have antioxidant properties.",
+    threecarene:
+        "Three Carene is a sweet, pungent terpene found in rosemary, cedar, and pine. It's known for its characteristic cypress-like aroma. Studies indicate it may help with bone growth and repair.",
+    transnerolidol:
+        "Trans Nerolidol is a floral terpene found in jasmine, tea tree, and citrus peels with a subtle, woody scent. It's commonly used in perfumes and flavoring agents. Research suggests it may have sedative and anti-parasitic properties.",
+    nerolidol:
+        "Nerolidol is a floral terpene found in jasmine, tea tree, and citrus peels with a subtle, woody scent. It's commonly used in perfumes and flavoring agents. Research suggests it may have sedative and anti-parasitic properties.",
+    eucalyptol:
+        'Eucalyptol, also known as cineole, is the primary terpene found in eucalyptus trees. It has a fresh, minty, and cooling aroma familiar to anyone who has used cough drops. Studies suggest it may have respiratory benefits and anti-inflammatory properties.',
+    myrcene:
+        "Myrcene is one of the most abundant terpenes in cannabis, with an earthy, musky aroma. It's also found in mangoes, hops, and thyme. Research suggests it may have sedative effects and may enhance the permeability of cell membranes.",
+    terpinolene:
+        "Terpinolene is a fresh, piney terpene with hints of citrus and floral notes. It's found in sage, rosemary, and many cannabis strains. Studies suggest it may have sedating effects and antioxidant properties.",
+    terpineol:
+        "Terpineol is a floral terpene with hints of lilac and citrus, commonly found in lime blossoms and eucalyptus sap. It's widely used in perfumes and cosmetics. Research suggests it may have calming and antioxidant properties.",
+    alphabisabolol:
+        'Alpha Bisabolol is a floral terpene primarily found in chamomile flowers. It has a subtle, sweet floral aroma and is widely used in cosmetics. Studies suggest it may have anti-inflammatory and anti-microbial properties.',
+    abisabolol:
+        'Alpha Bisabolol is a floral terpene primarily found in chamomile flowers. It has a subtle, sweet floral aroma and is widely used in cosmetics. Studies suggest it may have anti-inflammatory and anti-microbial properties.',
+    caryophyllene:
+        "Caryophyllene is a spicy, peppery terpene found in black pepper and many herbs. It's unique as it can interact with the endocannabinoid system. Research suggests it may have anti-inflammatory and analgesic properties.",
+    betacaryophylleneoxide:
+        "Beta Caryophyllene Oxide is the oxidized form of Beta Caryophyllene, with a lightly spicy, woody scent. It's the compound drug-sniffing dogs are trained to detect in cannabis. Studies suggest it may have antifungal and anti-inflammatory properties.",
+    bcaryophylleneoxide:
+        "Beta Caryophyllene Oxide is the oxidized form of Beta Caryophyllene, with a lightly spicy, woody scent. It's the compound drug-sniffing dogs are trained to detect in cannabis. Studies suggest it may have antifungal and anti-inflammatory properties.",
+    pinene: 'Pinene is one of the most abundant terpenes in nature, found in pine needles, rosemary, and sage. It has a fresh, crisp pine needle aroma. Research suggests it may have anti-inflammatory properties and may help improve memory.',
+    fenchol:
+        "Fenchol is a terpene alcohol with a camphor-like, piney scent found in basil and aster flowers. It's commonly used in perfumery for its fresh, earthy aroma. Studies suggest it may have antimicrobial properties.",
+    cedrene:
+        'Cedrene is a woody terpene primarily found in cedar wood oil. It has a warm, sweet, woody scent characteristic of cedar trees. Research suggests it may have anti-inflammatory and antiseptic properties.',
+    valencene:
+        'Valencene is a citrusy terpene naturally occurring in valencia oranges and other citrus fruits. It has a sweet, fresh, citrusy aroma. Studies suggest it may have anti-inflammatory and anti-allergy properties.',
+    camphene:
+        "Camphene is a terpene with a pungent, earthy aroma similar to camphor and fir needles. It's found in essential oils of numerous plants including ginger. Research suggests it may have cardiovascular benefits.",
+    phellandrene:
+        "Phellandrene is a terpene with a pepperminty-eucalyptus scent found in various herbs and spices. It's commonly found in eucalyptus and mint plants. Studies suggest it may have anti-inflammatory and pain-relieving properties.",
+    geranylacetate:
+        "Geranyl Acetate is a terpene with a sweet, floral aroma found in various plants including citronella and lemongrass. It's commonly used in perfumes and flavoring. Research suggests it may have antimicrobial properties.",
+    transcaryophyllene:
+        'Trans Caryophyllene is a spicy, woody terpene found in black pepper and many herbs. It can interact with the endocannabinoid system like its beta form. Studies suggest it may have anti-inflammatory and analgesic properties.',
+    geraniol:
+        'Geraniol is a sweet, floral terpene found in geraniums and rose oil. It has a pleasant, rose-like scent and is widely used in perfumes. Research suggests it may have neuroprotective and antioxidant properties.',
+    borneol:
+        'Borneol is a terpene with a minty, camphor-like aroma found in herbs like rosemary and mint. It has been used in traditional Chinese medicine for centuries. Studies suggest it may have anti-inflammatory and pain-relieving properties.',
+    paracymene:
+        "Para Cymene is a terpene with a woody, citrusy aroma found in cumin and thyme. It's often used as a flavoring agent in foods. Research suggests it may have antioxidant and anti-inflammatory properties.",
+    isopulegol:
+        "Isopulegol is a minty, citrusy terpene found in lemongrass and mint species. It's used in the fragrance industry for its fresh aroma. Studies suggest it may have gastroprotective and anxiety-reducing properties.",
+    carene: "Carene is a sweet, pungent terpene found in rosemary, cedar, and pine with a cypress-like aroma. It's known for its pleasant woody scent. Research suggests it may help with bone growth and have anti-inflammatory properties.",
+    sabinene:
+        'Sabinene is a spicy terpene found in black pepper and Norway spruce. It has a woody, spicy, citrusy aroma. Studies suggest it may have antioxidant and anti-inflammatory properties.',
+    fenchylalcohol:
+        "Fenchyl Alcohol is a terpene alcohol with a camphor-like, piney scent found in fennel and basil. It's used in perfumery for its earthy, woody aroma. Research suggests it may have antimicrobial properties.",
+    bpinene:
+        'Beta Pinene is a terpene found in pine needles, rosemary, and dill with a fresh, woody aroma. It shares many properties with its isomer Alpha Pinene but has its own unique characteristics. Studies suggest it may have anti-inflammatory and antimicrobial properties.',
+};
