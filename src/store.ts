@@ -86,7 +86,7 @@ const createURLParams = (
 };
 
 export const initialState = new URLSearchParams(
-    `?timestamp=${new Date().toISOString().slice(0, 13)}&menuType=rec`,
+    `?timestamp=${new Date().toISOString().slice(0, 13)}&menuType=rec&filter=`,
 ).toString();
 
 const reducer = (state: string, action: Action) => {

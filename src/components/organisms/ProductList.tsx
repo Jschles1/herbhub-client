@@ -2,8 +2,9 @@ import * as React from 'react';
 import { Stack, Skeleton, Pagination, Group } from '@mantine/core';
 import { Product } from '../../lib/interfaces';
 import ProductListItem from '../molecules/ProductListItem';
-import useProductData from '../../lib/hooks/useProductData';
 import { useMediaQuery } from '@mantine/hooks';
+import { useQueryClient } from '@tanstack/react-query';
+import { useQueryParams } from '../../store';
 
 interface Props {
     products: Product[];
@@ -11,9 +12,15 @@ interface Props {
 
 const ProductList: React.FC<Props> = ({ products = [] }) => {
     const [activePage, setPage] = React.useState(1);
-    const { isLoading, isFetching } = useProductData();
+    const queryClient = useQueryClient();
+    const [params] = useQueryParams();
     const isMobile = useMediaQuery('(max-width: 750px)');
     const pages = Math.floor(products.length / 20);
+
+    const queryKey = ['getDispensaryProducts', params]; // add params if needed
+    const isLoading = queryClient.getQueryState(queryKey)?.status === 'loading';
+    const isFetching =
+        queryClient.getQueryState(queryKey)?.fetchStatus === 'fetching';
 
     React.useEffect(() => {
         setPage(1);
