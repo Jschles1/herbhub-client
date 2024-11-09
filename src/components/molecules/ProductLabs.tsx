@@ -35,7 +35,7 @@ const useStyles = createStyles((theme) => ({
         '& > div:nth-child(2)': {
             flexBasis: '40%',
             [`@media (max-width: ${theme.breakpoints.md}px)`]: {
-                marginBottom: '2rem',
+                marginBottom: '3rem',
             },
         },
         [`@media (max-width: ${theme.breakpoints.md}px)`]: {
@@ -331,6 +331,7 @@ const ProductLabs: React.FC<Props> = ({ product }) => {
                                     onMouseEnter={onPieEnter}
                                     onMouseLeave={onPieLeave}
                                     onClick={onPieClick}
+                                    onTouchStart={onPieClick}
                                     className={classes.pieChartRadius}
                                 >
                                     {productTerpenes.map((_, index) => (
