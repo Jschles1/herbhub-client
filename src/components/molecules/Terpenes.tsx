@@ -253,7 +253,11 @@ const Terpenes: React.FC<Props> = ({ product }) => {
     if (!product.includedTerpenes) return null;
 
     return productTerpenes.length ? (
-        <Accordion.Item key={'terpenes'} value={'terpenes'}>
+        <Accordion.Item
+            key={'terpenes'}
+            value={'terpenes'}
+            style={{ borderTop: '1px solid rgb(222, 226, 230)' }}
+        >
             <Accordion.Control>
                 <Text fw="bold">Terpenes</Text>
             </Accordion.Control>
