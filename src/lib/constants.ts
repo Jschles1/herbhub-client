@@ -815,3 +815,57 @@ export const TERPENES_INFO_MAP = {
     bpinene:
         'Beta Pinene contributes to alert, focused effects while adding fresh, woody notes. Like Alpha Pinene, it may help offset short-term memory issues during cannabis consumption.',
 };
+
+export const CANNABINOIDS_MAP = {
+    cbda: 'CBDa',
+    cbg: 'CBG',
+    cbga: 'CBGA',
+    thca: 'THCa',
+    thcva: 'THCVA',
+    cbc: 'CBC',
+    cbna: 'CBNA',
+    cbdva: 'CBDVA',
+    cbca: 'CBCA',
+    cbl: 'CBL',
+    cbn: 'CBN',
+    thcv: 'THCV',
+    cbdv: 'CBDV',
+    thc9: 'THC9',
+    thcd9: 'THC-D9',
+};
+
+export const CANNABINOIDS_FULL_NAME_MAP = {
+    cbda: 'Cannabidiolic Acid',
+    cbg: 'Cannabigerol',
+    cbga: 'Cannabigerolic Acid',
+    thca: 'Tetrahydrocannabinolic Acid',
+    thcva: 'Tetrahydrocannabivarinic Acid',
+    cbc: 'Cannabichromene',
+    cbna: 'Cannabinolic Acid',
+    cbdva: 'Cannabidivarinic Acid',
+    cbca: 'Cannabichromenic Acid',
+    cbl: 'Cannabicyclol',
+    cbn: 'Cannabinol',
+    thcv: 'Tetrahydrocannabivarin',
+    cbdv: 'Cannabidivarin',
+    thc9: 'Delta-9-Tetrahydrocannabinol',
+    thcd9: 'Delta-9-Tetrahydrocannabinol',
+};
+
+export const CANNABINOIDS_INFO_MAP = {
+    cbda: 'CBDa is the acidic precursor to CBD. It has potential anti-inflammatory and anti-nausea properties, and may help with pain relief without psychoactive effects.',
+    cbg: 'CBG is known as the "mother cannabinoid" as other cannabinoids are derived from its acidic form. It may have anti-inflammatory, neuroprotective, and appetite-stimulating properties.',
+    cbga: 'CBGA is the acidic precursor to CBG and the foundation for many other cannabinoids. It has potential therapeutic properties but requires more research.',
+    thca: 'THCa is the non-psychoactive, acidic precursor to THC. It has potential anti-inflammatory and neuroprotective properties before decarboxylation.',
+    thcva: 'THCVa is the acidic form of THCV. It may have unique therapeutic properties but requires more research to fully understand its effects.',
+    cbc: 'CBC is a non-psychoactive cannabinoid that may have anti-inflammatory and pain-relieving properties. It often works synergistically with other cannabinoids.',
+    cbna: 'CBNa is the acidic precursor to CBN. It forms naturally as THCa oxidizes and may contribute to sedative effects.',
+    cbdva: 'CBDVa is the acidic precursor to CBDV. It shows promise in research for neurological conditions but requires further study.',
+    cbca: 'CBCa is the acidic precursor to CBC. It may have unique therapeutic properties but requires more research to understand its full potential.',
+    cbl: 'CBL is a lesser-known cannabinoid formed from CBC degradation. Its therapeutic potential is still being researched.',
+    cbn: "CBN is formed from THC degradation and may have sedative properties. It's often associated with helping improve sleep quality.",
+    thcv: 'THCV is similar to THC but may have different effects, including potential appetite suppression. At higher doses, it can be psychoactive.',
+    cbdv: "CBDV is similar in structure to CBD and shows promise in neurological research. It's non-psychoactive and may have anticonvulsant properties.",
+    thc9: 'Delta-9-THC is the primary psychoactive compound in cannabis. It can produce euphoria while potentially helping with pain, nausea, and appetite stimulation.',
+    thcd9: 'Delta-9-THC is the primary psychoactive compound in cannabis. It can produce euphoria while potentially helping with pain, nausea, and appetite stimulation.',
+};

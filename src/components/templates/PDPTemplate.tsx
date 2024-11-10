@@ -11,7 +11,7 @@ import { Product } from '../../lib/interfaces';
 import RelatedProducts from '../organisms/RelatedProducts';
 import PDPStrainInfo from '../molecules/PDPStrainInfo';
 import { useMediaQuery } from '@mantine/hooks';
-import ProductLabs from '../molecules/ProductLabs';
+import ProductLabs from '../organisms/ProductLabs';
 
 const useStyles = createStyles((theme) => ({
     root: {
@@ -101,7 +101,6 @@ const PDPTemplate: React.FC<Props> = ({ product, relatedProducts }) => {
             <Link href="/" className={classes.link}>
                 ← Back
             </Link>
-            {/* <Card withBorder shadow="sm"> */}
             <div className={classes.root}>
                 <div className={classes.imageContainer}>
                     <Image
@@ -114,7 +113,6 @@ const PDPTemplate: React.FC<Props> = ({ product, relatedProducts }) => {
                     />
                 </div>
                 <div className={classes.infoContainer}>
-                    {/* <CategoryText categoryType={product.categoryType} /> */}
                     <Text className={classes.brandText}>{product.brand}</Text>
                     <Text component="h1" className={cx(classes.strain)}>
                         {product.strain}
@@ -169,7 +167,6 @@ const PDPTemplate: React.FC<Props> = ({ product, relatedProducts }) => {
                     <ProductLabs product={product} />
                 </div>
             </div>
-            {/* </Card> */}
             <br />
             <RelatedProducts products={relatedProducts} />
         </Container>

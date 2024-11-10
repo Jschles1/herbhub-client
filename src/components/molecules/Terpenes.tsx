@@ -1,30 +1,84 @@
+import * as React from 'react';
 import {
     Accordion,
-    createStyles,
-    Text,
     Card,
     CloseButton,
+    createStyles,
+    Text,
 } from '@mantine/core';
-import { PieChart, Pie, Sector, ResponsiveContainer, Cell } from 'recharts';
 import { Product } from '../../lib/interfaces';
-import React from 'react';
 import { TERPENES_INFO_MAP, TERPENES_MAP } from '../../lib/constants';
+import { Cell, Pie, PieChart, ResponsiveContainer } from 'recharts';
+import TerpeneActiveShape from '../atoms/TerpeneActiveShape';
+import TerpeneInactiveShape from '../atoms/TerpeneInactiveShape';
+
+const COLORS = [
+    '#C8D5C9', // Lightest green
+    '#A8C6A9',
+    '#85B687',
+    '#61A764',
+    '#469B4A',
+    '#2C8F30',
+    '#238027',
+    '#186E1C',
+    '#0E5D12',
+    '#003E00',
+    '#002D00',
+    '#000F00', // Darkest green
+];
+
+interface Props {
+    product: Product;
+}
+
+const getColor = (index: number) => {
+    return COLORS[index % COLORS.length];
+};
+
+type TerpeneState = {
+    activeTerpene: number | undefined;
+    terpeneCardOpen: boolean;
+};
+
+// Define action types
+type TerpeneAction =
+    | { type: 'OPEN_TERPENE'; payload: number }
+    | { type: 'CLOSE_TERPENE' }
+    | { type: 'HOVER_TERPENE'; payload: number }
+    | { type: 'UNHOVER_TERPENE' };
+
+// Create reducers
+const terpeneReducer = (
+    state: TerpeneState,
+    action: TerpeneAction,
+): TerpeneState => {
+    switch (action.type) {
+        case 'OPEN_TERPENE':
+            return {
+                activeTerpene: action.payload,
+                terpeneCardOpen: true,
+            };
+        case 'CLOSE_TERPENE':
+            return {
+                activeTerpene: undefined,
+                terpeneCardOpen: false,
+            };
+        case 'HOVER_TERPENE':
+            return {
+                ...state,
+                activeTerpene: action.payload,
+            };
+        case 'UNHOVER_TERPENE':
+            return {
+                ...state,
+                activeTerpene: undefined,
+            };
+        default:
+            return state;
+    }
+};
 
 const useStyles = createStyles((theme) => ({
-    root: {
-        // marginLeft: '0.8rem',
-        // [`@media (max-width: ${theme.breakpoints.sm}px)`]: {
-        //     marginLeft: '0',
-        // },
-        marginTop: '2rem',
-    },
-    location: {
-        alignSelf: 'end',
-        fontSize: '0.8rem',
-        color: theme.colors.gray[6],
-        marginTop: '0.3rem',
-        display: 'none',
-    },
     terpenesRoot: {
         display: 'flex',
         alignItems: 'center',
@@ -41,6 +95,43 @@ const useStyles = createStyles((theme) => ({
         [`@media (max-width: ${theme.breakpoints.md}px)`]: {
             flexDirection: 'column-reverse',
         },
+    },
+    cannabinoidsRoot: {
+        display: 'flex',
+        alignItems: 'center',
+        gap: '0.5rem',
+        justifyContent: 'space-between',
+        flexWrap: 'wrap',
+        position: 'relative',
+        '& > div': {
+            flexBasis: '48%',
+            marginBottom: '2.5rem',
+        },
+        [`@media (max-width: ${theme.breakpoints.md}px)`]: {
+            flexDirection: 'column',
+            '& > div': {
+                flexBasis: '100%',
+                width: '100%',
+            },
+        },
+    },
+    cannabinoidInfoItem: {
+        display: 'flex',
+        justifyContent: 'space-between',
+        alignItems: 'flex-end',
+    },
+    cannabinoidName: {
+        fontWeight: 'bold',
+        fontSize: '0.9rem',
+    },
+    cannabinoidNameContainer: {
+        display: 'flex',
+        alignItems: 'center',
+        gap: '0.3rem',
+        marginBottom: '0.2rem',
+    },
+    cannabinoidValue: {
+        fontSize: '0.8rem',
     },
     pieChart: {
         marginLeft: 'auto',
@@ -86,9 +177,24 @@ const useStyles = createStyles((theme) => ({
             top: 'auto',
         },
     },
+    cannabinoidCard: {
+        position: 'absolute',
+        top: 0,
+        left: 0,
+        width: '100%',
+        height: '100%',
+    },
     terpeneInfoName: {
         fontWeight: 'bold',
         fontSize: '1.2rem',
+    },
+    cannabinoidInfoName: {
+        fontWeight: 'bold',
+        fontSize: '1.2rem',
+        maxWidth: '80%',
+        wordWrap: 'break-word',
+        overflowWrap: 'break-word',
+        whiteSpace: 'normal',
     },
     closeButton: {
         position: 'absolute',
@@ -103,162 +209,17 @@ const useStyles = createStyles((theme) => ({
             maxWidth: '100%',
         },
     },
+    cannabinoidInfoDescription: {
+        fontSize: '0.8125rem',
+        maxWidth: '90%',
+        marginTop: '1rem',
+        [`@media (max-width: ${theme.breakpoints.md}px)`]: {
+            maxWidth: '100%',
+        },
+    },
 }));
 
-const COLORS = [
-    '#C8D5C9', // Lightest green
-    '#A8C6A9',
-    '#85B687',
-    '#61A764',
-    '#469B4A',
-    '#2C8F30',
-    '#238027',
-    '#186E1C',
-    '#0E5D12',
-    '#003E00',
-    '#002D00',
-    '#000F00', // Darkest green
-];
-
-interface Props {
-    product: Product;
-}
-
-const getColor = (index: number) => {
-    return COLORS[index % COLORS.length];
-};
-
-const renderInactiveShape = (props: any) => {
-    const { cx, cy, innerRadius, outerRadius, startAngle, endAngle, fill } =
-        props;
-
-    return (
-        <Sector
-            cx={cx}
-            cy={cy}
-            innerRadius={innerRadius}
-            outerRadius={outerRadius}
-            startAngle={startAngle}
-            endAngle={endAngle}
-            fill={fill}
-            opacity={0.3}
-        />
-    );
-};
-
-const renderActiveShape = (props: any) => {
-    const {
-        cx,
-        cy,
-        innerRadius,
-        outerRadius,
-        startAngle,
-        endAngle,
-        fill,
-        payload,
-    } = props;
-
-    return (
-        <g>
-            <text
-                x={cx}
-                y={cy}
-                dy={8}
-                textAnchor="middle"
-                fill="#333"
-                style={{ fontSize: '13px', fontWeight: 'bold' }}
-            >
-                <tspan>
-                    {TERPENES_MAP[payload.name as keyof typeof TERPENES_MAP]
-                        .split(' ')
-                        .map((word, i, arr) => (
-                            <tspan key={i} x={cx} dy={i === 0 ? 0 : 15}>
-                                {word}
-                            </tspan>
-                        ))}
-                </tspan>
-            </text>
-            <Sector
-                cx={cx}
-                cy={cy}
-                innerRadius={innerRadius}
-                outerRadius={outerRadius}
-                startAngle={startAngle}
-                endAngle={endAngle}
-                fill={fill}
-                filter="url(#shadow)"
-                style={{
-                    cursor: 'pointer',
-                }}
-            />
-            <defs>
-                <filter
-                    id="shadow"
-                    x="-20%"
-                    y="-20%"
-                    width="140%"
-                    height="140%"
-                >
-                    <feGaussianBlur in="SourceAlpha" stdDeviation="3" />
-                    <feOffset dx="2" dy="2" result="offsetblur" />
-                    <feComponentTransfer>
-                        <feFuncA type="linear" slope="0.3" />
-                    </feComponentTransfer>
-                    <feMerge>
-                        <feMergeNode />
-                        <feMergeNode in="SourceGraphic" />
-                    </feMerge>
-                </filter>
-            </defs>
-        </g>
-    );
-};
-
-// Define the state type
-type TerpeneState = {
-    activeTerpene: number | undefined;
-    terpeneCardOpen: boolean;
-};
-
-// Define action types
-type TerpeneAction =
-    | { type: 'OPEN_TERPENE'; payload: number }
-    | { type: 'CLOSE_TERPENE' }
-    | { type: 'HOVER_TERPENE'; payload: number }
-    | { type: 'UNHOVER_TERPENE' };
-
-// Create reducer
-const terpeneReducer = (
-    state: TerpeneState,
-    action: TerpeneAction,
-): TerpeneState => {
-    switch (action.type) {
-        case 'OPEN_TERPENE':
-            return {
-                activeTerpene: action.payload,
-                terpeneCardOpen: true,
-            };
-        case 'CLOSE_TERPENE':
-            return {
-                activeTerpene: undefined,
-                terpeneCardOpen: false,
-            };
-        case 'HOVER_TERPENE':
-            return {
-                ...state,
-                activeTerpene: action.payload,
-            };
-        case 'UNHOVER_TERPENE':
-            return {
-                ...state,
-                activeTerpene: undefined,
-            };
-        default:
-            return state;
-    }
-};
-
-const ProductLabs: React.FC<Props> = ({ product }) => {
+const Terpenes: React.FC<Props> = ({ product }) => {
     const { classes } = useStyles();
     const [state, dispatch] = React.useReducer(terpeneReducer, {
         activeTerpene: undefined,
@@ -268,8 +229,6 @@ const ProductLabs: React.FC<Props> = ({ product }) => {
     const productTerpenes = product.terpenes.filter(
         (terpene) => terpene.value !== 0,
     );
-
-    console.log('cannabinoids', product.cannabinoids);
 
     const onPieClick = (_: any, index: number) => {
         dispatch({ type: 'OPEN_TERPENE', payload: index });
@@ -291,18 +250,9 @@ const ProductLabs: React.FC<Props> = ({ product }) => {
         }
     };
 
-    if (!product.includedTerpenes && !product.includedCannabinoids) return null;
+    if (!product.includedTerpenes) return null;
 
-    const cannabinoids = product.cannabinoids.length ? (
-        <Accordion.Item key={'cannabinoids'} value={'cannabinoids'}>
-            <Accordion.Control>
-                <Text fw="bold">Cannabinoids</Text>
-            </Accordion.Control>
-            <Accordion.Panel>{product.includedCannabinoids}</Accordion.Panel>
-        </Accordion.Item>
-    ) : null;
-
-    const terpenes = productTerpenes.length ? (
+    return productTerpenes.length ? (
         <Accordion.Item key={'terpenes'} value={'terpenes'}>
             <Accordion.Control>
                 <Text fw="bold">Terpenes</Text>
@@ -326,6 +276,13 @@ const ProductLabs: React.FC<Props> = ({ product }) => {
                                         // e.preventDefault();
                                         onPieClick(null, index);
                                     }}
+                                    onKeyDown={(e) => {
+                                        if (e.key === 'Enter') {
+                                            onPieClick(null, index);
+                                        }
+                                    }}
+                                    role="button"
+                                    tabIndex={0}
                                 >
                                     <div
                                         className={classes.terpeneTextContainer}
@@ -373,8 +330,8 @@ const ProductLabs: React.FC<Props> = ({ product }) => {
                             <PieChart width={400} height={400}>
                                 <Pie
                                     activeIndex={state.activeTerpene}
-                                    activeShape={renderActiveShape}
-                                    inactiveShape={renderInactiveShape}
+                                    activeShape={TerpeneActiveShape}
+                                    inactiveShape={TerpeneInactiveShape}
                                     data={productTerpenes}
                                     cx="50%"
                                     cy="50%"
@@ -427,7 +384,7 @@ const ProductLabs: React.FC<Props> = ({ product }) => {
                                     {
                                         TERPENES_INFO_MAP[
                                             productTerpenes[state.activeTerpene]
-                                                .name as keyof typeof TERPENES_MAP
+                                                .name as keyof typeof TERPENES_INFO_MAP
                                         ]
                                     }
                                 </Text>
@@ -437,19 +394,6 @@ const ProductLabs: React.FC<Props> = ({ product }) => {
             </Accordion.Panel>
         </Accordion.Item>
     ) : null;
-
-    return (
-        <>
-            <Accordion
-                defaultValue={['terpenes', 'cannabinoids']}
-                className={classes.root}
-                multiple
-            >
-                {terpenes}
-                {cannabinoids}
-            </Accordion>
-        </>
-    );
 };
 
-export default ProductLabs;
+export default Terpenes;
