@@ -434,6 +434,7 @@ const ProductLabs: React.FC<Props> = ({ product }) => {
     return (
         <>
             <div>Active index: {state.activeTerpene}</div>
+            <div>Terpene card open: {state.terpeneCardOpen.toString()}</div>
             <Accordion
                 defaultValue={['terpenes', 'cannabinoids']}
                 className={classes.root}
