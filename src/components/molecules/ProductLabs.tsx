@@ -223,7 +223,9 @@ type TerpeneState = {
 // Define action types
 type TerpeneAction =
     | { type: 'OPEN_TERPENE'; payload: number }
-    | { type: 'CLOSE_TERPENE' };
+    | { type: 'CLOSE_TERPENE' }
+    | { type: 'HOVER_TERPENE'; payload: number }
+    | { type: 'UNHOVER_TERPENE' };
 
 // Create reducer
 const terpeneReducer = (
@@ -240,6 +242,16 @@ const terpeneReducer = (
             return {
                 activeTerpene: undefined,
                 terpeneCardOpen: false,
+            };
+        case 'HOVER_TERPENE':
+            return {
+                ...state,
+                activeTerpene: action.payload,
+            };
+        case 'UNHOVER_TERPENE':
+            return {
+                ...state,
+                activeTerpene: undefined,
             };
         default:
             return state;
@@ -269,13 +281,13 @@ const ProductLabs: React.FC<Props> = ({ product }) => {
 
     const onPieEnter = (_: any, index: number) => {
         if (!state.terpeneCardOpen) {
-            dispatch({ type: 'OPEN_TERPENE', payload: index });
+            dispatch({ type: 'HOVER_TERPENE', payload: index });
         }
     };
 
     const onPieLeave = () => {
         if (!state.terpeneCardOpen) {
-            dispatch({ type: 'CLOSE_TERPENE' });
+            dispatch({ type: 'UNHOVER_TERPENE' });
         }
     };
 
