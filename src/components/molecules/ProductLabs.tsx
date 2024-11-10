@@ -270,24 +270,20 @@ const ProductLabs: React.FC<Props> = ({ product }) => {
     );
 
     const onPieClick = (_: any, index: number) => {
-        console.log('onPieClick fired', { index });
         dispatch({ type: 'OPEN_TERPENE', payload: index });
     };
 
     const onPieClose = () => {
-        console.log('onPieClose fired');
         dispatch({ type: 'CLOSE_TERPENE' });
     };
 
     const onPieEnter = (_: any, index: number) => {
-        console.log('onPieEnter fired', { index });
         if (!('ontouchstart' in window) && !state.terpeneCardOpen) {
             dispatch({ type: 'HOVER_TERPENE', payload: index });
         }
     };
 
     const onPieLeave = () => {
-        console.log('onPieLeave fired');
         if (!state.terpeneCardOpen) {
             dispatch({ type: 'UNHOVER_TERPENE' });
         }
@@ -442,8 +438,6 @@ const ProductLabs: React.FC<Props> = ({ product }) => {
 
     return (
         <>
-            <div>Active index: {state.activeTerpene}</div>
-            <div>Terpene card open: {state.terpeneCardOpen.toString()}</div>
             <Accordion
                 defaultValue={['terpenes', 'cannabinoids']}
                 className={classes.root}
