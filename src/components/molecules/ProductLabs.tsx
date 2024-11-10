@@ -70,7 +70,7 @@ const useStyles = createStyles((theme) => ({
         cursor: 'pointer',
     },
     terpeneName: {
-        fontSize: '15px',
+        fontSize: '0.9375rem',
         fontWeight: 'bold',
     },
     terpeneCard: {
@@ -96,7 +96,7 @@ const useStyles = createStyles((theme) => ({
         right: 16,
     },
     terpeneInfoDescription: {
-        fontSize: '13px',
+        fontSize: '0.8125rem',
         maxWidth: '90%',
         marginTop: '1rem',
         [`@media (max-width: ${theme.breakpoints.md}px)`]: {
@@ -214,34 +214,69 @@ const renderActiveShape = (props: any) => {
     );
 };
 
+// Define the state type
+type TerpeneState = {
+    activeTerpene: number | undefined;
+    terpeneCardOpen: boolean;
+};
+
+// Define action types
+type TerpeneAction =
+    | { type: 'OPEN_TERPENE'; payload: number }
+    | { type: 'CLOSE_TERPENE' };
+
+// Create reducer
+const terpeneReducer = (
+    state: TerpeneState,
+    action: TerpeneAction,
+): TerpeneState => {
+    switch (action.type) {
+        case 'OPEN_TERPENE':
+            return {
+                activeTerpene: action.payload,
+                terpeneCardOpen: true,
+            };
+        case 'CLOSE_TERPENE':
+            return {
+                activeTerpene: undefined,
+                terpeneCardOpen: false,
+            };
+        default:
+            return state;
+    }
+};
+
 const ProductLabs: React.FC<Props> = ({ product }) => {
     const { classes } = useStyles();
-    const [activeTerpene, setActiveTerpene] = React.useState<
-        number | undefined
-    >();
-    const [terpeneCardOpen, setTerpeneCardOpen] = React.useState(false);
+    const [state, dispatch] = React.useReducer(terpeneReducer, {
+        activeTerpene: undefined,
+        terpeneCardOpen: false,
+    });
 
     const productTerpenes = product.terpenes.filter(
         (terpene) => terpene.value !== 0,
     );
 
     const onPieClick = (_: any, index: number) => {
-        setTerpeneCardOpen(true);
-        setActiveTerpene(index);
+        console.log('onPieClick fired', { index });
+        dispatch({ type: 'OPEN_TERPENE', payload: index });
     };
 
     const onPieClose = () => {
-        setTerpeneCardOpen(false);
-        setActiveTerpene(undefined);
+        console.log('onPieClose fired');
+        dispatch({ type: 'CLOSE_TERPENE' });
     };
 
     const onPieEnter = (_: any, index: number) => {
-        setActiveTerpene(index);
+        if (!state.terpeneCardOpen) {
+            dispatch({ type: 'OPEN_TERPENE', payload: index });
+        }
     };
 
     const onPieLeave = () => {
-        if (terpeneCardOpen) return;
-        setActiveTerpene(undefined);
+        if (!state.terpeneCardOpen) {
+            dispatch({ type: 'CLOSE_TERPENE' });
+        }
     };
 
     if (!product.includedTerpenes && !product.includedCannabinoids) return null;
@@ -280,9 +315,11 @@ const ProductLabs: React.FC<Props> = ({ product }) => {
                                         className={classes.terpeneTextContainer}
                                         style={{
                                             opacity:
-                                                activeTerpene === undefined
+                                                state.activeTerpene ===
+                                                undefined
                                                     ? 1
-                                                    : activeTerpene === index
+                                                    : state.activeTerpene ===
+                                                      index
                                                     ? 1
                                                     : 0.3,
                                         }}
@@ -319,7 +356,7 @@ const ProductLabs: React.FC<Props> = ({ product }) => {
                         >
                             <PieChart width={400} height={400}>
                                 <Pie
-                                    activeIndex={activeTerpene}
+                                    activeIndex={state.activeTerpene}
                                     activeShape={renderActiveShape}
                                     inactiveShape={renderInactiveShape}
                                     data={productTerpenes}
@@ -345,49 +382,55 @@ const ProductLabs: React.FC<Props> = ({ product }) => {
                             </PieChart>
                         </ResponsiveContainer>
                     </div>
-                    {activeTerpene !== undefined && terpeneCardOpen && (
-                        <Card
-                            className={classes.terpeneCard}
-                            shadow="lg"
-                            p="xl"
-                        >
-                            <CloseButton
-                                className={classes.closeButton}
-                                onClick={onPieClose}
-                                size="lg"
-                            />
-                            <Text className={classes.terpeneInfoName}>
-                                {
-                                    TERPENES_MAP[
-                                        productTerpenes[activeTerpene]
-                                            .name as keyof typeof TERPENES_MAP
-                                    ]
-                                }
-                            </Text>
-                            <Text className={classes.terpeneInfoDescription}>
-                                {
-                                    TERPENES_INFO_MAP[
-                                        productTerpenes[activeTerpene]
-                                            .name as keyof typeof TERPENES_MAP
-                                    ]
-                                }
-                            </Text>
-                        </Card>
-                    )}
+                    {state.activeTerpene !== undefined &&
+                        state.terpeneCardOpen && (
+                            <Card
+                                className={classes.terpeneCard}
+                                shadow="lg"
+                                p="xl"
+                            >
+                                <CloseButton
+                                    className={classes.closeButton}
+                                    onClick={onPieClose}
+                                    size="lg"
+                                />
+                                <Text className={classes.terpeneInfoName}>
+                                    {
+                                        TERPENES_MAP[
+                                            productTerpenes[state.activeTerpene]
+                                                .name as keyof typeof TERPENES_MAP
+                                        ]
+                                    }
+                                </Text>
+                                <Text
+                                    className={classes.terpeneInfoDescription}
+                                >
+                                    {
+                                        TERPENES_INFO_MAP[
+                                            productTerpenes[state.activeTerpene]
+                                                .name as keyof typeof TERPENES_MAP
+                                        ]
+                                    }
+                                </Text>
+                            </Card>
+                        )}
                 </div>
             </Accordion.Panel>
         </Accordion.Item>
     ) : null;
 
     return (
-        <Accordion
-            defaultValue={['terpenes', 'cannabinoids']}
-            className={classes.root}
-            multiple
-        >
-            {terpenes}
-            {/* {cannabinoids} */}
-        </Accordion>
+        <>
+            <div>Active index: {state.activeTerpene}</div>
+            <Accordion
+                defaultValue={['terpenes', 'cannabinoids']}
+                className={classes.root}
+                multiple
+            >
+                {terpenes}
+                {cannabinoids}
+            </Accordion>
+        </>
     );
 };
 
