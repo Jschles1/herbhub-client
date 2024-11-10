@@ -280,12 +280,14 @@ const ProductLabs: React.FC<Props> = ({ product }) => {
     };
 
     const onPieEnter = (_: any, index: number) => {
-        if (!state.terpeneCardOpen) {
+        console.log('onPieEnter fired', { index });
+        if (!('ontouchstart' in window) && !state.terpeneCardOpen) {
             dispatch({ type: 'HOVER_TERPENE', payload: index });
         }
     };
 
     const onPieLeave = () => {
+        console.log('onPieLeave fired');
         if (!state.terpeneCardOpen) {
             dispatch({ type: 'UNHOVER_TERPENE' });
         }
@@ -322,6 +324,10 @@ const ProductLabs: React.FC<Props> = ({ product }) => {
                                     onMouseEnter={() => onPieEnter(null, index)}
                                     onMouseLeave={onPieLeave}
                                     onClick={() => onPieClick(null, index)}
+                                    onTouchStart={(e) => {
+                                        e.preventDefault();
+                                        onPieClick(null, index);
+                                    }}
                                 >
                                     <div
                                         className={classes.terpeneTextContainer}
@@ -380,7 +386,10 @@ const ProductLabs: React.FC<Props> = ({ product }) => {
                                     onMouseEnter={onPieEnter}
                                     onMouseLeave={onPieLeave}
                                     onClick={onPieClick}
-                                    onTouchStart={onPieClick}
+                                    onTouchStart={(e, index) => {
+                                        e.preventDefault();
+                                        onPieClick(e, index);
+                                    }}
                                     className={classes.pieChartRadius}
                                 >
                                     {productTerpenes.map((_, index) => (
