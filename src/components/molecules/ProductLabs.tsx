@@ -29,10 +29,10 @@ const useStyles = createStyles((theme) => ({
         display: 'flex',
         alignItems: 'center',
         position: 'relative',
-        '& > div:first-child': {
+        '& > div:first-of-type': {
             flexBasis: '60%',
         },
-        '& > div:nth-child(2)': {
+        '& > div:nth-of-type(2)': {
             flexBasis: '40%',
             [`@media (max-width: ${theme.breakpoints.md}px)`]: {
                 marginBottom: '3rem',
@@ -269,6 +269,8 @@ const ProductLabs: React.FC<Props> = ({ product }) => {
         (terpene) => terpene.value !== 0,
     );
 
+    console.log('cannabinoids', product.cannabinoids);
+
     const onPieClick = (_: any, index: number) => {
         dispatch({ type: 'OPEN_TERPENE', payload: index });
     };
@@ -321,7 +323,7 @@ const ProductLabs: React.FC<Props> = ({ product }) => {
                                     onMouseLeave={onPieLeave}
                                     onClick={() => onPieClick(null, index)}
                                     onTouchStart={(e) => {
-                                        e.preventDefault();
+                                        // e.preventDefault();
                                         onPieClick(null, index);
                                     }}
                                 >
@@ -383,7 +385,7 @@ const ProductLabs: React.FC<Props> = ({ product }) => {
                                     onMouseLeave={onPieLeave}
                                     onClick={onPieClick}
                                     onTouchStart={(e, index) => {
-                                        e.preventDefault();
+                                        // e.preventDefault();
                                         onPieClick(e, index);
                                     }}
                                     className={classes.pieChartRadius}
