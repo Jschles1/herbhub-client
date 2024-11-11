@@ -7,7 +7,7 @@ const initialData = CATEGORY_FILTERS[2].options;
 export const useProductBrands = (query: string) => {
     const { data, isLoading, isFetching } = useQuery({
         queryKey: ['productBrands', query],
-        queryFn: () => getProductBrands({ query }),
+        queryFn: () => !!query && getProductBrands({ query }),
         initialData: query ? undefined : initialData,
         refetchOnMount: false,
         refetchOnWindowFocus: false,
