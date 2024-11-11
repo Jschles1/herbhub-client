@@ -3,6 +3,9 @@ import { Footer as MantineFooter, createStyles, Text } from '@mantine/core';
 import { useMediaQuery } from '@mantine/hooks';
 
 const useStyles = createStyles((theme) => ({
+    container: {
+        backgroundColor: theme.colors.dark[4],
+    },
     root: {
         height: '100%',
         display: 'flex',
@@ -11,6 +14,7 @@ const useStyles = createStyles((theme) => ({
         maxWidth: '1440px',
         alignItems: 'center',
         fontSize: '0.8rem',
+        color: '#fff',
         '& > div:first-of-type': {
             flexBasis: '70%',
         },
@@ -36,7 +40,11 @@ const Footer: React.FC<Props> = ({ hidden }) => {
     const isDesktop = useMediaQuery('(min-width: 1200px)');
 
     return hidden ? null : (
-        <MantineFooter height={isDesktop ? 90 : 'auto'} px="sm">
+        <MantineFooter
+            height={isDesktop ? 90 : 'auto'}
+            px="sm"
+            className={classes.container}
+        >
             <div className={classes.root}>
                 <div className={classes.copy}>
                     &copy; {new Date().getFullYear()} Garden State Herbhub

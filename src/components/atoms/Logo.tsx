@@ -16,7 +16,7 @@ const useStyles = createStyles((theme) => ({
     },
     link: {
         textDecoration: 'none',
-        color: '#000',
+        color: '#fff',
         fontWeight: 'bold',
         '&:hover': {
             color: theme.colors.green[5],

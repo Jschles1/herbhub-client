@@ -19,7 +19,7 @@ const useStyles = createStyles((theme) => ({
         minHeight: 'calc(100vh - 150px)',
     },
     headerRoot: {
-        backgroundColor: theme.colors.gray[1],
+        backgroundColor: theme.colors.dark[4],
     },
     headerContainer: {
         height: '100%',
@@ -37,7 +37,7 @@ const useStyles = createStyles((theme) => ({
     },
     faqLink: {
         fontWeight: 'bold',
-        color: '#000',
+        color: '#fff',
         textDecoration: 'none',
         '&:hover': {
             color: theme.colors.green[5],
@@ -103,6 +103,7 @@ const AppShell: React.FC<Props> = ({ children }) => {
                                             opened={opened}
                                             onClick={() => setOpened((o) => !o)}
                                             size="sm"
+                                            color="#fff"
                                             className={classes.burger}
                                         />
                                     </MediaQuery>
