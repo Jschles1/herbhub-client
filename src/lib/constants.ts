@@ -15,6 +15,14 @@ export const CATEGORY_FILTERS = [
                 name: 'Hybrid',
                 value: 'str/hybrid',
             },
+            {
+                name: 'Indica Hybrid',
+                value: 'str/indica-hybrid',
+            },
+            {
+                name: 'Sativa Hybrid',
+                value: 'str/sativa-hybrid',
+            },
         ],
     },
     {

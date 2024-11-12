@@ -73,7 +73,7 @@ const generateFilterWhereInput = (
             break;
         case 'str':
             whereInput.strainType = {
-                equals: paramValue,
+                equals: paramValue.replace('-', ' '),
                 mode: 'insensitive',
             };
             break;
