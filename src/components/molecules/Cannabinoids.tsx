@@ -62,7 +62,10 @@ const useStyles = createStyles((theme) => ({
         top: 0,
         left: 0,
         width: '100%',
-        height: '100%',
+        height: '150px',
+        [`@media (max-width: ${theme.breakpoints.md}px)`]: {
+            height: '100%',
+        },
     },
     cannabinoidInfoName: {
         fontWeight: 'bold',
