@@ -1,6 +1,6 @@
 import { QueryFunctionContext } from '@tanstack/react-query';
 import axios from 'axios';
-import { Product, ProductData } from './interfaces';
+import { Dispensary, Product, ProductData } from './interfaces';
 
 export const getDispensaryProducts = async ({
     queryKey,
@@ -50,6 +50,8 @@ export const getProductDetail = async ({
     | {
           product: Product;
           relatedProducts: Product[];
+          dispensary: Dispensary;
+          splitMenus: boolean;
       }
     | undefined
 > => {
@@ -65,6 +67,8 @@ export const getProductDetail = async ({
         return {
             product: data.product,
             relatedProducts: data.relatedProducts,
+            dispensary: data.dispensary,
+            splitMenus: data.splitMenus,
         };
     } catch (e) {
         console.error('Error getting product detail: ', e);

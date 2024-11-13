@@ -53,6 +53,23 @@ export interface PriceOptions {
     ounce?: number;
     other?: number;
 }
+export interface Dispensary {
+    name: string;
+    location: string;
+    address: string;
+    zipCode: string;
+    phoneNumber: string;
+    type: string;
+    placeId: string;
+    openingHours: string[];
+    formattedPhoneNumber: string;
+    internationalPhoneNumber: string;
+    wheelchairAccessible: boolean;
+    fullAddress: string;
+    url: string;
+    geocode: string;
+    googleMapsUrl: string;
+}
 
 export interface ProductData {
     products: Product[];

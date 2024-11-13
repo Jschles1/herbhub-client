@@ -42,6 +42,25 @@ model Brand {
   value String
 }
 
+model Dispensary {
+  id                       String   @id @default(auto()) @map("_id") @db.ObjectId
+  name                     String
+  location                 String
+  address                  String
+  zipCode                  String
+  phoneNumber              String
+  type                     String
+  placeId                  String
+  openingHours             String[]
+  formattedPhoneNumber     String
+  internationalPhoneNumber String
+  wheelchairAccessible     Boolean
+  fullAddress              String
+  url                      String
+  geocode                  String
+  googleMapsUrl            String
+}
+
 model LastUpdated {
   id    String @id @default(auto()) @map("_id") @db.ObjectId
   date  String

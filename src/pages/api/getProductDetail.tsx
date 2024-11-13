@@ -103,8 +103,40 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
                 take: 6,
             });
 
+            let splitMenus = false;
+
+            const dispensary = await prismadb.dispensary.findFirst({
+                where: {
+                    name: dispensaryName as string,
+                    location: dispensaryLocation as string,
+                    type: product.menuType,
+                },
+            });
+
+            const oppositeMenuType =
+                product.menuType === 'Recreational cannabis only'
+                    ? 'Medicinal cannabis only'
+                    : 'Recreational cannabis only';
+
+            const oppositeDispensary = await prismadb.dispensary.findFirst({
+                where: {
+                    name: dispensaryName as string,
+                    location: dispensaryLocation as string,
+                    type: oppositeMenuType,
+                },
+            });
+
+            if (oppositeDispensary) {
+                splitMenus = true;
+            }
+
             await prismadb.$disconnect();
-            res.status(200).json({ product, relatedProducts });
+            res.status(200).json({
+                product,
+                relatedProducts,
+                dispensary,
+                splitMenus,
+            });
         } catch (e) {
             console.error(e);
             await prismadb.$disconnect();

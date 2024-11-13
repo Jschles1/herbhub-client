@@ -7,11 +7,12 @@ import {
     getProductPrices,
     parseProductWeightUnit,
 } from '../../lib/helpers';
-import { Product } from '../../lib/interfaces';
+import { Dispensary, Product } from '../../lib/interfaces';
 import RelatedProducts from '../organisms/RelatedProducts';
 import PDPStrainInfo from '../molecules/PDPStrainInfo';
 import { useMediaQuery } from '@mantine/hooks';
 import ProductLabs from '../organisms/ProductLabs';
+import DispensaryInfo from '../organisms/DispensaryInfo';
 
 const useStyles = createStyles((theme) => ({
     root: {
@@ -87,9 +88,16 @@ const useStyles = createStyles((theme) => ({
 interface Props {
     product: Product;
     relatedProducts: Product[];
+    dispensary: Dispensary;
+    splitMenus: boolean;
 }
 
-const PDPTemplate: React.FC<Props> = ({ product, relatedProducts }) => {
+const PDPTemplate: React.FC<Props> = ({
+    product,
+    relatedProducts,
+    dispensary,
+    splitMenus,
+}) => {
     const { classes, cx } = useStyles();
     const isMobile = useMediaQuery('(max-width: 900px)');
     const prices = getProductPrices(product);
@@ -167,6 +175,8 @@ const PDPTemplate: React.FC<Props> = ({ product, relatedProducts }) => {
                     <ProductLabs product={product} />
                 </div>
             </div>
+            <br />
+            <DispensaryInfo dispensary={dispensary} splitMenus={splitMenus} />
             <br />
             <RelatedProducts products={relatedProducts} />
         </Container>

@@ -5,7 +5,7 @@ import type {
     InferGetServerSidePropsType,
 } from 'next';
 import Head from 'next/head';
-import { Product } from '../../lib/interfaces';
+import { Dispensary, Product } from '../../lib/interfaces';
 import PDPTemplate from '../../components/templates/PDPTemplate';
 import useProductDetail from '../../lib/hooks/useProductDetail';
 import { formatDashedString, formatDispensaryName } from '../../lib/helpers';
@@ -49,11 +49,20 @@ const ProductPage: NextPage = ({
     });
 
     if (!data || isLoading) {
-        return <PDPSkeletons />;
+        return (
+            <>
+                <Head>
+                    <title>{`${strain} - ${dispensaryName} ${dispensaryLocation}`}</title>
+                </Head>
+                <PDPSkeletons />
+            </>
+        );
     }
 
     const p = data.product as unknown as Product;
     const relatedPs = data.relatedProducts as unknown as Product[];
+    const dispensary = data.dispensary as unknown as Dispensary;
+    const splitMenus = data.splitMenus;
     return (
         <>
             <Head>
@@ -61,7 +70,12 @@ const ProductPage: NextPage = ({
                     {`${strain} - ${dispensaryName} ${dispensaryLocation}`}
                 </title>
             </Head>
-            <PDPTemplate product={p} relatedProducts={relatedPs} />
+            <PDPTemplate
+                product={p}
+                relatedProducts={relatedPs}
+                dispensary={dispensary}
+                splitMenus={splitMenus}
+            />
         </>
     );
 };
