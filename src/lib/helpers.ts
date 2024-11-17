@@ -23,6 +23,7 @@ export const mapProductImage = (product: Product) => {
         case 'concentrate':
             return '/icons/icons8-crystals-64.png';
         case 'tinctures':
+        case 'tincture':
             return '/icons/icons8-tincture-64.png';
         case 'topical':
             return '/icons/icons8-cream-64.png';
