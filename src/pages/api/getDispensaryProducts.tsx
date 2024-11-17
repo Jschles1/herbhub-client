@@ -6,7 +6,8 @@ import {
     getDispensaryNameFromParam,
 } from '../../lib/helpers';
 import prismadb from '../../lib/prisma-db';
-
+import sqlDb from '../../db/drizzle';
+import { lastUpdated as lastUpdatedTable } from '../../db/schema';
 const generateFilterWhereInput = (
     param: string,
     whereInput: Prisma.ProductWhereInput,
@@ -86,6 +87,11 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     if (req.method === 'GET') {
         try {
             const { query } = req;
+
+            // console.log(
+            //     'Testing connection',
+            //     await sqlDb.select().from(lastUpdatedTable),
+            // );
 
             await prismadb.$connect();
 
