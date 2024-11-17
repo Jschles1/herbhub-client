@@ -138,6 +138,10 @@ export const CATEGORY_FILTERS = [
                 value: 'loc/ascend-rochelle-park',
             },
             {
+                name: 'Ascend - Wharton',
+                value: 'loc/ascend-wharton',
+            },
+            {
                 name: 'Apothecarium - Lodi',
                 value: 'loc/apothecarium-lodi',
             },
@@ -630,17 +634,261 @@ export const CATEGORY_FILTERS = [
                 name: 'Scarlet Reserve Room - Englishtown',
                 value: 'loc/scarlet#reserve#room-englishtown',
             },
-            // {
-            //     name: "Nature's Motivation - Irvington",
-            //     value: "loc/nature's#motivation-irvington",
-            // },
             {
                 name: 'Dispensary of Union - Union',
                 value: 'loc/dispensary#of#union-union',
             },
+            {
+                name: '1634 Funk - Jersey City',
+                value: 'loc/1634#funk-jersey-city',
+            },
+            {
+                name: 'RushBudz Dispensary - South Bound Brook',
+                value: 'loc/rushbudz#dispensary-south-bound-brook',
+            },
+            {
+                name: 'Bay Street Greenery - Jersey City',
+                value: 'loc/bay#street#greenery-jersey-city',
+            },
+            {
+                name: 'Bleachers - Somerset',
+                value: 'loc/bleachers-somerset',
+            },
+            {
+                name: 'Bloc - Somerset',
+                value: 'loc/bloc-somerset',
+            },
+            {
+                name: 'Bloc - Waretown',
+                value: 'loc/bloc-waretown',
+            },
+            {
+                name: 'Boone Town Provisions - Boonton',
+                value: 'loc/boone#town#provisions-boonton',
+            },
+            {
+                name: 'Botera Union - Union',
+                value: 'loc/botera#union-union',
+            },
+            {
+                name: 'Breakwater - Cranbury',
+                value: 'loc/breakwater-cranbury',
+            },
+            {
+                name: 'Breakwater - Roselle Park',
+                value: 'loc/breakwater-roselle-park',
+            },
+            {
+                name: 'Citi Roots - Kingston',
+                value: 'loc/citi#roots-kingston',
+            },
+            {
+                name: 'Cookies Harrison - Harrison',
+                value: 'loc/cookies#harrison-harrison',
+            },
+            {
+                name: 'Ginger Hale - Oaklyn',
+                value: 'loc/ginger#hale-oaklyn',
+            },
+            {
+                name: 'Hashery - Hackensack',
+                value: 'loc/hashery-hackensack',
+            },
+            {
+                name: 'High Rollers Dispensary - Atlantic City',
+                value: 'loc/high#rollers#dispensary-atlantic-city',
+            },
+            {
+                name: 'Honey Buzz Farms - Atlantic City',
+                value: 'loc/honey#buzz#farms-atlantic-city',
+            },
+            {
+                name: 'HudHaus - North Bergen',
+                value: 'loc/hudhaus-north-bergen',
+            },
+            {
+                name: 'Island Vibez - Plainfield',
+                value: 'loc/island#vibez-plainfield',
+            },
+            {
+                name: 'MPX NJ - Pennsauken',
+                value: 'loc/mpx#nj-pennsauken',
+            },
+            {
+                name: 'MPX NJ - Sicklerville',
+                value: 'loc/mpx#nj-sicklerville',
+            },
+            {
+                name: 'MPX NJ - Atlantic City',
+                value: 'loc/mpx#nj-atlantic-city',
+            },
+            {
+                name: 'Nature’s Motivation - Irvington',
+                value: 'loc/nature’s#motivation-irvington',
+            },
+            {
+                name: 'Nirvana - Mount Laurel',
+                value: 'loc/nirvana-mount-laurel',
+            },
+            {
+                name: 'NJ Leaf - Freehold',
+                value: 'loc/nj#leaf-freehold',
+            },
+            {
+                name: 'NJ Pure - Edgewater Park',
+                value: 'loc/nj#pure-edgewater-park',
+            },
+            {
+                name: 'Restore NJ - Glassboro',
+                value: 'loc/restore#nj@#llc-glassboro',
+            },
+            {
+                name: 'Rise - Paramus',
+                value: 'loc/rise-paramus',
+            },
+            {
+                name: 'Simply Pure Trenton - Ewing',
+                value: 'loc/simply#pure#trenton-ewing',
+            },
+            {
+                name: 'Theory Wellness - Trenton',
+                value: 'loc/theory#wellness-trenton',
+            },
+            {
+                name: 'Treeotics - Newark',
+                value: 'loc/treeotics-newark',
+            },
+            {
+                name: 'Canna Remedies - Ewing',
+                value: 'loc/canna#remedies-ewing',
+            },
+            {
+                name: 'Conservatory Cannabis Company - Egg Harbor Township',
+                value: 'loc/conservatory#cannabis#company-egg-harbor-twp',
+            },
+            {
+                name: 'Ruuted - Englishtown',
+                value: 'loc/ruuted-englishtown',
+            },
+            {
+                name: 'City Leaf - Newark',
+                value: 'loc/city#leaf-newark',
+            },
+            {
+                name: 'Pure Natural Vibes - West Orange',
+                value: 'loc/pure#natural#vibes-west-orange',
+            },
+            {
+                name: 'Fresh Elizabeth - Elizabeth',
+                value: 'loc/fresh#elizabeth-elizabeth',
+            },
+            {
+                name: 'The THC Shop - Atlantic City',
+                value: 'loc/the#thc#shop-atlantic-city',
+            },
+            {
+                name: 'BluLight Cannabis - Woodbury Heights',
+                value: 'loc/blulight#cannabis-woodbury-heights',
+            },
+            {
+                name: '4Twenty Somewhere - Hewitt',
+                value: 'loc/4twenty#somewhere-hewitt',
+            },
+            {
+                name: 'The Frosted Nug - Red Bank',
+                value: 'loc/the#frosted#nug-red-bank',
+            },
+            {
+                name: 'Cannavibes - Elmwood Park',
+                value: 'loc/cannavibes-elmwood-park',
+            },
+            {
+                name: 'Cottonmouth Dispensary - Runnemede',
+                value: 'loc/cottonmouth#dispensary-runnemede',
+            },
+            {
+                name: "Jester's Joint - New Brunswick",
+                value: "loc/jester's#joint-new-brunswick",
+            },
+            {
+                name: 'Casa Verde Wellness - Dover',
+                value: 'loc/casa#verde#wellness-dover',
+            },
+            {
+                name: 'Andover Cannabis - Andover',
+                value: 'loc/andover#cannabis-andover',
+            },
+            {
+                name: 'MMD NJ - Jersey City',
+                value: 'loc/mmd#nj-jersey-city',
+            },
+            {
+                name: 'Plantopia - Englishtown',
+                value: 'loc/plantopia-englishtown',
+            },
+            {
+                name: 'BestBuds - Woodbury',
+                value: 'loc/bestbuds-woodbury',
+            },
+            {
+                name: 'Mountain Dispensary - Vernon',
+                value: 'loc/mountain#dispensary-vernon',
+            },
+            {
+                name: 'Uforia - Jersey City',
+                value: 'loc/uforia-jersey-city',
+            },
+            {
+                name: 'Releaf Cannabis - Williamstown',
+                value: 'loc/releaf#cannabis-williamstown',
+            },
+            {
+                name: 'Feels of Green - Newton',
+                value: 'loc/feels#of#green-newton',
+            },
+            {
+                name: 'Hashstoria NJ - Newark',
+                value: 'loc/hashstoria#nj-newark',
+            },
+            {
+                name: 'Red Oak Dispensary - Egg Harbor Township',
+                value: 'loc/red#oak#dispensary-egg-harbor-twp',
+            },
+            {
+                name: 'Canopy Crossroad - Red Bank',
+                value: 'loc/canopy#crossroad-red-bank',
+            },
         ],
     },
 ];
+
+// [
+//     {
+//       "NAME": "Red Oak Dispensary",
+//       "ADDRESS": " 6106 BLACK HORSE PIKE, B1/B2 (https://maps.app.goo.gl/t8APbLkVCcssFJNs9)",
+//       "TYPE": "Recreational cannabis only",
+//       "TOWN": "EGG HBR TWP",
+//       "ZIP_CODE": "08234",
+//       "COUNTY": "ATLANTIC",
+//       "PHONE_NUMBER": "(609) 681-6211",
+//       "WEBSITE": "https://oldroute30dispensary.com/",
+//       "GEOCODE": "POINT (-74.609357 39.4331643)"
+//     },
+//     {
+//       "NAME": "Canopy Crossroad",
+//       "ADDRESS": "  9 WEST ST (https://maps.app.goo.gl/DSy7ej44mXju5gXg9)",
+//       "TYPE": "Recreational cannabis only",
+//       "TOWN": "RED BANK",
+//       "ZIP_CODE": "07701",
+//       "COUNTY": "MONMOUTH",
+//       "PHONE_NUMBER": "(732) 438-5880",
+//       "WEBSITE": "https://canopycrossroad.com/",
+//       "GEOCODE": "POINT (-74.0756362 40.3505671)"
+//     },
+//     {
+//       "NAME": ""
+//     }
+//   ]
 
 export const SORT_BY_OPTIONS = [
     {
