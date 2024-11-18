@@ -17,6 +17,14 @@ const useStyles = createStyles((theme) => ({
     },
     switchTrack: {
         cursor: 'pointer',
+        height: '2rem',
+    },
+    switchRoot: {
+        // height: '2rem',
+    },
+    switchThumb: {
+        height: 24,
+        width: 25,
     },
     text: {
         marginLeft: '2rem',
@@ -58,8 +66,10 @@ const MenuTypeSwitch: React.FC<Props> = () => {
                 size="xl"
                 onChange={handleChange}
                 classNames={{
+                    root: classes.switchRoot,
                     body: classes.switchBody,
                     track: classes.switchTrack,
+                    thumb: classes.switchThumb,
                 }}
             />
         </div>
