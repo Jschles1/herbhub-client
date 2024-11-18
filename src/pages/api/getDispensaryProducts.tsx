@@ -1,5 +1,4 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
-import prismadb from '../../lib/prisma-db';
 import sqlDb from '../../db/drizzle';
 import {
     lastUpdated as lastUpdatedTable,
@@ -86,11 +85,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
                 await sqlDb.select().from(lastUpdatedTable)
             )[0].date;
 
-            await prismadb.$connect();
-
-            const lastUpdated = await prismadb.lastUpdated.findFirst();
-
-            if (!lastUpdated) {
+            if (!lastUpdatedDate) {
                 throw new Error('No last updated date found');
             }
 
@@ -172,12 +167,9 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
             const whereFilters = Array.from(whereFiltersMap.keys()).map(
                 (key) => {
                     const filter = whereFiltersMap.get(key)!;
-
                     if (filter && filter.length > 1) {
-                        console.log({ filter });
                         return or(...filter);
                     }
-                    console.log(filter[0]);
                     return filter[0];
                 },
             );
