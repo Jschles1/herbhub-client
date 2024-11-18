@@ -128,6 +128,7 @@ export const products = pgTable(
         includedTerpenes: text('included_terpenes').notNull(),
         cannabinoids: jsonb(),
         includedCannabinoids: text('included_cannabinoids').notNull(),
+        lowestPrice: numeric('lowest_price').notNull(),
     },
     (table) => {
         return {

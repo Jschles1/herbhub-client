@@ -6,34 +6,33 @@ interface LabCompound {
 }
 
 export interface Product {
-    id?: string;
-    dispensaryName: string;
-    dispensaryLocation: string;
-    strain: string;
-    strainType: string;
+    url: string;
+    dispensaryId: string;
+    subcategoryType: string;
     categoryType: string;
     description: string;
-    weight: string | string[];
-    thcPercent?: number;
-    cbdPercent?: number;
-    thcContent?: number;
-    cbdContent?: number;
-    promoPrice?: PriceOptions;
-    terpenes: LabCompound[];
-    cannabinoids: LabCompound[];
-    includedTerpenes: string;
-    includedCannabinoids: string;
-    price: PriceOptions;
+    image: string | null;
+    weight: string;
+    normalPrice: number;
+    promoPrice: number | null;
+    unit: string;
+    quantity: number | null;
+    strain: string;
+    strainType: string;
+    lastSold: string;
+    thcPercent: number | null;
+    cbdPercent: number | null;
+    thcContent: number | null;
+    cbdContent: number | null;
     lowestPrice: number;
-    prices: ProductPrice[];
-    quantity?: number;
-    image?: string;
+    menuType: string;
+    terpenes: LabCompound[];
+    includedTerpenes: string;
+    cannabinoids: LabCompound[];
+    includedCannabinoids: string;
     brand: string;
-    reviewStats?: {
-        totalRatings: number;
-        averageRating: number;
-    };
-    url?: string;
+    dispensaryName: string;
+    dispensaryLocation: string;
 }
 
 export interface ProductPrice {
@@ -54,6 +53,7 @@ export interface PriceOptions {
     other?: number;
 }
 export interface Dispensary {
+    id: string;
     name: string;
     location: string;
     address: string;

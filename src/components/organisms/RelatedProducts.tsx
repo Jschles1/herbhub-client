@@ -64,7 +64,7 @@ const RelatedProducts: React.FC<Props> = ({ products }) => {
                 itemClass={classes.item}
             >
                 {products.map((product) => (
-                    <RelatedProduct key={product.id} product={product} />
+                    <RelatedProduct key={product.strain} product={product} />
                 ))}
             </Carousel>
         </>

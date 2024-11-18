@@ -13,6 +13,8 @@ import { useQueryParams } from '../../store';
 import { CATEGORY_FILTERS } from '../../lib/constants';
 import { debounce } from '../../lib/helpers';
 import { useProductBrands } from '../../lib/hooks/useProductBrands';
+import { useProductDispensaries } from '../../lib/hooks/useProductDispensaries';
+import { Dispensary } from '../../lib/interfaces';
 
 const getCategoryFilterEventParams = (payload: {
     value: string;
@@ -106,6 +108,14 @@ const CategoryFilter = () => {
         isLoading,
         isFetching,
     } = useProductBrands(searchQuery);
+    const {
+        data: dispensaryData,
+        isLoading: dispensaryLoading,
+        isFetching: dispensaryFetching,
+    } = useProductDispensaries();
+
+    console.log({ dispensaryData });
+
     const filterParams =
         !!params &&
         decodeURIComponent(params)
@@ -188,14 +198,19 @@ const CategoryFilter = () => {
                           value: string;
                       }[])
                     : isDispensary
-                    ? (
-                          category.options as {
+                    ? Array.isArray(dispensaryData)
+                        ? dispensaryData.map((item: Dispensary) => ({
+                              name: `${item.name} - ${item.location}`,
+                              value: `loc/${item.id}`,
+                          }))
+                        : ([] as {
                               name: string;
                               value: string;
-                          }[]
-                      ).sort((a, b) => a.name.localeCompare(b.name))
+                          }[])
                     : category.options;
                 const brandsLoading = isBrand && (isFetching || isLoading);
+                const dispensariesLoading =
+                    isDispensary && (isFetching || dispensaryFetching);
                 return (
                     <React.Fragment key={category.name}>
                         <Card.Section inheritPadding py="xs">
@@ -218,6 +233,7 @@ const CategoryFilter = () => {
                             style={{
                                 height: isBrand ? '445px' : 'auto',
                                 maxHeight: isDispensary ? '600px' : 'auto',
+                                minHeight: isDispensary ? '600px' : 'auto',
                                 overflowY: isDispensary ? 'auto' : 'unset',
                                 borderTop: isDispensary
                                     ? '1px solid #dee2e6'
@@ -233,6 +249,21 @@ const CategoryFilter = () => {
                                 >
                                     <LoadingOverlay
                                         visible={brandsLoading}
+                                        loaderProps={{
+                                            size: 'sm',
+                                            color: 'green',
+                                        }}
+                                    />
+                                </div>
+                            ) : dispensariesLoading ? (
+                                <div
+                                    style={{
+                                        position: 'relative',
+                                        height: '425px',
+                                    }}
+                                >
+                                    <LoadingOverlay
+                                        visible={dispensariesLoading}
                                         loaderProps={{
                                             size: 'sm',
                                             color: 'green',

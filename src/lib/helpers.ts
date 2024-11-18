@@ -41,29 +41,11 @@ export const parseProductWeightUnit = (weight: string) => {
 };
 
 export const getProductPrices = (product: Product) => {
-    const { prices } = product;
-
-    // TODO: Add logic to handle products with multiple weights
-    if (prices.length > 1) {
-        // console.log('Multiple prices found', product);
-    }
-
-    const basePrice = prices[0];
-    const price = basePrice.normalPrice;
-    const promoPrice = basePrice?.promoPrice || 0;
-    const weight = basePrice.unit;
-    const weightAmount =
-        basePrice.weight === 1 ||
-        basePrice.weight === null ||
-        (typeof basePrice.weight === 'string' &&
-            (basePrice.weight as string).toLowerCase() === 'n/a')
-            ? ''
-            : basePrice.weight;
-
     return {
-        price: price.toFixed(2),
-        promoPrice: promoPrice.toFixed(2),
-        weight: `${weightAmount}${weight}`,
+        price: product.normalPrice.toFixed(2),
+        promoPrice:
+            product.promoPrice !== null ? product.promoPrice.toFixed(2) : '0',
+        weight: `${product.weight}${product.unit}`,
     };
 };
 

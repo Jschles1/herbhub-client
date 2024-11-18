@@ -1,6 +1,12 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import sanitizeHtml from 'sanitize-html';
-import prismadb from '../../lib/prisma-db';
+import sqlDb from '../../db/drizzle';
+import {
+    products as productsTable,
+    dispensaries as dispensariesTable,
+    brands as brandsTable,
+} from '../../db/schema';
+import { and, eq, ilike, ne, sql } from 'drizzle-orm';
 
 const generateProductDescription = (
     description: string,
@@ -20,8 +26,6 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
         try {
             const { query } = req;
 
-            await prismadb.$connect();
-
             let { strain, dispensaryName, dispensaryLocation } = query;
 
             if (!strain || !dispensaryName || !dispensaryLocation) {
@@ -32,114 +36,257 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
                 };
             }
 
-            let product = await prismadb.product.findFirst({
-                where: {
-                    dispensaryName: {
-                        equals: dispensaryName as string,
-                    },
-                    dispensaryLocation: {
-                        equals: dispensaryLocation as string,
-                    },
-                    strain: {
-                        equals: strain as string,
-                    },
-                },
-            });
+            let sqlProduct = await sqlDb
+                .select({
+                    url: productsTable.url,
+                    dispensaryId: productsTable.dispensaryId,
+                    subcategoryType: productsTable.subcategoryType,
+                    categoryType: productsTable.categoryType,
+                    description: productsTable.description,
+                    image: productsTable.image,
+                    weight: productsTable.weight,
+                    normalPrice: sql<number>`CAST(${productsTable.normalPrice} AS FLOAT)`,
+                    promoPrice: sql<number>`CAST(${productsTable.promoPrice} AS FLOAT)`,
+                    unit: productsTable.unit,
+                    quantity: productsTable.quantity,
+                    strain: productsTable.strain,
+                    strainType: productsTable.strainType,
+                    lastSold: productsTable.lastSold,
+                    thcPercent: sql<number>`CAST(${productsTable.thcPercent} AS FLOAT)`,
+                    cbdPercent: sql<number>`CAST(${productsTable.cbdPercent} AS FLOAT)`,
+                    thcContent: sql<number>`CAST(${productsTable.thcContent} AS FLOAT)`,
+                    cbdContent: sql<number>`CAST(${productsTable.cbdContent} AS FLOAT)`,
+                    lowestPrice: sql<number>`CAST(${productsTable.lowestPrice} AS FLOAT)`,
+                    menuType: productsTable.menuType,
+                    terpenes: productsTable.terpenes,
+                    includedTerpenes: productsTable.includedTerpenes,
+                    cannabinoids: productsTable.cannabinoids,
+                    includedCannabinoids: productsTable.includedCannabinoids,
+                    brand: brandsTable.name,
+                    dispensaryName: dispensariesTable.name,
+                    dispensaryLocation: dispensariesTable.location,
+                })
+                .from(productsTable)
+                .leftJoin(
+                    dispensariesTable,
+                    eq(productsTable.dispensaryId, dispensariesTable.id),
+                )
+                .leftJoin(
+                    brandsTable,
+                    eq(productsTable.brandId, brandsTable.id),
+                )
+                .where(
+                    and(
+                        ilike(dispensariesTable.name, `%${dispensaryName}%`),
+                        eq(
+                            dispensariesTable.location,
+                            dispensaryLocation as string,
+                        ),
+                        eq(productsTable.strain, strain as string),
+                    ),
+                )
+                .limit(1);
 
-            if (!product) {
+            // console.log('sqlProduct', sqlProduct);
+            // console.log('sqlProduct', {
+            //     sqlProduct,
+            //     query: {
+            //         strain,
+            //         dispensaryName,
+            //         dispensaryLocation,
+            //     },
+            // });
+
+            if (!sqlProduct[0]) {
                 console.log('Product not found, trying partial match');
-                product = await prismadb.product.findFirst({
-                    where: {
-                        dispensaryName: {
-                            equals: dispensaryName as string,
-                        },
-                        dispensaryLocation: {
-                            equals: dispensaryLocation as string,
-                        },
-                        strain: {
-                            contains: (strain as string).slice(0, 5),
-                        },
-                    },
-                });
 
-                if (!product) {
+                sqlProduct = await sqlDb
+                    .select({
+                        url: productsTable.url,
+                        dispensaryId: productsTable.dispensaryId,
+                        subcategoryType: productsTable.subcategoryType,
+                        categoryType: productsTable.categoryType,
+                        description: productsTable.description,
+                        image: productsTable.image,
+                        weight: productsTable.weight,
+                        normalPrice: sql<number>`CAST(${productsTable.normalPrice} AS FLOAT)`,
+                        promoPrice: sql<number>`CAST(${productsTable.promoPrice} AS FLOAT)`,
+                        unit: productsTable.unit,
+                        quantity: productsTable.quantity,
+                        strain: productsTable.strain,
+                        strainType: productsTable.strainType,
+                        lastSold: productsTable.lastSold,
+                        thcPercent: sql<number>`CAST(${productsTable.thcPercent} AS FLOAT)`,
+                        cbdPercent: sql<number>`CAST(${productsTable.cbdPercent} AS FLOAT)`,
+                        thcContent: sql<number>`CAST(${productsTable.thcContent} AS FLOAT)`,
+                        cbdContent: sql<number>`CAST(${productsTable.cbdContent} AS FLOAT)`,
+                        lowestPrice: sql<number>`CAST(${productsTable.lowestPrice} AS FLOAT)`,
+                        menuType: productsTable.menuType,
+                        terpenes: productsTable.terpenes,
+                        includedTerpenes: productsTable.includedTerpenes,
+                        cannabinoids: productsTable.cannabinoids,
+                        includedCannabinoids:
+                            productsTable.includedCannabinoids,
+                        brand: brandsTable.name,
+                        dispensaryName: dispensariesTable.name,
+                        dispensaryLocation: dispensariesTable.location,
+                        dispensariesTable: dispensariesTable,
+                    })
+                    .from(productsTable)
+                    .leftJoin(
+                        dispensariesTable,
+                        eq(productsTable.dispensaryId, dispensariesTable.id),
+                    )
+                    .leftJoin(
+                        brandsTable,
+                        eq(productsTable.brandId, brandsTable.id),
+                    )
+                    .where(
+                        and(
+                            ilike(
+                                dispensariesTable.name,
+                                `%${dispensaryName}%`,
+                            ),
+                            eq(
+                                dispensariesTable.location,
+                                dispensaryLocation as string,
+                            ),
+                            ilike(
+                                productsTable.strain,
+                                `%${strain.slice(0, 10)}%`,
+                            ),
+                        ),
+                    )
+                    .limit(1);
+
+                // console.log('sqlProduct backup', {
+                //     sqlProduct,
+                //     query: {
+                //         strain: `%${strain}%`,
+                //         dispensaryName,
+                //         dispensaryLocation,
+                //     },
+                // });
+
+                if (!sqlProduct[0]) {
                     console.log('Product not found');
-                    return {
-                        notFound: true,
-                        props: {},
-                    };
+                    res.status(404).json({ message: 'Product not found' });
+                    return;
                 } else {
-                    product.description = generateProductDescription(
-                        product.description,
-                        product.url,
+                    sqlProduct[0].description = generateProductDescription(
+                        sqlProduct[0].description ?? '',
+                        sqlProduct[0].url,
                     );
                 }
             } else {
-                product.description = generateProductDescription(
-                    product.description,
-                    product.url,
+                sqlProduct[0].description = generateProductDescription(
+                    sqlProduct[0].description ?? '',
+                    sqlProduct[0].url,
                 );
             }
 
-            const relatedProducts = await prismadb.product.findMany({
-                where: {
-                    dispensaryName: {
-                        equals: dispensaryName as string,
-                        mode: 'insensitive',
-                    },
-                    dispensaryLocation: {
-                        equals: dispensaryLocation as string,
-                        mode: 'insensitive',
-                    },
-                    categoryType: {
-                        equals: product.categoryType,
-                        mode: 'insensitive',
-                    },
-                    strain: {
-                        not: product.strain,
-                        mode: 'insensitive',
-                    },
-                },
-                take: 6,
-            });
+            const sqlRelatedProducts = await sqlDb
+                .select({
+                    url: productsTable.url,
+                    dispensaryId: productsTable.dispensaryId,
+                    subcategoryType: productsTable.subcategoryType,
+                    categoryType: productsTable.categoryType,
+                    description: productsTable.description,
+                    image: productsTable.image,
+                    weight: productsTable.weight,
+                    normalPrice: sql<number>`CAST(${productsTable.normalPrice} AS FLOAT)`,
+                    promoPrice: sql<number>`CAST(${productsTable.promoPrice} AS FLOAT)`,
+                    unit: productsTable.unit,
+                    quantity: productsTable.quantity,
+                    strain: productsTable.strain,
+                    strainType: productsTable.strainType,
+                    lastSold: productsTable.lastSold,
+                    thcPercent: sql<number>`CAST(${productsTable.thcPercent} AS FLOAT)`,
+                    cbdPercent: sql<number>`CAST(${productsTable.cbdPercent} AS FLOAT)`,
+                    thcContent: sql<number>`CAST(${productsTable.thcContent} AS FLOAT)`,
+                    cbdContent: sql<number>`CAST(${productsTable.cbdContent} AS FLOAT)`,
+                    lowestPrice: sql<number>`CAST(${productsTable.lowestPrice} AS FLOAT)`,
+                    menuType: productsTable.menuType,
+                    terpenes: productsTable.terpenes,
+                    includedTerpenes: productsTable.includedTerpenes,
+                    cannabinoids: productsTable.cannabinoids,
+                    includedCannabinoids: productsTable.includedCannabinoids,
+                    brand: brandsTable.name,
+                    dispensaryName: dispensariesTable.name,
+                    dispensaryLocation: dispensariesTable.location,
+                    dispensariesTable: dispensariesTable,
+                })
+                .from(productsTable)
+                .innerJoin(
+                    dispensariesTable,
+                    eq(productsTable.dispensaryId, dispensariesTable.id),
+                )
+                .innerJoin(
+                    brandsTable,
+                    eq(productsTable.brandId, brandsTable.id),
+                )
+                .where(
+                    and(
+                        eq(dispensariesTable.name, dispensaryName as string),
+                        eq(
+                            dispensariesTable.location,
+                            dispensaryLocation as string,
+                        ),
+                        eq(
+                            productsTable.categoryType,
+                            sqlProduct[0].categoryType,
+                        ),
+                        ne(productsTable.strain, sqlProduct[0].strain),
+                    ),
+                )
+                .limit(6);
 
             let splitMenus = false;
 
-            const dispensary = await prismadb.dispensary.findFirst({
-                where: {
-                    name: dispensaryName as string,
-                    location: dispensaryLocation as string,
-                    type: product.menuType,
-                },
-            });
+            const dispensary = await sqlDb
+                .select()
+                .from(dispensariesTable)
+                .where(
+                    and(
+                        ilike(dispensariesTable.name, `%${dispensaryName}%`),
+                        eq(
+                            dispensariesTable.location,
+                            dispensaryLocation as string,
+                        ),
+                        eq(dispensariesTable.type, sqlProduct[0].menuType),
+                    ),
+                )
+                .limit(1);
 
             const oppositeMenuType =
-                product.menuType === 'Recreational cannabis only'
+                sqlProduct[0].menuType === 'Recreational cannabis only'
                     ? 'Medicinal cannabis only'
                     : 'Recreational cannabis only';
 
-            const oppositeDispensary = await prismadb.dispensary.findFirst({
-                where: {
-                    name: dispensaryName as string,
-                    location: dispensaryLocation as string,
-                    type: oppositeMenuType,
-                },
-            });
-
-            if (oppositeDispensary) {
+            const sqlOppositeDispensary = await sqlDb
+                .select()
+                .from(dispensariesTable)
+                .where(
+                    and(
+                        ilike(dispensariesTable.name, `%${dispensaryName}%`),
+                        eq(
+                            dispensariesTable.location,
+                            dispensaryLocation as string,
+                        ),
+                        eq(dispensariesTable.type, oppositeMenuType),
+                    ),
+                );
+            if (sqlOppositeDispensary.length > 0) {
                 splitMenus = true;
             }
-
-            await prismadb.$disconnect();
             res.status(200).json({
-                product,
-                relatedProducts,
-                dispensary,
+                product: sqlProduct[0] as any,
+                relatedProducts: sqlRelatedProducts,
+                dispensary: dispensary[0],
                 splitMenus,
             });
         } catch (e) {
             console.error(e);
-            await prismadb.$disconnect();
             res.status(500).json({ message: e });
         }
     } else {

@@ -38,6 +38,23 @@ export const getProductBrands = async ({
     }
 };
 
+export const getDispensaries = async ({
+    query,
+}: {
+    query: string;
+}): Promise<any> => {
+    try {
+        const response = await axios.get(
+            `/api/getDispensaries?menuType=${query}`,
+        );
+        const data = response.data;
+        return data.dispensaries;
+    } catch (e) {
+        console.error('Error getting dispensaries: ', e);
+        return Promise.reject(e);
+    }
+};
+
 export const getProductDetail = async ({
     strain,
     dispensaryName,

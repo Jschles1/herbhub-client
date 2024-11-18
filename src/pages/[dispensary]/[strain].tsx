@@ -10,6 +10,7 @@ import PDPTemplate from '../../components/templates/PDPTemplate';
 import useProductDetail from '../../lib/hooks/useProductDetail';
 import { formatDashedString, formatDispensaryName } from '../../lib/helpers';
 import PDPSkeletons from '../../components/organisms/PDPSkeletons';
+import { useRouter } from 'next/router';
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
     let { strain, dispensary } = context.query;
@@ -42,11 +43,16 @@ const ProductPage: NextPage = ({
     dispensaryName,
     dispensaryLocation,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
-    const { data, isLoading } = useProductDetail({
+    const { data, isLoading, isError } = useProductDetail({
         strain: strain as string,
         dispensaryName: dispensaryName as string,
         dispensaryLocation: dispensaryLocation as string,
     });
+    const router = useRouter();
+
+    if (isError) {
+        router.push('/404');
+    }
 
     if (!data || isLoading) {
         return (
