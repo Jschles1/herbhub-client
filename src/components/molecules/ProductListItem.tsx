@@ -139,10 +139,6 @@ const ProductListItem: React.FC<Props> = ({ product }) => {
         ? { width: 146, height: 140 }
         : { width: 110, height: 110 };
 
-    if (product.prices.length > 1) {
-        // console.log({ weight: product.weight });
-    }
-
     return (
         <Card
             component="a"

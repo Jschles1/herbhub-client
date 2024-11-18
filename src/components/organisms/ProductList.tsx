@@ -52,13 +52,19 @@ const ProductList: React.FC<Props> = ({ products = [] }) => {
             {isMobile ? (
                 <Group mb="md">
                     {showProducts?.map((product) => (
-                        <ProductListItem product={product} key={product.id} />
+                        <ProductListItem
+                            product={product}
+                            key={`${product.strain}-${product.dispensaryLocation}-${product.weight}-${product.unit}`}
+                        />
                     ))}
                 </Group>
             ) : (
                 <Stack mb="md">
                     {showProducts?.map((product) => (
-                        <ProductListItem product={product} key={product.id} />
+                        <ProductListItem
+                            product={product}
+                            key={`${product.strain}-${product.dispensaryLocation}-${product.weight}-${product.unit}`}
+                        />
                     ))}
                 </Stack>
             )}

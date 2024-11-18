@@ -19,6 +19,7 @@ const useProductDetail = ({
         ],
         queryFn: () =>
             getProductDetail({ strain, dispensaryName, dispensaryLocation }),
+        retry: false,
         refetchOnWindowFocus: false,
         refetchOnMount: false,
         refetchOnReconnect: false,

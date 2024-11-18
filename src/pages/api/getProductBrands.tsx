@@ -1,14 +1,12 @@
-import { PrismaClient } from '@prisma/client';
-import type { Prisma } from '@prisma/client';
 import { NextApiRequest, NextApiResponse } from 'next';
-import prismadb from '../../lib/prisma-db';
+import sqlDb from '../../db/drizzle';
+import { brands as brandsTable } from '../../db/schema';
+import { ilike } from 'drizzle-orm';
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     if (req.method === 'GET') {
         try {
             const { query } = req;
-
-            await prismadb.$connect();
 
             let { search } = query;
 
@@ -17,23 +15,15 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
                 return;
             }
 
-            const whereInput: Prisma.BrandWhereInput = {
-                name: {
-                    contains: search as string,
-                    mode: 'insensitive',
-                },
-            };
+            const sqlBrands = await sqlDb
+                .select()
+                .from(brandsTable)
+                .where(ilike(brandsTable.name, `%${search}%`))
+                .limit(10);
 
-            const brands = await prismadb.brand.findMany({
-                where: whereInput,
-                take: 15,
-            });
-
-            await prismadb.$disconnect();
-            res.status(200).json({ brands });
+            res.status(200).json({ brands: sqlBrands });
         } catch (e) {
             console.error(e);
-            await prismadb.$disconnect();
             res.status(500).json({ message: e });
         }
     } else {
