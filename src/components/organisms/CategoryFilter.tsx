@@ -162,8 +162,9 @@ const CategoryFilter = () => {
             0,
             CATEGORY_FILTERS.length,
         );
-    }, [brandData]);
+    }, [brandData, dispensaryData]);
 
+    // Reset brand filter on search
     React.useEffect(() => {
         const uriParams = Object.fromEntries(
             new URLSearchParams(decodeURIComponent(params)),
@@ -186,6 +187,32 @@ const CategoryFilter = () => {
             }
         }
     }, [brandData, params, dispatch]);
+
+    // Reset dispensary filter on menu type change
+    React.useEffect(() => {
+        const uriParams = Object.fromEntries(
+            new URLSearchParams(decodeURIComponent(params)),
+        );
+        if (!uriParams.filter) return;
+        const filter = uriParams.filter;
+        const selectedDispensaries = filter
+            .split(',')
+            .filter((param) => param.startsWith('loc'));
+        const dispensariesShown: Record<string, boolean> = {};
+        if (Array.isArray(dispensaryData)) {
+            dispensaryData.forEach((item: { id: string }) => {
+                dispensariesShown[`loc/${item.id}`] = true;
+            });
+            for (const dispensary of selectedDispensaries) {
+                if (!dispensariesShown[dispensary]) {
+                    dispatch({
+                        type: 'filter',
+                        payload: { value: dispensary, checked: false },
+                    });
+                }
+            }
+        }
+    }, [dispensaryData, params, dispatch]);
 
     return (
         <Card withBorder radius="md" py="0" mr="1rem" className={classes.root}>
