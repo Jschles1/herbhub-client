@@ -10,6 +10,7 @@ const useStyles = createStyles((theme) => ({
         marginLeft: '0.8rem',
         [`@media (max-width: ${theme.breakpoints.sm}px)`]: {
             marginLeft: '0',
+            width: '100%',
         },
     },
     location: {
@@ -18,6 +19,12 @@ const useStyles = createStyles((theme) => ({
         color: theme.colors.gray[6],
         marginTop: '0.3rem',
         display: 'none',
+    },
+    locationMobile: {
+        overflow: 'hidden',
+        textOverflow: 'ellipsis',
+        whiteSpace: 'nowrap',
+        maxWidth: '98%',
     },
 }));
 
@@ -43,7 +50,9 @@ const ProductInfoBadges: React.FC<Props> = ({ product, hasSalePrice }) => {
                     </MediaQuery>
                     <MediaQuery smallerThan="md" styles={{ display: 'block' }}>
                         <div className={classes.location}>
-                            <div>{dispensaryName}</div>
+                            <div className={classes.locationMobile}>
+                                {dispensaryName}
+                            </div>
                             <div>{product.dispensaryLocation}</div>
                         </div>
                     </MediaQuery>
