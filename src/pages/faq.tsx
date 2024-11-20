@@ -33,7 +33,7 @@ const FAQ: NextPage = () => {
                     <h2>What types of dispensaries are supported?</h2>
                     <p>
                         We currently support all dispensaries on New
-                        Jersey&apos;s official list of approved dispensaries..
+                        Jersey&apos;s official list of approved dispensaries.
                     </p>
 
                     <h2>Do you plan on adding more dispensaries?</h2>

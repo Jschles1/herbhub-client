@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { Footer as MantineFooter, createStyles, Text } from '@mantine/core';
 import { useMediaQuery } from '@mantine/hooks';
+import Link from 'next/link';
 
 const useStyles = createStyles((theme) => ({
     container: {
@@ -29,6 +30,20 @@ const useStyles = createStyles((theme) => ({
             marginBottom: '0.8rem',
         },
     },
+    link: {
+        textDecoration: 'none',
+        color: '#fff',
+        fontWeight: 'bold',
+        marginTop: '0.5rem',
+        display: 'inline-block',
+        '&:hover': {
+            color: theme.colors.green[5],
+        },
+        transition: 'color 0.2s ease',
+        // [`@media (max-width: ${theme.breakpoints.lg}px)`]: {
+        //     fontSize: '1rem',
+        // },
+    },
 }));
 
 interface Props {
@@ -47,11 +62,20 @@ const Footer: React.FC<Props> = ({ hidden }) => {
         >
             <div className={classes.root}>
                 <div className={classes.copy}>
-                    &copy; {new Date().getFullYear()} Garden State Herbhub
+                    <div>
+                        &copy; {new Date().getFullYear()} Garden State Herbhub
+                    </div>
+                    <div>
+                        <Link href="/faq" className={classes.link}>
+                            Frequently Asked Questions
+                        </Link>
+                    </div>
                 </div>
                 <div>
                     <Text weight="bold">Disclaimer:</Text>
                     <Text italic>
+                        Garden State Herbhub is not affiliated with the state of
+                        New Jersey or any of the retailers listed on this site.
                         Garden State Herbhub does not vet or endorse any
                         retailer listed on this site. Also, retailers&apos; web
                         sites can change at any time and products listed may be

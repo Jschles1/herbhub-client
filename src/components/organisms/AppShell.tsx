@@ -110,11 +110,7 @@ const AppShell: React.FC<Props> = ({ children }) => {
                                 )}
                                 <Logo />
                             </div>
-                            <div className={classes.headerRight}>
-                                <Link className={classes.faqLink} href="/faq">
-                                    FAQ
-                                </Link>
-                            </div>
+                            <div className={classes.headerRight}></div>
                         </div>
                     </Header>
                 </>

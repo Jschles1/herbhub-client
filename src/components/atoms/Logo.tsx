@@ -2,7 +2,7 @@ import * as React from 'react';
 import Image from 'next/image';
 import { Text, createStyles, useMantineTheme } from '@mantine/core';
 import Link from 'next/link';
-import WeedIcon from '/public/icons/icons8-weed-64.png';
+import LogoIcon from '/public/icons/gshh-logo-2.png';
 
 const useStyles = createStyles((theme) => ({
     root: {
@@ -34,7 +34,12 @@ const Logo = () => {
 
     return (
         <div className={classes.root}>
-            <Image src={WeedIcon} alt="Weed Icon" width={32} height={32} />
+            <Image
+                src={LogoIcon}
+                alt="Garden State Herbhub Logo"
+                width={32}
+                height={32}
+            />
             <Text size="xl">
                 <Link href="/" className={classes.link}>
                     Garden State Herbhub
