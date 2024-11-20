@@ -102,6 +102,7 @@ const PDPTemplate: React.FC<Props> = ({
     const isMobile = useMediaQuery('(max-width: 900px)');
     const prices = getProductPrices(product);
     const hasSalePrice = parseInt(prices.promoPrice) > 0;
+    const hasImage = !!product.image;
     const imageDimensions = isMobile ? 200 : 250;
 
     return (
@@ -110,7 +111,10 @@ const PDPTemplate: React.FC<Props> = ({
                 ← Back
             </Link>
             <div className={classes.root}>
-                <div className={classes.imageContainer}>
+                <div
+                    className={classes.imageContainer}
+                    style={!hasImage ? { border: 'none', padding: '4rem' } : {}}
+                >
                     <Image
                         src={mapProductImage(product)}
                         priority

@@ -50,6 +50,13 @@ const useStyles = createStyles((theme) => ({
     strainTypeText: {
         color: theme.colors.gray[6],
     },
+    stockImage: {
+        border: 'none',
+        padding: '4rem 3rem',
+        [`@media (max-width: ${theme.breakpoints.md}px)`]: {
+            padding: '3rem 3rem',
+        },
+    },
 }));
 
 interface Props {
@@ -65,6 +72,7 @@ const RelatedProduct: React.FC<Props> = ({ product }) => {
     const hasSalePrice =
         parseInt(prices.promoPrice) > 0 &&
         parseInt(prices.promoPrice) !== parseInt(prices.price);
+    const hasImage = !!product.image;
     const thcInfo = product.thcPercent
         ? ` - THC: ${product.thcPercent.toFixed(2)}%`
         : '';
@@ -100,7 +108,10 @@ const RelatedProduct: React.FC<Props> = ({ product }) => {
                     height={290}
                     width={width}
                     alt={product.strain}
-                    className={classes.image}
+                    className={cx(
+                        classes.image,
+                        !hasImage && classes.stockImage,
+                    )}
                     priority
                 />
             </div>

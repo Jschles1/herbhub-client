@@ -41,11 +41,15 @@ export const parseProductWeightUnit = (weight: string) => {
 };
 
 export const getProductPrices = (product: Product) => {
+    const productWeight =
+        product.weight.toString() === '1' ? '' : product.weight;
+    const weight =
+        product.unit === 'each' ? 'each' : `${productWeight}${product.unit}`;
     return {
         price: product.normalPrice.toFixed(2),
         promoPrice:
             product.promoPrice !== null ? product.promoPrice.toFixed(2) : '0',
-        weight: `${product.weight}${product.unit}`,
+        weight: weight,
     };
 };
 

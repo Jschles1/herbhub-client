@@ -125,6 +125,7 @@ const ProductListItem: React.FC<Props> = ({ product }) => {
     const hasSalePrice =
         parseInt(prices.promoPrice) > 0 &&
         parseInt(prices.promoPrice) !== parseInt(prices.price);
+    const hasImage = !!product.image;
     const thcInfo = product.thcPercent
         ? ` - THC: ${product.thcPercent.toFixed(2)}%`
         : product.thcContent
@@ -163,6 +164,9 @@ const ProductListItem: React.FC<Props> = ({ product }) => {
                     className={classes.imageContainer}
                     alt={product.strain}
                     unoptimized
+                    style={
+                        !hasImage ? { border: 'none', padding: '0.5rem' } : {}
+                    }
                 />
             </div>
 
