@@ -7,6 +7,9 @@ import Cannabinoids from '../molecules/Cannabinoids';
 const useStyles = createStyles((theme) => ({
     root: {
         marginTop: '2rem',
+        [`@media (max-width: ${theme.breakpoints.md}px)`]: {
+            marginBottom: '2.5rem',
+        },
     },
 }));
 

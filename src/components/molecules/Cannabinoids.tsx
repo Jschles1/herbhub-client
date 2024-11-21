@@ -64,7 +64,7 @@ const useStyles = createStyles((theme) => ({
         width: '100%',
         height: '150px',
         [`@media (max-width: ${theme.breakpoints.md}px)`]: {
-            height: '100%',
+            height: '275px',
         },
     },
     cannabinoidInfoName: {
@@ -74,6 +74,9 @@ const useStyles = createStyles((theme) => ({
         wordWrap: 'break-word',
         overflowWrap: 'break-word',
         whiteSpace: 'normal',
+        [`@media (max-width: ${theme.breakpoints.md}px)`]: {
+            fontSize: '1rem',
+        },
     },
     closeButton: {
         position: 'absolute',
@@ -121,6 +124,7 @@ const cannabinoidReducer = (
 
 const Cannabinoids: React.FC<Props> = ({ product }) => {
     const { classes } = useStyles();
+    const productHasTerpenes = !!product.includedTerpenes;
 
     const [cannabinoidState, cannabinoidDispatch] = React.useReducer(
         cannabinoidReducer,
@@ -147,7 +151,15 @@ const Cannabinoids: React.FC<Props> = ({ product }) => {
     if (!product.includedCannabinoids) return null;
 
     return product.cannabinoids.length ? (
-        <Accordion.Item key={'cannabinoids'} value={'cannabinoids'}>
+        <Accordion.Item
+            key={'cannabinoids'}
+            value={'cannabinoids'}
+            style={
+                !productHasTerpenes
+                    ? { borderTop: '1px solid rgb(222, 226, 230)' }
+                    : {}
+            }
+        >
             <Accordion.Control>
                 <Text fw="bold">Cannabinoids</Text>
             </Accordion.Control>

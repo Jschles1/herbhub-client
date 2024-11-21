@@ -38,6 +38,7 @@ const useStyles = createStyles((theme) => ({
         alignSelf: 'flex-start',
         [`@media (max-width: ${theme.breakpoints.sm}px)`]: {
             marginTop: '0.5rem',
+            width: '100%',
         },
     },
     strain: {

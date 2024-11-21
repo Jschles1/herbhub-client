@@ -85,6 +85,9 @@ const useStyles = createStyles((theme) => ({
         position: 'relative',
         '& > div:first-of-type': {
             flexBasis: '60%',
+            [`@media (max-width: ${theme.breakpoints.md}px)`]: {
+                width: '100%',
+            },
         },
         '& > div:nth-of-type(2)': {
             flexBasis: '40%',
@@ -95,43 +98,6 @@ const useStyles = createStyles((theme) => ({
         [`@media (max-width: ${theme.breakpoints.md}px)`]: {
             flexDirection: 'column-reverse',
         },
-    },
-    cannabinoidsRoot: {
-        display: 'flex',
-        alignItems: 'center',
-        gap: '0.5rem',
-        justifyContent: 'space-between',
-        flexWrap: 'wrap',
-        position: 'relative',
-        '& > div': {
-            flexBasis: '48%',
-            marginBottom: '2.5rem',
-        },
-        [`@media (max-width: ${theme.breakpoints.md}px)`]: {
-            flexDirection: 'column',
-            '& > div': {
-                flexBasis: '100%',
-                width: '100%',
-            },
-        },
-    },
-    cannabinoidInfoItem: {
-        display: 'flex',
-        justifyContent: 'space-between',
-        alignItems: 'flex-end',
-    },
-    cannabinoidName: {
-        fontWeight: 'bold',
-        fontSize: '0.9rem',
-    },
-    cannabinoidNameContainer: {
-        display: 'flex',
-        alignItems: 'center',
-        gap: '0.3rem',
-        marginBottom: '0.2rem',
-    },
-    cannabinoidValue: {
-        fontSize: '0.8rem',
     },
     pieChart: {
         marginLeft: 'auto',
@@ -173,28 +139,13 @@ const useStyles = createStyles((theme) => ({
         zIndex: 1000,
         [`@media (max-width: ${theme.breakpoints.md}px)`]: {
             bottom: 0,
-            height: '60%',
+            height: '275px',
             top: 'auto',
         },
-    },
-    cannabinoidCard: {
-        position: 'absolute',
-        top: 0,
-        left: 0,
-        width: '100%',
-        height: '100%',
     },
     terpeneInfoName: {
         fontWeight: 'bold',
         fontSize: '1.2rem',
-    },
-    cannabinoidInfoName: {
-        fontWeight: 'bold',
-        fontSize: '1.2rem',
-        maxWidth: '80%',
-        wordWrap: 'break-word',
-        overflowWrap: 'break-word',
-        whiteSpace: 'normal',
     },
     closeButton: {
         position: 'absolute',
@@ -202,14 +153,6 @@ const useStyles = createStyles((theme) => ({
         right: 16,
     },
     terpeneInfoDescription: {
-        fontSize: '0.8125rem',
-        maxWidth: '90%',
-        marginTop: '1rem',
-        [`@media (max-width: ${theme.breakpoints.md}px)`]: {
-            maxWidth: '100%',
-        },
-    },
-    cannabinoidInfoDescription: {
         fontSize: '0.8125rem',
         maxWidth: '90%',
         marginTop: '1rem',
