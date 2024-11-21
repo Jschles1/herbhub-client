@@ -287,6 +287,7 @@ const CategoryFilter = () => {
                                     style={{
                                         position: 'relative',
                                         height: '425px',
+                                        opacity: '0.99',
                                     }}
                                 >
                                     <LoadingOverlay
