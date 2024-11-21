@@ -13,6 +13,7 @@ import PDPStrainInfo from '../molecules/PDPStrainInfo';
 import { useMediaQuery } from '@mantine/hooks';
 import ProductLabs from '../organisms/ProductLabs';
 import DispensaryInfo from '../organisms/DispensaryInfo';
+import PrimaryButton from '../atoms/PrimaryButton';
 
 const useStyles = createStyles((theme) => ({
     root: {
@@ -135,16 +136,14 @@ const PDPTemplate: React.FC<Props> = ({
                         {product.dispensaryName} - {product.dispensaryLocation}
                     </Text>
                     {product.url && (
-                        <Button
-                            color="green"
-                            variant="light"
+                        <PrimaryButton
                             className={cx(classes.button, classes.topSpacing)}
                             component="a"
                             href={product.url}
                             target="_blank"
                         >
                             Purchase
-                        </Button>
+                        </PrimaryButton>
                     )}
                     <Text weight="bold" className={classes.topSpacing}>
                         {hasSalePrice && (

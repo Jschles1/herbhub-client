@@ -4,6 +4,7 @@ import { Dispensary } from '../../lib/interfaces';
 import mapboxgl from 'mapbox-gl';
 
 import 'mapbox-gl/dist/mapbox-gl.css';
+import PrimaryButton from '../atoms/PrimaryButton';
 
 interface Props {
     dispensary: Dispensary;
@@ -169,16 +170,14 @@ const DispensaryInfo: React.FC<Props> = ({ dispensary, splitMenus }) => {
                                 <div className={classes.buttonContainer}></div>
                             </div>
 
-                            <Button
-                                color="green"
-                                variant="light"
+                            <PrimaryButton
                                 className={classes.button}
                                 component="a"
                                 href={dispensary.googleMapsUrl}
                                 target="_blank"
                             >
                                 Directions
-                            </Button>
+                            </PrimaryButton>
                         </Tabs.Panel>
 
                         <Tabs.Panel

@@ -13,6 +13,7 @@ import CategoryFilter from './CategoryFilter';
 import Logo from '../atoms/Logo';
 import Footer from '../molecules/Footer';
 import Link from 'next/link';
+import PrimaryButton from '../atoms/PrimaryButton';
 
 const useStyles = createStyles((theme) => ({
     main: {
@@ -76,15 +77,13 @@ const AppShell: React.FC<Props> = ({ children }) => {
                         withinPortal={false}
                     >
                         <CategoryFilter />
-                        <Button
-                            color="green"
-                            variant="light"
+                        <PrimaryButton
                             size="lg"
                             onClick={() => setOpened(false)}
                             className={classes.applyButton}
                         >
                             Apply
-                        </Button>
+                        </PrimaryButton>
                     </Drawer>
                     <Header
                         height={60}
