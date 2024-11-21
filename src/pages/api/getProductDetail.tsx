@@ -153,7 +153,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
                             ),
                             ilike(
                                 productsTable.strain,
-                                `%${strain.slice(0, 10)}%`,
+                                `%${strain as string}%`,
                             ),
                         ),
                     )
@@ -162,7 +162,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
                 // console.log('sqlProduct backup', {
                 //     sqlProduct,
                 //     query: {
-                //         strain: `%${strain}%`,
+                //         strain: `%${strain as string}%`,
                 //         dispensaryName,
                 //         dispensaryLocation,
                 //     },

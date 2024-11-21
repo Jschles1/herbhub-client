@@ -54,12 +54,14 @@ export const getProductPrices = (product: Product) => {
 };
 
 export const getProductUrl = (product: Product) => {
+    const safeStrain = product.strain.replace(/-/g, '~');
+
     const dispensarySlug = encodeURIComponent(
         product.dispensaryName.toLowerCase() +
             '-' +
             product.dispensaryLocation.toLowerCase(),
     );
-    const productSlug = encodeURIComponent(product.strain.replaceAll(' ', '-'));
+    const productSlug = encodeURIComponent(safeStrain.replaceAll(' ', '-'));
     return `/${dispensarySlug}/${productSlug}`;
 };
 
@@ -128,6 +130,8 @@ export function formatDashedString(str: string, splitChar = '-') {
         .split(splitChar)
         .map((word) => capitalizeFirstLetter(word))
         .join(' ');
+
+    finalString = finalString.replaceAll('~', '-');
 
     if (hasDash) {
         finalString = finalString.replace('***', ' - ');
