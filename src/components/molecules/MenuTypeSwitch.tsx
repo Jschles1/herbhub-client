@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { createStyles, Switch, Text } from '@mantine/core';
 import { useQueryParams } from '../../store';
+import MedicalIcon from '../atoms/MedicalIcons';
 
 const useStyles = createStyles((theme) => ({
     root: {
@@ -62,7 +63,18 @@ const MenuTypeSwitch: React.FC<Props> = () => {
             <Switch
                 checked={value}
                 onLabel="Adult Use"
-                offLabel="Medical"
+                offLabel={
+                    <div
+                        style={{
+                            display: 'flex',
+                            alignItems: 'center',
+                            gap: '0.2rem',
+                        }}
+                    >
+                        Medical
+                        <MedicalIcon />
+                    </div>
+                }
                 size="xl"
                 onChange={handleChange}
                 classNames={{
