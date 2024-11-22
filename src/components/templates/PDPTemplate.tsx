@@ -142,7 +142,7 @@ const PDPTemplate: React.FC<Props> = ({
                             href={product.url}
                             target="_blank"
                         >
-                            Purchase
+                            Purchase At Dispensary
                         </PrimaryButton>
                     )}
                     <Text weight="bold" className={classes.topSpacing}>
