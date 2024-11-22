@@ -4,7 +4,23 @@ import { Product } from '../../lib/interfaces';
 
 const useStyles = createStyles(() => ({
     root: {
-        marginTop: '0.5rem',
+        marginTop: '2rem',
+        display: 'flex',
+        gap: '1rem',
+        flexWrap: 'wrap',
+    },
+    label: {
+        fontWeight: 'bold',
+    },
+    badge: {
+        // marginBottom: '0.5rem',
+        paddingBottom: '1rem',
+        paddingTop: '1rem',
+        paddingLeft: '1.5rem',
+        paddingRight: '1.5rem',
+        fontWeight: 'normal',
+        color: 'black',
+        fontSize: '0.8rem',
     },
 }));
 
@@ -16,18 +32,33 @@ const PDPStrainInfo: React.FC<Props> = ({ product }) => {
     const { classes } = useStyles();
     return (
         <div className={classes.root}>
-            <Badge color="gray">{product.strainType}</Badge>
+            <Badge color="gray" classNames={{ root: classes.badge }}>
+                <span className={classes.label}>Strain Type: </span>
+                {product.strainType}
+            </Badge>
             {!!product.thcPercent && (
-                <Badge color="gray">THC: {product.thcPercent}%</Badge>
+                <Badge color="gray" classNames={{ root: classes.badge }}>
+                    <span className={classes.label}>THC: </span>
+                    {product.thcPercent}%
+                </Badge>
             )}
             {!!product.cbdPercent && (
-                <Badge color="gray">CBD: {product.cbdPercent}%</Badge>
+                <Badge color="gray" classNames={{ root: classes.badge }}>
+                    <span className={classes.label}>CBD: </span>
+                    {product.cbdPercent}%
+                </Badge>
             )}
             {!!product.thcContent && (
-                <Badge color="gray">THC: {product.thcContent}mg</Badge>
+                <Badge color="gray" classNames={{ root: classes.badge }}>
+                    <span className={classes.label}>THC: </span>
+                    {product.thcContent}mg
+                </Badge>
             )}
             {!!product.cbdContent && (
-                <Badge color="gray">CBD: {product.cbdContent}mg</Badge>
+                <Badge color="gray" classNames={{ root: classes.badge }}>
+                    <span className={classes.label}>CBD: </span>
+                    {product.cbdContent}mg
+                </Badge>
             )}
         </div>
     );

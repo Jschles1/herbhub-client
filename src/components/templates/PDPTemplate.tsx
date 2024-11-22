@@ -74,8 +74,8 @@ const useStyles = createStyles((theme) => ({
         transition: 'color 0.1s ease',
     },
     location: {
-        // fontSize: '1.2rem',
-        fontStyle: 'italic',
+        fontWeight: 'bold',
+        color: theme.colors.gray[6],
     },
     brandText: {
         fontWeight: 'bold',

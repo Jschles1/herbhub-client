@@ -152,7 +152,11 @@ export function getDisplayDispensaryName(dispensaryName: string) {
     if (dispensaryName === 'Terrapin Investment Fund') {
         return 'The Station';
     }
-    if (dispensaryName.includes('Dispensary Of')) return dispensaryName;
+    if (
+        dispensaryName.includes('Dispensary Of') ||
+        dispensaryName.startsWith('Dispensary')
+    )
+        return dispensaryName;
     if (dispensaryName.includes('Mpx') || dispensaryName.includes('Urb')) {
         return dispensaryName.replace('Dispensary', '').toUpperCase();
     }

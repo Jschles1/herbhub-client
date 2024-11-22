@@ -227,7 +227,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
                 )
                 .where(
                     and(
-                        eq(dispensariesTable.name, dispensaryName as string),
+                        ilike(dispensariesTable.name, `%${dispensaryName}%`),
                         eq(
                             dispensariesTable.location,
                             dispensaryLocation as string,
