@@ -207,11 +207,11 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
                     dispensaryLocation: dispensariesTable.location,
                 })
                 .from(productsTable)
-                .leftJoin(
+                .innerJoin(
                     dispensariesTable,
                     eq(productsTable.dispensaryId, dispensariesTable.id),
                 )
-                .leftJoin(
+                .innerJoin(
                     brandsTable,
                     eq(productsTable.brandId, brandsTable.id),
                 )
