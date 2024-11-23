@@ -40,9 +40,23 @@ export const parseProductWeightUnit = (weight: string) => {
     }
 };
 
+export const parseProductWeightAmount = (weight: string | number) => {
+    switch (weight.toString()) {
+        case '0.125':
+            return '1/8';
+        case '0.25':
+            return '1/4';
+        case '0.5':
+            return '1/2';
+        default:
+            return weight;
+    }
+};
+
 export const getProductPrices = (product: Product) => {
-    const productWeight =
-        product.weight.toString() === '1' ? '' : product.weight;
+    const productWeight = parseProductWeightAmount(
+        product.weight.toString() === '1' ? '' : product.weight,
+    );
     const weight =
         product.unit === 'each' ? 'each' : `${productWeight}${product.unit}`;
     return {
