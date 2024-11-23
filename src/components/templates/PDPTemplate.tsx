@@ -52,10 +52,11 @@ const useStyles = createStyles((theme) => ({
     button: {
         textTransform: 'uppercase',
         [`@media (max-width: ${theme.breakpoints.md}px)`]: {
-            lineHeight: '1rem',
-            paddingTop: '0.25rem',
-            paddingBottom: '0.25rem',
-            height: '42px',
+            // lineHeight: '1rem',
+            // paddingTop: '0.25rem',
+            // paddingBottom: '0.25rem',
+            // height: '42px',
+            width: '100%',
         },
     },
     topSpacing: {
@@ -84,6 +85,10 @@ const useStyles = createStyles((theme) => ({
     },
     description: {
         fontSize: '0.8rem',
+    },
+    priceText: {
+        fontWeight: 'bold',
+        fontSize: '2rem',
     },
 }));
 
@@ -132,9 +137,32 @@ const PDPTemplate: React.FC<Props> = ({
                         {product.strain}
                     </Text>
 
-                    <Text className={cx(classes.topSpacing, classes.location)}>
+                    <Text className={cx(classes.location)}>
                         {product.dispensaryName} - {product.dispensaryLocation}
                     </Text>
+
+                    <Text weight="bold">
+                        {hasSalePrice && (
+                            <Text
+                                weight="bold"
+                                color="green"
+                                className={classes.priceText}
+                                component="span"
+                            >
+                                {`$${prices.promoPrice} `}
+                            </Text>
+                        )}
+                        <Text
+                            component="span"
+                            className={classes.priceText}
+                            strikethrough={hasSalePrice}
+                        >{`$${prices.price}`}</Text>
+
+                        <Text component="span" weight="normal">
+                            {parseProductWeightUnit(prices.weight)}
+                        </Text>
+                    </Text>
+
                     {product.url && (
                         <PrimaryButton
                             className={cx(classes.button, classes.topSpacing)}
@@ -145,21 +173,6 @@ const PDPTemplate: React.FC<Props> = ({
                             Purchase At Dispensary
                         </PrimaryButton>
                     )}
-                    <Text weight="bold" className={classes.topSpacing}>
-                        {hasSalePrice && (
-                            <Text weight="bold" color="green" component="span">
-                                {`$${prices.promoPrice} `}
-                            </Text>
-                        )}
-                        <Text
-                            component="span"
-                            strikethrough={hasSalePrice}
-                        >{`$${prices.price}`}</Text>
-
-                        <Text component="span" weight="normal">
-                            {parseProductWeightUnit(prices.weight)}
-                        </Text>
-                    </Text>
 
                     <PDPStrainInfo product={product} />
 

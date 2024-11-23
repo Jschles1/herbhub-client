@@ -4,7 +4,8 @@ import { Product } from '../../lib/interfaces';
 
 const useStyles = createStyles(() => ({
     root: {
-        marginTop: '2rem',
+        marginTop: '1rem',
+        marginBottom: '1rem',
         display: 'flex',
         gap: '1rem',
         flexWrap: 'wrap',
@@ -33,7 +34,7 @@ const PDPStrainInfo: React.FC<Props> = ({ product }) => {
     return (
         <div className={classes.root}>
             <Badge color="gray" classNames={{ root: classes.badge }}>
-                <span className={classes.label}>Strain Type: </span>
+                <span className={classes.label}>Strain Prevalence: </span>
                 {product.strainType}
             </Badge>
             {!!product.thcPercent && (
