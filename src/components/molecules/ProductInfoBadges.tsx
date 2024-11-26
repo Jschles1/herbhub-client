@@ -36,7 +36,7 @@ interface Props {
 const ProductInfoBadges: React.FC<Props> = ({ product, hasSalePrice }) => {
     const { classes } = useStyles();
     const router = useRouter();
-    const showLocation = router.pathname === '/';
+    const showLocation = router.pathname === '/menu';
     const dispensaryName = getDisplayDispensaryName(product.dispensaryName);
     return (
         <div className={classes.root}>
