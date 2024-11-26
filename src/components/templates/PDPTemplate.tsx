@@ -114,7 +114,7 @@ const PDPTemplate: React.FC<Props> = ({
 
     return (
         <Container>
-            <Link href="/" className={classes.link}>
+            <Link href="/menu" className={classes.link}>
                 ← Back
             </Link>
             <div className={classes.root}>

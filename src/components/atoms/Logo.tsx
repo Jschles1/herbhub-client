@@ -41,7 +41,7 @@ const Logo = () => {
                 height={32}
             />
             <Text size="xl">
-                <Link href="/" className={classes.link}>
+                <Link href="/menu" className={classes.link}>
                     Garden State Herbhub
                 </Link>
             </Text>

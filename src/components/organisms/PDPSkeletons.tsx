@@ -25,7 +25,7 @@ export default function PDPSkeletons() {
     const isMobile = useMediaQuery('(max-width: 900px)');
     return (
         <Container>
-            <Link href="/" className={classes.link}>
+            <Link href="/menu" className={classes.link}>
                 ← Back
             </Link>
             <Skeleton height={550} />

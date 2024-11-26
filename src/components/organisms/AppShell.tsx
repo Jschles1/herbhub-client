@@ -59,7 +59,7 @@ const AppShell: React.FC<Props> = ({ children }) => {
     const { classes } = useStyles();
     const [opened, setOpened] = React.useState(false);
     const router = useRouter();
-    const showBurger = router.pathname === '/';
+    const showBurger = router.pathname === '/menu';
     return (
         <MantineAppShell
             classNames={{ main: classes.main }}
