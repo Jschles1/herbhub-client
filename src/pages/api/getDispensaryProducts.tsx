@@ -174,8 +174,6 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
                 },
             );
 
-            // console.log({ whereFilters });
-
             let sqlProducts = await sqlDb
                 .select({
                     url: productsTable.url,
@@ -219,7 +217,11 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
                 .orderBy(...orderByFilter)
                 .limit(100);
 
-            if (whereFilters.length > 2 && !whereFiltersMap.has('strain')) {
+            if (
+                whereFilters.length > 2 &&
+                !whereFiltersMap.has('strain') &&
+                orderByFilter.length === 0
+            ) {
                 for (let i = sqlProducts.length - 1; i > 0; i--) {
                     const j = Math.floor(Math.random() * (i + 1));
                     [sqlProducts[i], sqlProducts[j]] = [
