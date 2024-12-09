@@ -85,9 +85,16 @@ const createURLParams = (
     return urlParams.toString();
 };
 
-export const initialState = new URLSearchParams(
+const initialParams = new URLSearchParams(
     `?timestamp=${new Date().toISOString().slice(0, 13)}&menuType=rec&filter=`,
 ).toString();
+
+export const initialState =
+    typeof window !== 'undefined'
+        ? window.location.search
+            ? window.location.search
+            : initialParams
+        : initialParams;
 
 const reducer = (state: string, action: Action) => {
     switch (action.type) {
