@@ -114,6 +114,8 @@ const CategoryFilter = () => {
         isFetching: dispensaryFetching,
     } = useProductDispensaries();
 
+    console.log({ dispensaryData });
+
     const filterParams =
         !!params &&
         decodeURIComponent(params)
@@ -211,16 +213,6 @@ const CategoryFilter = () => {
             }
         }
     }, [dispensaryData, params, dispatch]);
-
-    React.useEffect(() => {
-        if (typeof window !== 'undefined') {
-            window.history.replaceState(
-                {},
-                '',
-                `${window.location.pathname}?${params}`,
-            );
-        }
-    }, [params]);
 
     return (
         <Card withBorder radius="md" py="0" mr="1rem" className={classes.root}>
