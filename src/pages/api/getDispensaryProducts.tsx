@@ -16,7 +16,7 @@ const generateFilterWhereInput = (
     const paramType = paramSplit[0];
     let paramValue = paramSplit[1];
 
-    if (paramType === 'br') {
+    if (paramType === 'br' || paramType === 'county') {
         paramValue = paramValue.replace(/-/g, ' ').trim();
         if (paramValue.includes('  ')) {
             paramValue = paramValue.replace('  ', '- ');
@@ -42,6 +42,17 @@ const generateFilterWhereInput = (
             } else {
                 whereFilters.set('brandName', [
                     ilike(brandsTable.name, `%${paramValue}%`),
+                ]);
+            }
+            break;
+        case 'county':
+            if (whereFilters.has('county')) {
+                whereFilters
+                    .get('county')!
+                    .push(ilike(dispensariesTable.county, `%${paramValue}%`));
+            } else {
+                whereFilters.set('county', [
+                    ilike(dispensariesTable.county, `%${paramValue}%`),
                 ]);
             }
             break;
@@ -217,19 +228,22 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
                 .orderBy(...orderByFilter)
                 .limit(100);
 
-            if (
-                whereFilters.length > 2 &&
-                !whereFiltersMap.has('strain') &&
-                orderByFilter.length === 0
-            ) {
-                for (let i = sqlProducts.length - 1; i > 0; i--) {
-                    const j = Math.floor(Math.random() * (i + 1));
-                    [sqlProducts[i], sqlProducts[j]] = [
-                        sqlProducts[j],
-                        sqlProducts[i],
-                    ];
-                }
-            }
+            // console.log({ sqlProducts });
+
+            // if (
+            //     whereFilters.length > 2 &&
+            //     !whereFiltersMap.has('strain') &&
+            //     orderByFilter.length === 0
+            // ) {
+            //     console.log('shuffling products');
+            //     for (let i = sqlProducts.length - 1; i > 0; i--) {
+            //         const j = Math.floor(Math.random() * (i + 1));
+            //         [sqlProducts[i], sqlProducts[j]] = [
+            //             sqlProducts[j],
+            //             sqlProducts[i],
+            //         ];
+            //     }
+            // }
 
             res.status(200).json({
                 products: sqlProducts,

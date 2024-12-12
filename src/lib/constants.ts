@@ -126,6 +126,96 @@ export const CATEGORY_FILTERS = [
         ],
     },
     {
+        name: 'County',
+        paramName: 'county',
+        options: [
+            {
+                name: 'Atlantic',
+                value: 'county/atlantic',
+            },
+            {
+                name: 'Bergen',
+                value: 'county/bergen',
+            },
+            {
+                name: 'Burlington',
+                value: 'county/burlington',
+            },
+            {
+                name: 'Camden',
+                value: 'county/camden',
+            },
+            {
+                name: 'Cape May',
+                value: 'county/cape-may',
+            },
+            {
+                name: 'Cumberland',
+                value: 'county/cumberland',
+            },
+            {
+                name: 'Essex',
+                value: 'county/essex',
+            },
+            {
+                name: 'Gloucester',
+                value: 'county/gloucester',
+            },
+            {
+                name: 'Hudson',
+                value: 'county/hudson',
+            },
+            {
+                name: 'Hunterdon',
+                value: 'county/hunterdon',
+            },
+            {
+                name: 'Mercer',
+                value: 'county/mercer',
+            },
+            {
+                name: 'Middlesex',
+                value: 'county/middlesex',
+            },
+            {
+                name: 'Monmouth',
+                value: 'county/monmouth',
+            },
+            {
+                name: 'Morris',
+                value: 'county/morris',
+            },
+            {
+                name: 'Ocean',
+                value: 'county/ocean',
+            },
+            {
+                name: 'Passaic',
+                value: 'county/passaic',
+            },
+            {
+                name: 'Salem',
+                value: 'county/salem',
+            },
+            {
+                name: 'Somerset',
+                value: 'county/somerset',
+            },
+            {
+                name: 'Sussex',
+                value: 'county/sussex',
+            },
+            {
+                name: 'Union',
+                value: 'county/union',
+            },
+            {
+                name: 'Warren',
+                value: 'county/warren',
+            },
+        ],
+    },
+    {
         name: 'Dispensary',
         paramName: 'dispensary',
         options: [

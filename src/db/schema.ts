@@ -1,15 +1,49 @@
 import {
     pgTable,
+    foreignKey,
     uuid,
     text,
-    index,
     boolean,
-    foreignKey,
+    timestamp,
+    index,
     numeric,
     integer,
     jsonb,
+    pgSchema,
 } from 'drizzle-orm/pg-core';
 import { sql } from 'drizzle-orm';
+
+// const authSchema = pgSchema('auth');
+
+// export const usersInAuth = authSchema.table('users', {
+//     id: uuid('id').primaryKey(),
+// });
+
+// export const profiles = pgTable(
+//     'profiles',
+//     {
+//         id: uuid().primaryKey().notNull(),
+//         firstName: text('first_name').notNull(),
+//         lastName: text('last_name').notNull(),
+//         email: text().notNull(),
+//         isPremium: boolean('is_premium').default(false),
+//         dateOfBirth: text('date_of_birth'),
+//         savedFilters: text('saved_filters'),
+//         premiumValidUntil: timestamp('premium_valid_until', {
+//             withTimezone: true,
+//             mode: 'string',
+//         }),
+//     },
+//     (table) => {
+//         return {
+//             profilesIdFkey: foreignKey({
+//                 columns: [table.id],
+//                 foreignColumns: [usersInAuth.id],
+//                 name: 'profiles_id_fkey',
+//             }).onDelete('cascade'),
+//         };
+//     },
+// );
 
 export const lastUpdated = pgTable('last_updated', {
     id: uuid().defaultRandom().primaryKey().notNull(),
@@ -55,6 +89,7 @@ export const dispensaries = pgTable(
         fullAddress: text('full_address').notNull(),
         url: text().notNull(),
         geocode: text().notNull(),
+        county: text('county'),
         googleMapsUrl: text('google_maps_url').notNull(),
     },
     (table) => {
@@ -66,18 +101,6 @@ export const dispensaries = pgTable(
             idxDispensariesName: index('idx_dispensaries_name').using(
                 'btree',
                 table.name.asc().nullsLast().op('text_ops'),
-            ),
-            idxDispensariesPlaceId: index('idx_dispensaries_place_id').using(
-                'btree',
-                table.placeId.asc().nullsLast().op('text_ops'),
-            ),
-            idxDispensariesType: index('idx_dispensaries_type').using(
-                'btree',
-                table.type.asc().nullsLast().op('text_ops'),
-            ),
-            idxDispensariesZipCode: index('idx_dispensaries_zip_code').using(
-                'btree',
-                table.zipCode.asc().nullsLast().op('text_ops'),
             ),
         };
     },
@@ -143,14 +166,6 @@ export const products = pgTable(
             idxProductsDispensaryId: index('idx_products_dispensary_id').using(
                 'btree',
                 table.dispensaryId.asc().nullsLast().op('uuid_ops'),
-            ),
-            idxProductsMenuType: index('idx_products_menu_type').using(
-                'btree',
-                table.menuType.asc().nullsLast().op('text_ops'),
-            ),
-            idxProductsNormalPrice: index('idx_products_normal_price').using(
-                'btree',
-                table.normalPrice.asc().nullsLast().op('numeric_ops'),
             ),
             idxProductsStrain: index('idx_products_strain').using(
                 'btree',
