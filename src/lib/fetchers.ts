@@ -41,11 +41,14 @@ export const getProductBrands = async ({
 export const getDispensaries = async ({
     query,
 }: {
-    query: string;
+    query: { menuType: string; county: string };
 }): Promise<any> => {
     try {
+        const params = new URLSearchParams();
+        params.append('menuType', query.menuType);
+        params.append('county', query.county);
         const response = await axios.get(
-            `/api/getDispensaries?menuType=${query}`,
+            `/api/getDispensaries?${params.toString()}`,
         );
         const data = response.data;
         return data.dispensaries;

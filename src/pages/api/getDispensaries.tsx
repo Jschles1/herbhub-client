@@ -1,15 +1,7 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import sqlDb from '../../db/drizzle';
-import { asc, eq, sql } from 'drizzle-orm';
+import { and, asc, eq, ilike, or, SQL, sql } from 'drizzle-orm';
 import { dispensaries as dispensariesTable } from '../../db/schema';
-
-// Single prepared statement with a parameter
-const preparedDispensaryQuery = sqlDb
-    .select()
-    .from(dispensariesTable)
-    .where(eq(dispensariesTable.type, sql.placeholder('menuType')))
-    .orderBy(asc(dispensariesTable.name))
-    .prepare('get_dispensaries');
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     if (req.method === 'GET') {
@@ -20,9 +12,54 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
                     ? 'Recreational cannabis only'
                     : 'Medicinal cannabis only';
 
-            const sqlDispensaries = await preparedDispensaryQuery.execute({
-                menuType: menuType,
+            let countyParam = query.county as string;
+
+            const whereFiltersMap: Map<string, SQL<unknown>[]> = new Map();
+
+            whereFiltersMap.set('menuType', [
+                eq(dispensariesTable.type, menuType),
+            ]);
+
+            if (countyParam) {
+                countyParam = countyParam.replace('-', ' ');
+                if (countyParam.includes(',')) {
+                    const counties = countyParam.split(',');
+                    for (const county of counties) {
+                        if (whereFiltersMap.has('county')) {
+                            whereFiltersMap
+                                .get('county')!
+                                .push(
+                                    ilike(
+                                        dispensariesTable.county,
+                                        `%${county}%`,
+                                    ),
+                                );
+                        } else {
+                            whereFiltersMap.set('county', [
+                                ilike(dispensariesTable.county, `%${county}%`),
+                            ]);
+                        }
+                    }
+                } else {
+                    whereFiltersMap.set('county', [
+                        ilike(dispensariesTable.county, `%${countyParam}%`),
+                    ]);
+                }
+            }
+
+            let whereFilters = Array.from(whereFiltersMap.keys()).map((key) => {
+                const filter = whereFiltersMap.get(key)!;
+                if (filter && filter.length > 1) {
+                    return or(...filter);
+                }
+                return filter[0];
             });
+
+            const sqlDispensaries = await sqlDb
+                .select()
+                .from(dispensariesTable)
+                .where(and(...whereFilters))
+                .orderBy(asc(dispensariesTable.name));
 
             res.status(200).json({ dispensaries: sqlDispensaries });
         } catch (e) {
