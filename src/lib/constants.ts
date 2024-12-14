@@ -1215,3 +1215,12 @@ export const CANNABINOIDS_INFO_MAP = {
     thc9: 'Delta-9-THC is the primary psychoactive compound in cannabis. It can produce euphoria while potentially helping with pain, nausea, and appetite stimulation.',
     thcd9: 'Delta-9-THC is the primary psychoactive compound in cannabis. It can produce euphoria while potentially helping with pain, nausea, and appetite stimulation.',
 };
+
+export const INVALID_DISPENSARIES = [
+    'loc/384133ff-10e1-4d25-9d93-b044a7e08b50',
+    'loc/b011ef06-aaa5-4299-9908-afb91b2b6ca1',
+    'loc/9b9a30f6-564e-431c-8886-3e66e6afa51a',
+    'loc/1a5a8b2c-fcbd-4b87-bae7-3ee1ff095da6',
+    'loc/7665355e-495a-48dc-863c-0fa1349bb298',
+    'loc/b5d4ef17-9687-4f9f-9f85-f0da38b4882f',
+];

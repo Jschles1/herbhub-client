@@ -10,7 +10,7 @@ import {
 import CategoryFilterLabel from '../molecules/CategoryFilterLabel';
 import { event } from 'nextjs-google-analytics';
 import { useQueryParams } from '../../store';
-import { CATEGORY_FILTERS } from '../../lib/constants';
+import { CATEGORY_FILTERS, INVALID_DISPENSARIES } from '../../lib/constants';
 import { debounce } from '../../lib/helpers';
 import { useProductBrands } from '../../lib/hooks/useProductBrands';
 import { useProductDispensaries } from '../../lib/hooks/useProductDispensaries';
@@ -226,10 +226,17 @@ const CategoryFilter = () => {
                       }[])
                     : isDispensary
                     ? Array.isArray(dispensaryData)
-                        ? dispensaryData.map((item: Dispensary) => ({
-                              name: `${item.name} - ${item.location}`,
-                              value: `loc/${item.id}`,
-                          }))
+                        ? dispensaryData
+                              .map((item: Dispensary) => ({
+                                  name: `${item.name} - ${item.location}`,
+                                  value: `loc/${item.id}`,
+                              }))
+                              .filter(
+                                  (item) =>
+                                      !INVALID_DISPENSARIES.includes(
+                                          item.value,
+                                      ),
+                              )
                         : ([] as {
                               name: string;
                               value: string;
